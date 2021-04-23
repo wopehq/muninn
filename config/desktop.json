@@ -1,0 +1,20 @@
+{
+    "blockSelectors": "#rso > div > div",
+    "collection": {
+        "relatedQuestion": {
+            "schema": {},
+            "detect": {
+                "withInnerSelector": ".ygGdYd.related-question-pair"
+            }
+        },
+        "organic": {
+            "schema": {
+                "title": ".LC20lb.DKV0Md",
+                "description": ".IsZvec"
+            },
+            "detect": {
+                "withInnerSelector": ".LC20lb.DKV0Md"
+            }
+        }
+    }
+}
