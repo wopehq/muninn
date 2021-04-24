@@ -20,10 +20,22 @@ fs.readFile('./sample/desktop.html', { encoding: 'utf-8' }, (err, data) => {
             const schema = currentType.schema;
             const result = {};
 
-            Object.keys(schema).forEach(field => {
-                result[field] = $(el).find(schema[field]).text();
-            })
             typeOrders[key] = (typeOrders[key] || 0) + 1;
+
+            Object.keys(schema).forEach(field => {
+                const isObjectSelector = typeof schema[field] === 'object';
+                let selector = schema[field];
+                let collectType = "text";           // available: "text" | "html" | "attr" 
+                let collectParams = undefined;
+
+                if (isObjectSelector) {
+                    selector = schema[field].selector;
+                    collectType = schema[field].attr ? "attr" : "text";
+                    collectParams =  schema[field].attr;
+                }
+
+                result[field] = $(el).find(selector)[collectType](collectParams);
+            });
             
             results.push({
                 order: index, 
