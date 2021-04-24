@@ -1,12 +1,12 @@
 const fs = require('fs');
 const cheerio = require('cheerio');
 const config = require('./config/desktop.json');
-const { collection, blockSelectors } = config;
+const { collection, blockSelector } = config;
 
 fs.readFile('./sample/desktop.html', { encoding: 'utf-8' }, (err, data) => {
     console.time("parser")
     const $ = cheerio.load(data);
-    const blocks = $(blockSelectors);
+    const blocks = $(blockSelector);
     const results = [];
     const typeOrders = {};
 

@@ -1,5 +1,5 @@
 {
-    "blockSelectors": "#rso > div > div",
+    "blockSelector": "#rso > div > div",
     "collection": {
         "relatedQuestion": {
             "schema": {},
