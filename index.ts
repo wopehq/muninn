@@ -1,9 +1,10 @@
-const fs = require('fs');
-const cheerio = require('cheerio');
+import * as fs from 'fs';
+import * as cheerio from 'cheerio';
 const config = require('./config/desktop.json');
 const { collection, blockSelector } = config;
 
-fs.readFile('./sample/desktop.html', { encoding: 'utf-8' }, (err, data) => {
+async function main() {
+    const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' })
     console.time("parser")
     const $ = cheerio.load(data);
     const blocks = $(blockSelector);
@@ -14,9 +15,9 @@ fs.readFile('./sample/desktop.html', { encoding: 'utf-8' }, (err, data) => {
         Object.keys(collection).forEach(key => {
             const currentType = collection[key];
             const typeCheck = $(el).find(currentType.detect.withInnerSelector).length > 0;
-            
+
             if (!typeCheck) return;
-            
+
             const schema = currentType.schema;
             const result = {};
 
@@ -36,10 +37,10 @@ fs.readFile('./sample/desktop.html', { encoding: 'utf-8' }, (err, data) => {
 
                 result[field] = $(el).find(selector)[collectType](collectParams);
             });
-            
+
             results.push({
-                order: index, 
-                typeOrder: typeOrders[key], 
+                order: index,
+                typeOrder: typeOrders[key],
                 type: key,
                 ...result,
             })
@@ -48,4 +49,8 @@ fs.readFile('./sample/desktop.html', { encoding: 'utf-8' }, (err, data) => {
 
     console.log(results);
     console.timeEnd('parser');
+}
+
+main().catch(err => {
+    console.log('Error:', err);
 });
