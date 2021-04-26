@@ -1,5 +1,5 @@
-import * as fs from 'fs'
-import * as cheerio from 'cheerio'
+import * as fs from 'fs';
+import * as cheerio from 'cheerio';
 const config = require('./config/desktop.json');
 const { collection, blockSelector } = config;
 
@@ -52,5 +52,5 @@ async function main() {
 }
 
 main().catch(err => {
-    console.log('Error:', err)
-})
+    console.log('Error:', err);
+});
