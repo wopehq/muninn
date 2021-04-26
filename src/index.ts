@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import * as cheerio from 'cheerio';
-const config = require('./config/desktop.json');
+const config = require('../config/desktop.json');
 const { collection, blockSelector } = config;
 
 async function main() {
-    const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' })
-    console.time("parser")
+    const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' });
+    console.time("parser");
     const $ = cheerio.load(data);
     const blocks = $(blockSelector);
     const results = [];
