@@ -1,15 +1,20 @@
 import * as fs from 'fs';
 import * as cheerio from 'cheerio';
-const config = require('../config/desktop.json');
-const { collection, blockSelector } = config;
+import { ConfigType } from './config';
+const config: ConfigType = require('../config/desktop.json');
+const { collection, selector } = config;
+
+type TypeOrder = { [key: string]: number };
 
 async function main() {
     const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' });
+
     console.time("parser");
+
     const $ = cheerio.load(data);
-    const blocks = $(blockSelector);
-    const results = [];
-    const typeOrders = {};
+    const blocks = $(selector);
+    const results: Object[] = [];
+    const typeOrders: TypeOrder = {};
 
     blocks.each((index, el) => {
         Object.keys(collection).forEach(key => {
@@ -23,19 +28,12 @@ async function main() {
 
             typeOrders[key] = (typeOrders[key] || 0) + 1;
 
-            Object.keys(schema).forEach(field => {
-                const isObjectSelector = typeof schema[field] === 'object';
-                let selector = schema[field];
-                let collectType = "text";           // available: "text" | "html" | "attr" 
-                let collectParams = undefined;
+            Object.keys(schema).forEach(field => {
+                const { selector, html, attr } = schema[field];
+                const method = html ? 'html' : attr ? 'attr' : 'text';
+                const params = attr;
 
-                if (isObjectSelector) {
-                    selector = schema[field].selector;
-                    collectType = schema[field].attr ? "attr" : "text";
-                    collectParams =  schema[field].attr;
-                }
-
-                result[field] = $(el).find(selector)[collectType](collectParams);
+                result[field] = $(el).find(selector)[method](params);
             });
 
             results.push({

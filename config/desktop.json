@@ -1,5 +1,5 @@
 {
-    "blockSelector": "#rso > div > div",
+    "selector": "#rso > div > div",
     "collection": {
         "relatedQuestion": {
             "schema": {},
@@ -9,8 +9,12 @@
         },
         "organic": {
             "schema": {
-                "title": ".LC20lb.DKV0Md",
-                "description": ".IsZvec",
+                "title": {
+                    "selector": ".LC20lb.DKV0Md"
+                },
+                "description": {
+                    "selector": ".IsZvec"
+                },
                 "url": {
                     "selector": ".yuRUbf a",
                     "attr": "href"
