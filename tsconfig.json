@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "build"
+    "outDir": "build",
+    "experimentalDecorators": true
   },
   "include": ["./src/**/*"]
 }

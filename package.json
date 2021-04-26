@@ -12,7 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.6"
+    "cheerio": "^1.0.0-rc.6",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/node": "^14.14.41",

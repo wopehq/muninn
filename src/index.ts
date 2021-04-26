@@ -1,15 +1,41 @@
+import 'reflect-metadata'
 import * as fs from 'fs';
 import * as cheerio from 'cheerio';
+import { plainToClass } from 'class-transformer';
+import { RootSchema } from './root-schema';
+import { validate, ValidationError } from 'class-validator';
 const config = require('../config/desktop.json');
 const { collection, blockSelector } = config;
 
+function logErrors(errors: ValidationError[], property: string = null) {
+    errors.forEach(error => {
+        const path = property ? `${property}.${error.property}` : error.property
+
+        if (error.children && error.children.length > 0) {
+            logErrors(error.children, path)
+        } else {
+            console.log('Validation Error:', {
+                path,
+                constraints: error.constraints
+            })
+        }
+    })
+}
+
 async function main() {
-    const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' });
-    console.time("parser");
+    const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' })
+    const rootSchema = plainToClass(RootSchema, config)
+    console.time("parser")
     const $ = cheerio.load(data);
     const blocks = $(blockSelector);
     const results = [];
     const typeOrders = {};
+    const configErrors = await validate(rootSchema)
+
+    console.log('root schema:', rootSchema.union[0].schema)
+    // console.log('config errors:', configErrors)
+
+    logErrors(configErrors)
 
     blocks.each((index, el) => {
         Object.keys(collection).forEach(key => {
@@ -47,7 +73,7 @@ async function main() {
         })
     });
 
-    console.log(results);
+    // console.log(results);
     console.timeEnd('parser');
 }
 

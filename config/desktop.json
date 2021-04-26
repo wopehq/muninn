@@ -1,24 +1,33 @@
 {
-    "blockSelector": "#rso > div > div",
-    "collection": {
-        "relatedQuestion": {
-            "schema": {},
-            "detect": {
-                "withInnerSelector": ".ygGdYd.related-question-pair"
-            }
-        },
-        "organic": {
-            "schema": {
-                "title": ".LC20lb.DKV0Md",
-                "description": ".IsZvec",
-                "url": {
-                    "selector": ".yuRUbf a",
-                    "attr": "href"
-                }
+    "selector": "#rso > div > div",
+    "union": [
+        {
+            "typeName": "organic",
+            "detector": {
+                "selector": ".LC20lb.DKV0Md",
+                "type": "MATCHES"
             },
-            "detect": {
-                "withInnerSelector": ".LC20lb.DKV0Md"
+            "schema": {
+                "fields": [
+                    {
+                        "name": "title",
+                        "selector": {
+                            "selector": ".LC20lb.DKV0Md"
+                        }
+                    }, {
+                        "name": "description",
+                        "selector": {
+                            "selector": ".IsZvec"
+                        }
+                    }, {
+                        "name": "url",
+                        "selector": {
+                            "selector": ".yuRUbf a",
+                            "attribute": "href"
+                        }
+                    }
+                ]
             }
         }
-    }
+    ]
 }
