@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register test/*.spec.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +15,10 @@
     "cheerio": "^1.0.0-rc.6"
   },
   "devDependencies": {
+    "@types/mocha": "^8.2.2",
     "@types/node": "^14.14.41",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   }
