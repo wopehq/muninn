@@ -11,7 +11,9 @@ const { collection, selector } = config;
 async function main() {
     const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' });
 
+    console.time('validate')
     const validationResult = validateConfig(config)
+    console.timeEnd('validate')
     console.log('validationResult:', validationResult, validateConfig.errors)
     console.time("parser");
 
