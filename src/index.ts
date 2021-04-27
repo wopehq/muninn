@@ -1,14 +1,20 @@
 import * as fs from 'fs';
 import * as cheerio from 'cheerio';
 import { ConfigType } from './config';
+import { validateConfig } from './config-schema';
 const config: ConfigType = require('../config/desktop.json');
-const { collection, selector } = config;
 
 type TypeOrder = { [key: string]: number };
+
+const { collection, selector } = config;
 
 async function main() {
     const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' });
 
+    console.time('validate')
+    const validationResult = validateConfig(config)
+    console.timeEnd('validate')
+    console.log('validationResult:', validationResult, validateConfig.errors)
     console.time("parser");
 
     const $ = cheerio.load(data);
