@@ -1,10 +1,15 @@
+export type CollectionItemFieldSelector = {
+    selector?: string,
+    html?: boolean,
+    attr?: string
+    $schema?: {
+        [key: string]: CollectionItemFieldSelector
+    }
+}
+
 export type CollectionItem = {
     schema: {
-        [key: string]: {
-            selector: string,
-            html?: boolean,
-            attr?: string
-        }
+        [key: string]: CollectionItemFieldSelector
     },
     detect: {
         withInnerSelector?: string;

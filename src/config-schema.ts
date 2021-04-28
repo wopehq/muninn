@@ -2,6 +2,27 @@ import Ajv, { JSONSchemaType } from 'ajv';
 import { JTDSchemaType } from 'ajv/dist/jtd';
 import { CollectionItem, ConfigType } from './config';
 
+const fieldSelectorSchema = {
+  $id: 'muninn.fieldSelectorSchema',
+  type: 'object',
+  properties: {
+    selector: {
+      type: 'string'
+    },
+    html: {
+      type: 'string'
+    },
+    attr: {
+      type: 'string'
+    },
+    $schema: {
+      $ref: 'muninn.fieldSelectorSchema',
+    }
+  },
+  required: [],
+  additionalProperties: false
+}
+
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
 const collectionItemSchema /*: JSONSchemaType<CollectionItem>*/ = {
@@ -11,20 +32,7 @@ const collectionItemSchema /*: JSONSchemaType<CollectionItem>*/ = {
     schema: {
       type: 'object',
       additionalProperties: {
-        type: 'object',
-        properties: {
-          selector: {
-            type: 'string'
-          },
-          html: {
-            type: 'string'
-          },
-          attr: {
-            type: 'string'
-          }
-        },
-        required: ['selector'],
-        additionalProperties: false
+        $ref: 'muninn.fieldSelectorSchema'
       }
     },
     detect: {
@@ -62,6 +70,7 @@ const configSchema /*: JSONSchemaType<ConfigType>*/ = {
 
 const ajv = new Ajv({
   schemas: [
+    fieldSelectorSchema,
     collectionItemSchema,
     configSchema
   ]
