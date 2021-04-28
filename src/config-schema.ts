@@ -1,10 +1,10 @@
-import Ajv, { JSONSchemaType } from 'ajv';
-import { JTDSchemaType } from 'ajv/dist/jtd';
-import { CollectionItem, ConfigType } from './config';
+import Ajv /* , { JSONSchemaType } */ from 'ajv';
+// import { JTDSchemaType } from 'ajv/dist/jtd';
+// import { CollectionItem, ConfigType } from './config';
 
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
-const collectionItemSchema /*: JSONSchemaType<CollectionItem>*/ = {
+const collectionItemSchema /*: JSONSchemaType<CollectionItem> */ = {
   $id: 'muninn.collectionItemSchema.json',
   type: 'object',
   properties: {
@@ -14,57 +14,57 @@ const collectionItemSchema /*: JSONSchemaType<CollectionItem>*/ = {
         type: 'object',
         properties: {
           selector: {
-            type: 'string'
+            type: 'string',
           },
           html: {
-            type: 'string'
+            type: 'string',
           },
           attr: {
-            type: 'string'
-          }
+            type: 'string',
+          },
         },
         required: ['selector'],
-        additionalProperties: false
-      }
+        additionalProperties: false,
+      },
     },
     detect: {
       type: 'object',
       properties: {
         withInnerSelector: {
-          type: 'string'
-        }
+          type: 'string',
+        },
       },
       required: ['withInnerSelector'],
-      additionalProperties: false
-    }
+      additionalProperties: false,
+    },
   },
-  additionalProperties: false
-}
+  additionalProperties: false,
+};
 
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
-const configSchema /*: JSONSchemaType<ConfigType>*/ = {
+const configSchema /*: JSONSchemaType<ConfigType> */ = {
   type: 'object',
   properties: {
     selector: {
-      type: 'string'
+      type: 'string',
     },
     collection: {
       type: 'object',
       additionalProperties: {
-        $ref: 'muninn.collectionItemSchema.json'
-      }
-    }
+        $ref: 'muninn.collectionItemSchema.json',
+      },
+    },
   },
   required: ['collection'],
-  additionalProperties: false
-}
+  additionalProperties: false,
+};
 
 const ajv = new Ajv({
   schemas: [
     collectionItemSchema,
-    configSchema
-  ]
-})
+    configSchema,
+  ],
+});
 
-export const validateConfig = ajv.compile(configSchema)
+export default ajv.compile(configSchema);
