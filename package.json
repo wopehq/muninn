@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc",
+    "sample": "node sample/",
     "test": "mocha -r ts-node/register test/*.spec.ts"
   },
   "keywords": [],
