@@ -6,8 +6,7 @@ import Ajv /* , { JSONSchemaType } */ from 'ajv';
 // see: https://github.com/ajv-validator/ajv/issues/1521
 const selectorSchema /*: JSONSchemaType<SelectorType> */ = {
   $id: 'muninn.selectorSchema.json',
-  type: 'string',
-  oneOf: [{ type: 'array', contains: { type: 'string' } }],
+  oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }],
 };
 
 // We can't define the type of this variable,
