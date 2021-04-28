@@ -1,22 +1,19 @@
-import * as fs from 'fs';
 import * as cheerio from 'cheerio';
 import { ConfigType } from './config';
-import { validateConfig } from './config-schema';
-const config: ConfigType = require('../config/desktop.json');
+import { validateConfig as validateConfigSchema } from './config-schema';
 
 type TypeOrder = { [key: string]: number };
 
-const { collection, selector } = config;
+export type Config = ConfigType
 
-async function main() {
-    const data = fs.readFileSync('./sample/desktop.html', { encoding: 'utf-8' });
+export function validateConfig(config: ConfigType) {
+    validateConfigSchema(config)
 
-    console.time('validate')
-    const validationResult = validateConfig(config)
-    console.timeEnd('validate')
-    console.log('validationResult:', validationResult, validateConfig.errors)
-    console.time("parser");
+    return validateConfigSchema.errors || []
+}
 
+export function parse(config: ConfigType, data: string | Buffer) {
+    const { collection, selector } = config;
     const $ = cheerio.load(data);
     const blocks = $(selector);
     const results: Object[] = [];
@@ -51,10 +48,5 @@ async function main() {
         })
     });
 
-    console.log(results);
-    console.timeEnd('parser');
+    return results
 }
-
-main().catch(err => {
-    console.log('Error:', err);
-});

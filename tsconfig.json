@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "build"
+    "outDir": "build",
+    "declaration": true,
+    "declarationMap": true
   },
   "include": ["./src/**/*"]
 }
