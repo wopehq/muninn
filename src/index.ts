@@ -6,10 +6,10 @@ type TypeOrder = { [key: string]: number };
 
 export type Config = ConfigType;
 
-export function validateConfig(config: ConfigType) {
+export function validateConfig(config: ConfigType): Object[] {
   validateConfigSchema(config);
 
-  return validateConfigSchema.errors || [];
+  return validateConfigSchema.errors;
 }
 
 export function parse(config: ConfigType, data: string | Buffer): Object[] {
