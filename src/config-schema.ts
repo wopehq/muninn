@@ -1,10 +1,17 @@
 import Ajv /* , { JSONSchemaType } */ from 'ajv';
 // import { JTDSchemaType } from 'ajv/dist/jtd';
-// import { CollectionItem, ConfigType } from './config';
+// import { CollectionItemType, ConfigType, SelectorType } from './config';
 
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
-const collectionItemSchema /*: JSONSchemaType<CollectionItem> */ = {
+const selectorSchema /*: JSONSchemaType<SelectorType> */ = {
+  $id: 'muninn.selectorSchema.json',
+  oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }],
+};
+
+// We can't define the type of this variable,
+// see: https://github.com/ajv-validator/ajv/issues/1521
+const collectionItemSchema /*: JSONSchemaType<CollectionItemType> */ = {
   $id: 'muninn.collectionItemSchema.json',
   type: 'object',
   properties: {
@@ -14,7 +21,7 @@ const collectionItemSchema /*: JSONSchemaType<CollectionItem> */ = {
         type: 'object',
         properties: {
           selector: {
-            type: 'string',
+            $ref: 'muninn.selectorSchema.json',
           },
           html: {
             type: 'string',
@@ -47,7 +54,7 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
   type: 'object',
   properties: {
     selector: {
-      type: 'string',
+      $ref: 'muninn.selectorSchema.json',
     },
     collection: {
       type: 'object',
@@ -62,6 +69,7 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
 
 const ajv = new Ajv({
   schemas: [
+    selectorSchema,
     collectionItemSchema,
     configSchema,
   ],

@@ -6,10 +6,10 @@ type TypeOrder = { [key: string]: number };
 
 export type Config = ConfigType;
 
-export function validateConfig(config: ConfigType) {
+export function validateConfig(config: ConfigType): Object[] {
   validateConfigSchema(config);
 
-  return validateConfigSchema.errors || [];
+  return validateConfigSchema.errors;
 }
 
 export function parse(config: ConfigType, data: string | Buffer): Object[] {
@@ -33,10 +33,11 @@ export function parse(config: ConfigType, data: string | Buffer): Object[] {
 
       Object.keys(schema).forEach((field) => {
         const { selector, html, attr } = schema[field];
+        const $selector = Array.isArray(selector) ? selector : [selector];
         const method = html ? 'html' : attr ? 'attr' : 'text';
         const params = attr;
 
-        result[field] = $(el).find(selector)[method](params);
+        result[field] = $(el).find($selector.join(', ')).first()[method](params);
       });
 
       results.push({

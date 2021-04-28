@@ -8,9 +8,9 @@ async function main() {
     encoding: "utf-8",
   });
 
-  console.log(typeof data);
-  const validationResult = validateConfig(config);
-  console.log("validationResult", validationResult);
+  const errors = validateConfig(config);
+
+  console.log("errors", errors);
 
   console.time("parser");
   const results = parse(config, data);

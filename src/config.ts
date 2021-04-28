@@ -1,7 +1,9 @@
-export type CollectionItem = {
+export type SelectorType = string | string[];
+
+export type CollectionItemType = {
   schema: {
     [key: string]: {
-      selector: string;
+      selector: SelectorType;
       html?: boolean;
       attr?: string;
     };
@@ -12,8 +14,8 @@ export type CollectionItem = {
 };
 
 export type ConfigType = {
-  selector: string;
+  selector: SelectorType;
   collection: {
-    [name: string]: CollectionItem;
+    [name: string]: CollectionItemType;
   };
 };
