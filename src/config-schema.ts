@@ -1,6 +1,4 @@
-import Ajv, { JSONSchemaType } from 'ajv';
-import { JTDSchemaType } from 'ajv/dist/jtd';
-import { CollectionItem, ConfigType } from './config';
+import Ajv from 'ajv';
 
 const fieldSelectorSchema = {
   $id: 'muninn.fieldSelectorSchema',
@@ -15,11 +13,36 @@ const fieldSelectorSchema = {
     attr: {
       type: 'string'
     },
-    $schema: {
-      $ref: 'muninn.fieldSelectorSchema',
+    schema: {
+      type: 'object',
+      additionalProperties: {
+        $ref: 'muninn.fieldSelectorSchema',
+      }
     }
   },
   required: [],
+  dependencies: {
+    schema: {
+      not: {
+        required: ['selector', 'html', 'attr']
+      }
+    },
+    selector: {
+      not: {
+        required: ['schema']
+      }
+    },
+    html: {
+      not: {
+        required: ['schema']
+      }
+    },
+    attr: {
+      not: {
+        required: ['schema']
+      }
+    }
+  },
   additionalProperties: false
 }
 

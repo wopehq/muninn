@@ -2,7 +2,7 @@ export type CollectionItemFieldSelector = {
     selector?: string,
     html?: boolean,
     attr?: string
-    $schema?: {
+    schema?: {
         [key: string]: CollectionItemFieldSelector
     }
 }

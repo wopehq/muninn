@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import { ConfigType } from './config';
+import { CollectionItemFieldSelector, ConfigType } from './config';
 import { validateConfig as validateConfigSchema } from './config-schema';
 
 type TypeOrder = { [key: string]: number };
@@ -10,6 +10,28 @@ export function validateConfig(config: ConfigType) {
     validateConfigSchema(config)
 
     return validateConfigSchema.errors || []
+}
+
+function extractFieldValue($parent, fieldSelector: CollectionItemFieldSelector) {
+    const { selector, attr, html, schema } = fieldSelector
+    const method = html ? 'html' : attr ? 'attr' : 'text';
+    const params = attr;
+
+    if (schema) {
+        return extractFieldValues($parent, schema)
+    }
+
+    return $parent.find(selector)[method](params);
+}
+
+function extractFieldValues($parent, fieldSelectors: { [key: string]: CollectionItemFieldSelector }) {
+    return Object.keys(fieldSelectors).reduce((acc, key) => {
+        const fieldSelector = fieldSelectors[key]
+
+        acc[key] = extractFieldValue($parent, fieldSelector)
+
+        return acc
+    }, {})
 }
 
 export function parse(config: ConfigType, data: string | Buffer) {
@@ -26,18 +48,9 @@ export function parse(config: ConfigType, data: string | Buffer) {
 
             if (!typeCheck) return;
 
-            const schema = currentType.schema;
-            const result = {};
+            const result = extractFieldValues($(el), collection);
 
             typeOrders[key] = (typeOrders[key] || 0) + 1;
-
-            Object.keys(schema).forEach(field => {
-                const { selector, html, attr } = schema[field];
-                const method = html ? 'html' : attr ? 'attr' : 'text';
-                const params = attr;
-
-                result[field] = $(el).find(selector)[method](params);
-            });
 
             results.push({
                 order: index,
