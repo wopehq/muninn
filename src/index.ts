@@ -4,7 +4,7 @@ import validateConfigSchema from './config-schema';
 
 type TypeOrder = { [key: string]: number };
 
-export { Config } from './config'
+export { Config } from './config';
 
 export function validateConfig(config: Config): Object[] {
   validateConfigSchema(config);
@@ -13,26 +13,29 @@ export function validateConfig(config: Config): Object[] {
 }
 
 function extractFieldValue($parent, fieldSelector: CollectionItemSchema) {
-    const { selector, attr, html, schema } = fieldSelector
-    const $selector = Array.isArray(selector) ? selector : [selector];
-    const method = html ? 'html' : attr ? 'attr' : 'text';
-    const params = attr;
+  const { selector, attr, html, schema } = fieldSelector;
+  const $selector = Array.isArray(selector) ? selector : [selector];
+  const method = html ? 'html' : attr ? 'attr' : 'text';
+  const params = attr;
 
-    if (schema) {
-        return extractFieldValues($parent, schema)
-    }
+  if (schema) {
+    return extractFieldValues($parent, schema);
+  }
 
-    return $parent.find($selector.join(', ')).first()[method](params);
+  return $parent.find($selector.join(', ')).first()[method](params);
 }
 
-function extractFieldValues($parent, fieldSelectors: { [key: string]: CollectionItemSchema }) {
-    return Object.keys(fieldSelectors).reduce((acc, key) => {
-        const fieldSelector = fieldSelectors[key]
+function extractFieldValues(
+  $parent,
+  fieldSelectors: { [key: string]: CollectionItemSchema }
+) {
+  return Object.keys(fieldSelectors).reduce((acc, key) => {
+    const fieldSelector = fieldSelectors[key];
 
-        acc[key] = extractFieldValue($parent, fieldSelector)
+    acc[key] = extractFieldValue($parent, fieldSelector);
 
-        return acc
-    }, {})
+    return acc;
+  }, {});
 }
 
 export function parse(config: Config, data: string | Buffer): Object {
@@ -55,7 +58,8 @@ export function collect(config: ConfigItem, data: string | Buffer): Object[] {
   blocks.each((index, el) => {
     Object.keys(collection).forEach((key) => {
       const currentType = collection[key];
-      const typeCheck = $(el).find(currentType.detect.withInnerSelector).length > 0;
+      const typeCheck =
+        $(el).find(currentType.detect.withInnerSelector).length > 0;
 
       if (!typeCheck) return;
 
@@ -67,8 +71,8 @@ export function collect(config: ConfigItem, data: string | Buffer): Object[] {
         order: index,
         typeOrder: typeOrders[key],
         type: key,
-        ...result,
-      })
+        ...result
+      });
     });
   });
 

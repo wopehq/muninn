@@ -1,22 +1,22 @@
 export type Selector = string | string[];
 
 export type CollectionItemSchema = {
-  selector?: Selector,
-  html?: boolean,
-  attr?: string
+  selector?: Selector;
+  html?: boolean;
+  attr?: string;
   schema?: {
-    [key: string]: CollectionItemSchema
-  }
-}
+    [key: string]: CollectionItemSchema;
+  };
+};
 
 export type CollectionItem = {
   schema: {
-    [key: string]: CollectionItemSchema
-  },
+    [key: string]: CollectionItemSchema;
+  };
   detect: {
     withInnerSelector?: string;
-  }
-}
+  };
+};
 
 export type ConfigItem = {
   selector: Selector;
