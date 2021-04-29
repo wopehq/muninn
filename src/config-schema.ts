@@ -100,6 +100,7 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
 
 const ajv = new Ajv({
   schemas: [
+    selectorSchema,
     fieldSelectorSchema,
     collectionItemSchema,
     configSchema,
