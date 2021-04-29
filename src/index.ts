@@ -4,7 +4,7 @@ import validateConfigSchema from './config-schema';
 
 type TypeOrder = { [key: string]: number };
 
-export function validateConfig(config: ConfigType): Object[] {
+export function validateConfig(config: ConfigFileType): Object[] {
   validateConfigSchema(config);
 
   return validateConfigSchema.errors;
