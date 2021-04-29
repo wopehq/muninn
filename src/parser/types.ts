@@ -1,3 +1,1 @@
-namespace Parser {
-  export type TypeOrder = { [key: string]: number };
-}
+export type TypeOrder = { [key: string]: number };

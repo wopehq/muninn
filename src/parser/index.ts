@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio';
-import { CollectionItemSchema, Config, ConfigItem } from "../config";
+import { CollectionItemSchema, Config, ConfigItem } from '../config';
+import { TypeOrder } from './types';
 
 function extractFieldValue($el, fieldSelector: CollectionItemSchema) {
   const { selector, attr, html, schema } = fieldSelector;
@@ -27,12 +28,15 @@ function extractFieldValues(
   }, {});
 }
 
-function collect(config: ConfigItem, data: string | Buffer): Object[] {
+function collect(
+  config: ConfigItem,
+  data: string | Buffer
+): Record<string, unknown>[] {
   const { collection, selector } = config;
   const $ = cheerio.load(data);
   const blocks = $(selector);
-  const results: Object[] = [];
-  const typeOrders: Parser.TypeOrder = {};
+  const results: Record<string, unknown>[] = [];
+  const typeOrders: TypeOrder = {};
 
   blocks.each((index, el) => {
     Object.keys(collection).forEach((key) => {
@@ -58,7 +62,10 @@ function collect(config: ConfigItem, data: string | Buffer): Object[] {
   return results;
 }
 
-export function parse(config: Config, data: string | Buffer): Object {
+export function parse(
+  config: Config,
+  data: string | Buffer
+): Record<string, unknown> {
   const results = {};
 
   Object.keys(config).forEach((key) => {

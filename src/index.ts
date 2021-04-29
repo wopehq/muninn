@@ -1,10 +1,6 @@
 import { Config, validateConfig } from './config';
-import { parse } from './parser'
+import { parse } from './parser';
 
-export {
-  Config,
-  validateConfig,
-  parse
-}
+export { Config, validateConfig, parse };
 
-export default parse
+export default parse;
