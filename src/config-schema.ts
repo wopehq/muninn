@@ -82,6 +82,7 @@ const collectionItemSchema /*: JSONSchemaType<CollectionItemType> */ = {
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
 const configSchema /*: JSONSchemaType<ConfigType> */ = {
+  $id: 'muninn.configSchema.json',
   type: 'object',
   properties: {
     selector: {
@@ -98,8 +99,17 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
   additionalProperties: false,
 };
 
+// We can't define the type of this variable,
+// see: https://github.com/ajv-validator/ajv/issues/1521
+const configFileSchema /*: JSONSchemaType<ConfigFileType> */ = {
+  type: 'object',
+  additionalProperties: { $ref: 'muninn.configSchema.json' },
+  properties: {},
+};
+
 const ajv = new Ajv({
   schemas: [
+    configFileSchema,
     selectorSchema,
     fieldSelectorSchema,
     collectionItemSchema,
@@ -107,4 +117,4 @@ const ajv = new Ajv({
   ],
 });
 
-export default ajv.compile(configSchema);
+export default ajv.compile(configFileSchema);

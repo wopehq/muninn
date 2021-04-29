@@ -1,10 +1,8 @@
 import * as cheerio from 'cheerio';
-import { CollectionItemFieldSelector, ConfigType } from './config';
+import { CollectionItemFieldSelector, ConfigType, ConfigFileType } from './config';
 import validateConfigSchema from './config-schema';
 
 type TypeOrder = { [key: string]: number };
-
-export type Config = ConfigType;
 
 export function validateConfig(config: ConfigType): Object[] {
   validateConfigSchema(config);
@@ -35,7 +33,17 @@ function extractFieldValues($parent, fieldSelectors: { [key: string]: Collection
     }, {})
 }
 
-export function parse(config: ConfigType, data: string | Buffer) {
+export function parse(config: ConfigFileType, data: string | Buffer): Object {
+  const results = {};
+
+  Object.keys(config).forEach((key) => {
+    results[key] = collect(config[key], data);
+  });
+
+  return results;
+}
+
+export function collect(config: ConfigType, data: string | Buffer): Object[] {
   const { collection, selector } = config;
   const $ = cheerio.load(data);
   const blocks = $(selector);
