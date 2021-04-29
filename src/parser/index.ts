@@ -1,27 +1,27 @@
 import * as cheerio from 'cheerio';
 import { CollectionItemSchema, Config, ConfigItem } from "../config";
 
-function extractFieldValue($parent, fieldSelector: CollectionItemSchema) {
+function extractFieldValue($el, fieldSelector: CollectionItemSchema) {
   const { selector, attr, html, schema } = fieldSelector;
   const $selector = Array.isArray(selector) ? selector : [selector];
   const method = html ? 'html' : attr ? 'attr' : 'text';
   const params = attr;
 
   if (schema) {
-    return extractFieldValues($parent, schema);
+    return extractFieldValues($el, schema);
   }
 
-  return $parent.find($selector.join(', ')).first()[method](params);
+  return $el.find($selector.join(', ')).first()[method](params);
 }
 
 function extractFieldValues(
-  $parent,
+  $el,
   fieldSelectors: { [key: string]: CollectionItemSchema }
 ) {
   return Object.keys(fieldSelectors).reduce((acc, key) => {
     const fieldSelector = fieldSelectors[key];
 
-    acc[key] = extractFieldValue($parent, fieldSelector);
+    acc[key] = extractFieldValue($el, fieldSelector);
 
     return acc;
   }, {});
