@@ -19,3 +19,7 @@ export type ConfigType = {
     [name: string]: CollectionItemType;
   };
 };
+
+export type ConfigFileType = {
+  [configName: string]: ConfigType;
+};
