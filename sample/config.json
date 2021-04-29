@@ -1,28 +1,30 @@
 {
+  "result": {
     "selector": "#rso > div > div",
     "collection": {
-        "relatedQuestion": {
-            "schema": {},
-            "detect": {
-                "withInnerSelector": ".ygGdYd.related-question-pair"
-            }
-        },
-        "organic": {
-            "schema": {
-                "title": {
-                    "selector": ".LC20lb.DKV0Md"
-                },
-                "description": {
-                    "selector": ".IsZvec"
-                },
-                "url": {
-                    "selector": ".yuRUbf a",
-                    "attr": "href"
-                }
-            },
-            "detect": {
-                "withInnerSelector": ".LC20lb.DKV0Md"
-            }
+      "relatedQuestion": {
+        "schema": {},
+        "detect": {
+          "withInnerSelector": ".ygGdYd.related-question-pair"
         }
+      },
+      "organic": {
+        "schema": {
+          "title": {
+            "selector": ".LC20lb.DKV0Md"
+          },
+          "description": {
+            "selector": ".IsZvec"
+          },
+          "url": {
+            "selector": ".yuRUbf a",
+            "attr": "href"
+          }
+        },
+        "detect": {
+          "withInnerSelector": ".LC20lb.DKV0Md"
+        }
+      }
     }
+  }
 }

@@ -1,6 +1,6 @@
 import Ajv /* , { JSONSchemaType } */ from 'ajv';
 // import { JTDSchemaType } from 'ajv/dist/jtd';
-// import { CollectionItemType, ConfigType, SelectorType } from './config';
+// import { CollectionItemType, ConfigType, ConfigFileType, SelectorType } from './config';
 
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
@@ -51,6 +51,7 @@ const collectionItemSchema /*: JSONSchemaType<CollectionItemType> */ = {
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
 const configSchema /*: JSONSchemaType<ConfigType> */ = {
+  $id: 'muninn.configSchema.json',
   type: 'object',
   properties: {
     selector: {
@@ -67,12 +68,22 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
   additionalProperties: false,
 };
 
+// We can't define the type of this variable,
+// see: https://github.com/ajv-validator/ajv/issues/1521
+const configFileSchema /*: JSONSchemaType<ConfigFileType> */ = {
+  type: 'object',
+  properties: {
+    additionalProperties: { $ref: 'muninn.configSchema.json' },
+  },
+};
+
 const ajv = new Ajv({
   schemas: [
+    configFileSchema,
     selectorSchema,
     collectionItemSchema,
     configSchema,
   ],
 });
 
-export default ajv.compile(configSchema);
+export default ajv.compile(configFileSchema);
