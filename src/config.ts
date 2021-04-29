@@ -1,30 +1,30 @@
-export type SelectorType = string | string[];
+export type Selector = string | string[];
 
-export type CollectionItemFieldSelector = {
-  selector?: SelectorType,
+export type CollectionItemSchema = {
+  selector?: Selector,
   html?: boolean,
   attr?: string
   schema?: {
-    [key: string]: CollectionItemFieldSelector
+    [key: string]: CollectionItemSchema
   }
 }
 
-export type CollectionItemType = {
+export type CollectionItem = {
   schema: {
-    [key: string]: CollectionItemFieldSelector
+    [key: string]: CollectionItemSchema
   },
   detect: {
     withInnerSelector?: string;
   }
 }
 
-export type ConfigType = {
-  selector: SelectorType;
+export type ConfigItem = {
+  selector: Selector;
   collection: {
-    [name: string]: CollectionItemType;
+    [name: string]: CollectionItem;
   };
 };
 
-export type ConfigFileType = {
-  [configName: string]: ConfigType;
+export type Config = {
+  [configName: string]: ConfigItem;
 };
