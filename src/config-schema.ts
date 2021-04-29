@@ -16,7 +16,7 @@ const fieldSelectorSchema = {
     schema: {
       type: 'object',
       additionalProperties: {
-        $ref: 'muninn.fieldSelectorSchema',
+        $ref: 'muninn.fieldSelectorSchema'
       }
     }
   },
@@ -44,13 +44,13 @@ const fieldSelectorSchema = {
     }
   },
   additionalProperties: false
-}
+};
 
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
 const selectorSchema /*: JSONSchemaType<SelectorType> */ = {
   $id: 'muninn.selectorSchema.json',
-  oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }],
+  oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }]
 };
 
 // We can't define the type of this variable,
@@ -69,14 +69,14 @@ const collectionItemSchema /*: JSONSchemaType<CollectionItemType> */ = {
       type: 'object',
       properties: {
         withInnerSelector: {
-          type: 'string',
-        },
+          type: 'string'
+        }
       },
       required: ['withInnerSelector'],
-      additionalProperties: false,
-    },
+      additionalProperties: false
+    }
   },
-  additionalProperties: false,
+  additionalProperties: false
 };
 
 // We can't define the type of this variable,
@@ -86,17 +86,17 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
   type: 'object',
   properties: {
     selector: {
-      $ref: 'muninn.selectorSchema.json',
+      $ref: 'muninn.selectorSchema.json'
     },
     collection: {
       type: 'object',
       additionalProperties: {
-        $ref: 'muninn.collectionItemSchema.json',
-      },
-    },
+        $ref: 'muninn.collectionItemSchema.json'
+      }
+    }
   },
   required: ['collection'],
-  additionalProperties: false,
+  additionalProperties: false
 };
 
 // We can't define the type of this variable,
@@ -104,7 +104,7 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
 const configFileSchema /*: JSONSchemaType<ConfigFileType> */ = {
   type: 'object',
   additionalProperties: { $ref: 'muninn.configSchema.json' },
-  properties: {},
+  properties: {}
 };
 
 const ajv = new Ajv({
@@ -113,8 +113,8 @@ const ajv = new Ajv({
     selectorSchema,
     fieldSelectorSchema,
     collectionItemSchema,
-    configSchema,
-  ],
+    configSchema
+  ]
 });
 
 export default ajv.compile(configFileSchema);
