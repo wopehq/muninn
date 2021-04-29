@@ -72,9 +72,8 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
 // see: https://github.com/ajv-validator/ajv/issues/1521
 const configFileSchema /*: JSONSchemaType<ConfigFileType> */ = {
   type: 'object',
-  properties: {
-    additionalProperties: { $ref: 'muninn.configSchema.json' },
-  },
+  additionalProperties: { $ref: 'muninn.configSchema.json' },
+  properties: {},
 };
 
 const ajv = new Ajv({
