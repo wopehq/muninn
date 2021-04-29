@@ -48,7 +48,14 @@ const fieldSelectorSchema = {
 
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
-const collectionItemSchema /*: JSONSchemaType<CollectionItem>*/ = {
+const selectorSchema /*: JSONSchemaType<SelectorType> */ = {
+  $id: 'muninn.selectorSchema.json',
+  oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }],
+};
+
+// We can't define the type of this variable,
+// see: https://github.com/ajv-validator/ajv/issues/1521
+const collectionItemSchema /*: JSONSchemaType<CollectionItemType> */ = {
   $id: 'muninn.collectionItemSchema.json',
   type: 'object',
   properties: {
@@ -62,41 +69,41 @@ const collectionItemSchema /*: JSONSchemaType<CollectionItem>*/ = {
       type: 'object',
       properties: {
         withInnerSelector: {
-          type: 'string'
-        }
+          type: 'string',
+        },
       },
       required: ['withInnerSelector'],
-      additionalProperties: false
-    }
+      additionalProperties: false,
+    },
   },
-  additionalProperties: false
-}
+  additionalProperties: false,
+};
 
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
-const configSchema /*: JSONSchemaType<ConfigType>*/ = {
+const configSchema /*: JSONSchemaType<ConfigType> */ = {
   type: 'object',
   properties: {
     selector: {
-      type: 'string'
+      $ref: 'muninn.selectorSchema.json',
     },
     collection: {
       type: 'object',
       additionalProperties: {
-        $ref: 'muninn.collectionItemSchema.json'
-      }
-    }
+        $ref: 'muninn.collectionItemSchema.json',
+      },
+    },
   },
   required: ['collection'],
-  additionalProperties: false
-}
+  additionalProperties: false,
+};
 
 const ajv = new Ajv({
   schemas: [
     fieldSelectorSchema,
     collectionItemSchema,
-    configSchema
-  ]
-})
+    configSchema,
+  ],
+});
 
-export const validateConfig = ajv.compile(configSchema)
+export default ajv.compile(configSchema);

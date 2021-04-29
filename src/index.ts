@@ -1,15 +1,15 @@
 import * as cheerio from 'cheerio';
 import { CollectionItemFieldSelector, ConfigType } from './config';
-import { validateConfig as validateConfigSchema } from './config-schema';
+import validateConfigSchema from './config-schema';
 
 type TypeOrder = { [key: string]: number };
 
-export type Config = ConfigType
+export type Config = ConfigType;
 
-export function validateConfig(config: ConfigType) {
-    validateConfigSchema(config)
+export function validateConfig(config: ConfigType): Object[] {
+  validateConfigSchema(config);
 
-    return validateConfigSchema.errors || []
+  return validateConfigSchema.errors;
 }
 
 function extractFieldValue($parent, fieldSelector: CollectionItemFieldSelector) {
@@ -41,25 +41,25 @@ export function parse(config: ConfigType, data: string | Buffer) {
     const results: Object[] = [];
     const typeOrders: TypeOrder = {};
 
-    blocks.each((index, el) => {
-        Object.keys(collection).forEach(key => {
-            const currentType = collection[key];
-            const typeCheck = $(el).find(currentType.detect.withInnerSelector).length > 0;
+  blocks.each((index, el) => {
+    Object.keys(collection).forEach((key) => {
+      const currentType = collection[key];
+      const typeCheck = $(el).find(currentType.detect.withInnerSelector).length > 0;
 
-            if (!typeCheck) return;
+      if (!typeCheck) return;
 
-            const result = extractFieldValues($(el), collection);
+      const result = extractFieldValues($(el), currentType);
 
-            typeOrders[key] = (typeOrders[key] || 0) + 1;
+      typeOrders[key] = (typeOrders[key] || 0) + 1;
 
-            results.push({
-                order: index,
-                typeOrder: typeOrders[key],
-                type: key,
-                ...result,
-            })
-        })
+      results.push({
+        order: index,
+        typeOrder: typeOrders[key],
+        type: key,
+        ...result,
+      })
     });
+  });
 
-    return results
+  return results;
 }
