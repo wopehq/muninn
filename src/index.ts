@@ -1,16 +1,18 @@
 import * as cheerio from 'cheerio';
-import { CollectionItemFieldSelector, ConfigType, ConfigFileType } from './config';
+import { CollectionItemSchema, ConfigItem, Config } from './config';
 import validateConfigSchema from './config-schema';
 
 type TypeOrder = { [key: string]: number };
 
-export function validateConfig(config: ConfigFileType): Object[] {
+export { Config } from './config'
+
+export function validateConfig(config: Config): Object[] {
   validateConfigSchema(config);
 
   return validateConfigSchema.errors;
 }
 
-function extractFieldValue($parent, fieldSelector: CollectionItemFieldSelector) {
+function extractFieldValue($parent, fieldSelector: CollectionItemSchema) {
     const { selector, attr, html, schema } = fieldSelector
     const $selector = Array.isArray(selector) ? selector : [selector];
     const method = html ? 'html' : attr ? 'attr' : 'text';
@@ -23,7 +25,7 @@ function extractFieldValue($parent, fieldSelector: CollectionItemFieldSelector) 
     return $parent.find($selector.join(', ')).first()[method](params);
 }
 
-function extractFieldValues($parent, fieldSelectors: { [key: string]: CollectionItemFieldSelector }) {
+function extractFieldValues($parent, fieldSelectors: { [key: string]: CollectionItemSchema }) {
     return Object.keys(fieldSelectors).reduce((acc, key) => {
         const fieldSelector = fieldSelectors[key]
 
@@ -33,7 +35,7 @@ function extractFieldValues($parent, fieldSelectors: { [key: string]: Collection
     }, {})
 }
 
-export function parse(config: ConfigFileType, data: string | Buffer): Object {
+export function parse(config: Config, data: string | Buffer): Object {
   const results = {};
 
   Object.keys(config).forEach((key) => {
@@ -43,7 +45,7 @@ export function parse(config: ConfigFileType, data: string | Buffer): Object {
   return results;
 }
 
-export function collect(config: ConfigType, data: string | Buffer): Object[] {
+export function collect(config: ConfigItem, data: string | Buffer): Object[] {
   const { collection, selector } = config;
   const $ = cheerio.load(data);
   const blocks = $(selector);
