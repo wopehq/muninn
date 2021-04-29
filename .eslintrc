@@ -1,18 +1,15 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
+  "plugins": ["@typescript-eslint", "prettier"],
   "extends": [
-    "airbnb-typescript/base",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "rules": {
-    "no-console": 2,
-    "linebreak-style": "off"
+    "no-console": 1, // Means warning
+    "prettier/prettier": 2 // Means error
   }
 }
