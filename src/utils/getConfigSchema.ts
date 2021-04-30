@@ -11,7 +11,7 @@ function getConfigSchema(
     $schema = <SelectorSchema>selectorSchema;
   }
 
-  const { selector, attr, html, schema } = $schema;
+  const { selector, attr, trim, html, schema } = $schema;
   const $selector = Array.isArray(selector) ? selector : [selector];
   const method = html ? 'html' : attr ? 'attr' : 'text';
   const params = attr;
@@ -20,6 +20,7 @@ function getConfigSchema(
     selector: $selector,
     method,
     params,
+    trim,
     schema
   };
 }

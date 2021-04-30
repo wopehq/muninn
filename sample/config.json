@@ -10,12 +10,8 @@
       },
       "organic": {
         "schema": {
-          "title": {
-            "selector": ".LC20lb.DKV0Md"
-          },
-          "description": {
-            "selector": ".IsZvec"
-          },
+          "title": ".LC20lb.DKV0Md",
+          "description": ".IsZvec",
           "url": {
             "selector": ".yuRUbf a",
             "attr": "href"

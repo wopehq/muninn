@@ -23,8 +23,8 @@ function collect(
 
       const result = Object.keys(currentType.schema).reduce((acc, key) => {
         const fieldSelector = currentType.schema[key];
-
-        acc[key] = getValue($(el), fieldSelector);
+        const value = getValue($(el), fieldSelector);
+        acc[key] = value;
 
         return acc;
       }, {});
