@@ -21,6 +21,9 @@ const fieldSelectorSchema = {
     attr: {
       type: 'string'
     },
+    type: {
+      type: 'string'
+    },
     trim: {
       type: 'boolean'
     },
@@ -49,6 +52,11 @@ const fieldSelectorSchema = {
       }
     },
     attr: {
+      not: {
+        required: ['schema']
+      }
+    },
+    type: {
       not: {
         required: ['schema']
       }
