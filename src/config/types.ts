@@ -28,3 +28,10 @@ export type ConfigItem = {
 export type Config = {
   [configName: string]: ConfigItem;
 };
+
+export type ConfigSchema = {
+  selector: string[];
+  method: string;
+  params?: string;
+  schema?: SelectorSchema;
+};

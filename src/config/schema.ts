@@ -1,9 +1,10 @@
-import Ajv from 'ajv';
-
 // We can't define the type of this variable,
 // see: https://github.com/ajv-validator/ajv/issues/1521
-const selectorSchema /*: JSONSchemaType<SelectorType> */ = {
-  $id: 'muninn.selectorSchema.json',
+
+import Ajv from 'ajv';
+
+const selectorSchema = {
+  $id: 'muninn.selectorSchema',
   oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }]
 };
 
@@ -12,7 +13,7 @@ const fieldSelectorSchema = {
   type: 'object',
   properties: {
     selector: {
-      $ref: 'muninn.selectorSchema.json'
+      $ref: 'muninn.selectorSchema'
     },
     html: {
       type: 'string'
@@ -53,16 +54,17 @@ const fieldSelectorSchema = {
   additionalProperties: false
 };
 
-// We can't define the type of this variable,
-// see: https://github.com/ajv-validator/ajv/issues/1521
-const collectionItemSchema /*: JSONSchemaType<CollectionItemType> */ = {
-  $id: 'muninn.collectionItemSchema.json',
+const collectionItemSchema = {
+  $id: 'muninn.collectionItemSchema',
   type: 'object',
   properties: {
     schema: {
       type: 'object',
       additionalProperties: {
-        $ref: 'muninn.fieldSelectorSchema'
+        oneOf: [
+          { $ref: 'muninn.fieldSelectorSchema' },
+          { $ref: 'muninn.selectorSchema' }
+        ]
       }
     },
     detect: {
@@ -79,19 +81,17 @@ const collectionItemSchema /*: JSONSchemaType<CollectionItemType> */ = {
   additionalProperties: false
 };
 
-// We can't define the type of this variable,
-// see: https://github.com/ajv-validator/ajv/issues/1521
-const configSchema /*: JSONSchemaType<ConfigType> */ = {
+const configSchema = {
   $id: 'muninn.configSchema.json',
   type: 'object',
   properties: {
     selector: {
-      $ref: 'muninn.selectorSchema.json'
+      $ref: 'muninn.selectorSchema'
     },
     collection: {
       type: 'object',
       additionalProperties: {
-        $ref: 'muninn.collectionItemSchema.json'
+        $ref: 'muninn.collectionItemSchema'
       }
     }
   },
@@ -99,9 +99,7 @@ const configSchema /*: JSONSchemaType<ConfigType> */ = {
   additionalProperties: false
 };
 
-// We can't define the type of this variable,
-// see: https://github.com/ajv-validator/ajv/issues/1521
-const configFileSchema /*: JSONSchemaType<ConfigFileType> */ = {
+const configFileSchema = {
   type: 'object',
   additionalProperties: { $ref: 'muninn.configSchema.json' },
   properties: {}
