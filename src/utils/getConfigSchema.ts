@@ -2,6 +2,7 @@ import { SelectorSchema } from '../config/types';
 
 function getConfigSchema(selectorSchema: string | SelectorSchema) {
   let $schema: SelectorSchema;
+
   if (typeof selectorSchema === 'string') {
     $schema = { selector: <string>selectorSchema };
   } else {
