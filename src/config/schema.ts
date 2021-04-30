@@ -1,11 +1,18 @@
 import Ajv from 'ajv';
 
+// We can't define the type of this variable,
+// see: https://github.com/ajv-validator/ajv/issues/1521
+const selectorSchema /*: JSONSchemaType<SelectorType> */ = {
+  $id: 'muninn.selectorSchema.json',
+  oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }]
+};
+
 const fieldSelectorSchema = {
   $id: 'muninn.fieldSelectorSchema',
   type: 'object',
   properties: {
     selector: {
-      type: 'string'
+      $ref: 'muninn.selectorSchema.json'
     },
     html: {
       type: 'string'
@@ -44,13 +51,6 @@ const fieldSelectorSchema = {
     }
   },
   additionalProperties: false
-};
-
-// We can't define the type of this variable,
-// see: https://github.com/ajv-validator/ajv/issues/1521
-const selectorSchema /*: JSONSchemaType<SelectorType> */ = {
-  $id: 'muninn.selectorSchema.json',
-  oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }]
 };
 
 // We can't define the type of this variable,
