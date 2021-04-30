@@ -1,6 +1,8 @@
-import { Selector, SelectorSchema } from '../config/types';
+import { Selector, SelectorSchema, ConfigSchema } from '../config/types';
 
-function getConfigSchema(selectorSchema: Selector | SelectorSchema) {
+function getConfigSchema(
+  selectorSchema: Selector | SelectorSchema
+): ConfigSchema {
   let $schema: SelectorSchema;
 
   if (typeof selectorSchema === 'string' || Array.isArray(selectorSchema)) {
