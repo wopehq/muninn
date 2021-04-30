@@ -1,31 +1,22 @@
 import * as cheerio from 'cheerio';
-import { CollectionItemSchema, Config, ConfigItem } from '../config';
+import { SelectorSchema, Config, ConfigItem } from '../config';
 import { TypeOrder } from './types';
+import getConfigSchema from '../utils/getConfigSchema';
 
-function extractFieldValue($el, fieldSelector: CollectionItemSchema) {
-  const { selector, attr, html, schema } = fieldSelector;
-  const $selector = Array.isArray(selector) ? selector : [selector];
-  const method = html ? 'html' : attr ? 'attr' : 'text';
-  const params = attr;
+function extractFieldValue($el, fieldSelector: SelectorSchema) {
+  const { selector, method, params, schema } = getConfigSchema(fieldSelector);
 
   if (schema) {
-    return extractFieldValues($el, schema);
+    return Object.keys(schema).reduce((acc, key) => {
+      const currentSchema = schema[key];
+
+      acc[key] = extractFieldValue($el, currentSchema);
+
+      return acc;
+    }, {});
   }
 
-  return $el.find($selector.join(', ')).first()[method](params);
-}
-
-function extractFieldValues(
-  $el,
-  fieldSelectors: { [key: string]: CollectionItemSchema }
-) {
-  return Object.keys(fieldSelectors).reduce((acc, key) => {
-    const fieldSelector = fieldSelectors[key];
-
-    acc[key] = extractFieldValue($el, fieldSelector);
-
-    return acc;
-  }, {});
+  return $el.find(selector.join(', ')).first()[method](params);
 }
 
 function collect(
@@ -46,7 +37,13 @@ function collect(
 
       if (!typeCheck) return;
 
-      const result = extractFieldValues($(el), currentType.schema);
+      const result = Object.keys(currentType.schema).reduce((acc, key) => {
+        const fieldSelector = currentType.schema[key];
+
+        acc[key] = extractFieldValue($(el), fieldSelector);
+
+        return acc;
+      }, {});
 
       typeOrders[key] = (typeOrders[key] || 0) + 1;
 
