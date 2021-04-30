@@ -12,6 +12,10 @@
         "schema": {
           "title": ".LC20lb.DKV0Md",
           "description": ".IsZvec",
+          "translatable": {
+            "selector": ".fl.iUh30 span",
+            "type": "boolean"
+          },
           "url": {
             "selector": ".yuRUbf a",
             "attr": "href"
