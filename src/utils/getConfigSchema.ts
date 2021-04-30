@@ -1,9 +1,9 @@
-import { SelectorSchema } from '../config/types';
+import { Selector, SelectorSchema } from '../config/types';
 
-function getConfigSchema(selectorSchema: string | SelectorSchema) {
+function getConfigSchema(selectorSchema: Selector | SelectorSchema) {
   let $schema: SelectorSchema;
-  if (typeof selectorSchema === 'string') {
-    $schema = { selector: <string>selectorSchema };
+  if (typeof selectorSchema === 'string' || Array.isArray(selectorSchema)) {
+    $schema = { selector: <Selector>selectorSchema };
   } else {
     $schema = <SelectorSchema>selectorSchema;
   }
