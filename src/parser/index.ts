@@ -1,23 +1,7 @@
 import * as cheerio from 'cheerio';
-import { SelectorSchema, Config, ConfigItem } from '../config';
+import { Config, ConfigItem } from '../config';
 import { TypeOrder } from './types';
-import getConfigSchema from '../utils/getConfigSchema';
-
-function extractFieldValue($el, fieldSelector: SelectorSchema) {
-  const { selector, method, params, schema } = getConfigSchema(fieldSelector);
-
-  if (schema) {
-    return Object.keys(schema).reduce((acc, key) => {
-      const currentSchema = schema[key];
-
-      acc[key] = extractFieldValue($el, currentSchema);
-
-      return acc;
-    }, {});
-  }
-
-  return $el.find(selector.join(', ')).first()[method](params);
-}
+import getValue from '../utils/getValue';
 
 function collect(
   config: ConfigItem,
@@ -40,7 +24,7 @@ function collect(
       const result = Object.keys(currentType.schema).reduce((acc, key) => {
         const fieldSelector = currentType.schema[key];
 
-        acc[key] = extractFieldValue($(el), fieldSelector);
+        acc[key] = getValue($(el), fieldSelector);
 
         return acc;
       }, {});
