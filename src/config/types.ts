@@ -1,17 +1,17 @@
 export type Selector = string | string[];
 
-export type CollectionItemSchema = {
+export type SelectorSchema = {
   selector?: Selector;
   html?: boolean;
   attr?: string;
   schema?: {
-    [key: string]: CollectionItemSchema;
+    [key: string]: SelectorSchema;
   };
 };
 
 export type CollectionItem = {
   schema: {
-    [key: string]: CollectionItemSchema;
+    [key: string]: SelectorSchema;
   };
   detect: {
     withInnerSelector?: string;
