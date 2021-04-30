@@ -4,6 +4,7 @@ export type SelectorSchema = {
   selector?: Selector;
   html?: boolean;
   attr?: string;
+  trim?: boolean;
   schema?: {
     [key: string]: SelectorSchema;
   };
@@ -33,5 +34,6 @@ export type ConfigSchema = {
   selector: string[];
   method: string;
   params?: string;
+  trim?: boolean;
   schema?: SelectorSchema;
 };
