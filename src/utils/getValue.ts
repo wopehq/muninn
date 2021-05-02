@@ -1,13 +1,23 @@
 import cheerio = require('cheerio');
-import { SelectorSchema } from '../config';
+import { RegexConfig, SelectorSchema } from '../config';
 import getConfigSchema from '../utils/getConfigSchema';
 import transformValueType from '../utils/transformValueType';
+import execRegex from '../utils/execRegex';
 
-type TransformValueArgs = { value?: any; trim?: boolean; type?: string };
+type TransformValueArgs = {
+  value?: any;
+  trim?: boolean;
+  type?: string;
+  regex: RegexConfig;
+};
 
-function transformValue({ value, trim, type }: TransformValueArgs): any {
+function transformValue({ value, trim, regex, type }: TransformValueArgs): any {
   if (typeof value === 'string' && trim !== false) {
     value = value.trim();
+  }
+
+  if (regex) {
+    value = execRegex(value, regex);
   }
 
   value = transformValueType(value, type);
@@ -16,16 +26,22 @@ function transformValue({ value, trim, type }: TransformValueArgs): any {
 }
 
 function getValue($el: cheerio.Cheerio, fieldSelector: SelectorSchema): any {
-  const { selector, method, params, trim, type, schema } = getConfigSchema(
-    fieldSelector
-  );
+  const {
+    selector,
+    method,
+    params,
+    regex,
+    trim,
+    type,
+    schema
+  } = getConfigSchema(fieldSelector);
 
   if (schema) {
     return Object.keys(schema).reduce((acc, key) => {
       const currentSchema = schema[key];
       let value = getValue($el, currentSchema);
 
-      value = transformValue({ value, trim, type });
+      value = transformValue({ value, trim, regex, type });
 
       acc[key] = value;
 
@@ -35,7 +51,7 @@ function getValue($el: cheerio.Cheerio, fieldSelector: SelectorSchema): any {
 
   let value = $el.find(selector.join(', ')).first()[method](params);
 
-  value = transformValue({ value, trim, type });
+  value = transformValue({ value, trim, regex, type });
 
   return value;
 }
