@@ -8,12 +8,28 @@ const selectorSchema = {
   oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }]
 };
 
+const regexConfigSchema = {
+  $id: 'muninn.regexConfigSchema',
+  type: 'object',
+  properties: {
+    pattern: {
+      type: 'string'
+    },
+    flags: {
+      type: 'string'
+    }
+  }
+};
+
 const fieldSelectorSchema = {
   $id: 'muninn.fieldSelectorSchema',
   type: 'object',
   properties: {
     selector: {
       $ref: 'muninn.selectorSchema'
+    },
+    regex: {
+      $ref: 'muninn.regexConfigSchema'
     },
     html: {
       type: 'string'
@@ -38,7 +54,7 @@ const fieldSelectorSchema = {
   dependencies: {
     schema: {
       not: {
-        required: ['selector', 'html', 'attr', 'trim']
+        required: ['selector', 'html', 'attr', 'trim', 'regex']
       }
     },
     selector: {
@@ -52,6 +68,11 @@ const fieldSelectorSchema = {
       }
     },
     attr: {
+      not: {
+        required: ['schema']
+      }
+    },
+    regex: {
       not: {
         required: ['schema']
       }
@@ -123,6 +144,7 @@ const configFileSchema = {
 
 const ajv = new Ajv({
   schemas: [
+    regexConfigSchema,
     configFileSchema,
     selectorSchema,
     fieldSelectorSchema,

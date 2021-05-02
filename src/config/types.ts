@@ -1,11 +1,14 @@
 export type Selector = string | string[];
 
+export type RegexConfig = { pattern: string; flags?: string };
+
 export type SelectorSchema = {
   selector?: Selector;
   html?: boolean;
   attr?: string;
   type?: string;
   trim?: boolean;
+  regex?: RegexConfig;
   schema?: {
     [key: string]: SelectorSchema;
   };
@@ -37,5 +40,6 @@ export type ConfigSchema = {
   params?: string;
   type?: string;
   trim?: boolean;
+  regex?: RegexConfig;
   schema?: SelectorSchema;
 };
