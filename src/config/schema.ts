@@ -122,7 +122,7 @@ const configSchema = {
   $id: 'muninn.configSchema.json',
   type: 'object',
   properties: {
-    selector: {
+    blocksSelector: {
       $ref: 'muninn.selectorSchema'
     },
     collection: {

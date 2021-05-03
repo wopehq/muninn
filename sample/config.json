@@ -1,6 +1,6 @@
 {
   "result": {
-    "selector": "#rso > div > div",
+    "blocksSelector": ".hlcw0c .g, #rso > div > div",
     "collection": {
       "relatedQuestion": {
         "schema": {},
