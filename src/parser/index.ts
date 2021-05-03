@@ -3,6 +3,8 @@ import { Config, ConfigItem } from '../config';
 import { TypeOrder } from './types';
 import getValue from '../utils/getValue';
 
+const untypeds = [];
+
 function collect(
   config: ConfigItem,
   data: string | Buffer
@@ -14,15 +16,29 @@ function collect(
   const typeOrders: TypeOrder = {};
 
   blocks.each((index, el) => {
-    Object.keys(collection).forEach((key) => {
+    const keys = Object.keys(collection);
+
+    keys.forEach((key) => {
       const currentType = collection[key];
-      const typeCheck =
-        $(el).find(currentType.detect.withInnerSelector).length > 0;
+      const { schema, detect } = currentType;
+      const typeCheck = $(el).find(detect.withInnerSelector).length > 0;
 
-      if (!typeCheck) return;
+      if (!typeCheck) {
+        if (keys.length - 1 === index) {
+          typeOrders.untyped = (typeOrders.untyped || 0) + 1;
 
-      const result = Object.keys(currentType.schema).reduce((acc, key) => {
-        const fieldSelector = currentType.schema[key];
+          untypeds.push({
+            order: index,
+            typeOrder: typeOrders.untyped,
+            type: 'untyped',
+            html: $(el).html()
+          });
+        }
+        return;
+      }
+
+      const result = Object.keys(schema).reduce((acc, key) => {
+        const fieldSelector = schema[key];
         const value = getValue($(el), fieldSelector);
         acc[key] = value;
 
@@ -47,7 +63,9 @@ export function parse(
   config: Config,
   data: string | Buffer
 ): Record<string, unknown> {
-  const results = {};
+  const results = {
+    __untyped: untypeds
+  };
 
   Object.keys(config).forEach((key) => {
     results[key] = collect(config[key], data);
