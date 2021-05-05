@@ -1,30 +1,8 @@
 import cheerio = require('cheerio');
-import { RegexConfig, SelectorSchema } from '../config';
+import { SelectorSchema } from '../config';
 import getConfigSchema from '../utils/getConfigSchema';
-import transformValueType from '../utils/transformValueType';
-import execRegex from '../utils/execRegex';
 import getValueWithSchema from './getValueWithSchema';
-
-type TransformValueArgs = {
-  value?: any;
-  trim?: boolean;
-  type?: string;
-  regex: RegexConfig;
-};
-
-function transformValue({ value, trim, regex, type }: TransformValueArgs): any {
-  if (typeof value === 'string' && trim !== false) {
-    value = value.trim();
-  }
-
-  if (regex) {
-    value = execRegex(value, regex);
-  }
-
-  value = transformValueType(value, type);
-
-  return value;
-}
+import transformValue from './transformValue';
 
 function getValue(
   $: cheerio.Root,
