@@ -3,6 +3,7 @@ import { RegexConfig, SelectorSchema } from '../config';
 import getConfigSchema from '../utils/getConfigSchema';
 import transformValueType from '../utils/transformValueType';
 import execRegex from '../utils/execRegex';
+import getValueWithSchema from './getValueWithSchema';
 
 type TransformValueArgs = {
   value?: any;
@@ -25,7 +26,11 @@ function transformValue({ value, trim, regex, type }: TransformValueArgs): any {
   return value;
 }
 
-function getValue($el: cheerio.Cheerio, fieldSelector: SelectorSchema): any {
+function getValue(
+  $: cheerio.Root,
+  el: any,
+  fieldSelector: SelectorSchema
+): any {
   const {
     selector,
     method,
@@ -36,20 +41,32 @@ function getValue($el: cheerio.Cheerio, fieldSelector: SelectorSchema): any {
     schema
   } = getConfigSchema(fieldSelector);
 
-  if (schema) {
-    return Object.keys(schema).reduce((acc, key) => {
-      const currentSchema = schema[key];
-      let value = getValue($el, currentSchema);
+  if (type === 'array') {
+    const values = [];
 
-      value = transformValue({ value, trim, regex, type });
+    $(el)
+      .find(selector.join(', '))
+      .each((index, el) => {
+        const value = schema
+          ? getValueWithSchema($, el, schema)
+          : transformValue({
+              value: $(el)[method](params),
+              trim,
+              regex,
+              type
+            });
 
-      acc[key] = value;
+        values.push(value);
+      });
 
-      return acc;
-    }, {});
+    return values;
   }
 
-  let value = $el.find(selector.join(', ')).first()[method](params);
+  if (schema) {
+    return getValueWithSchema($, el, schema);
+  }
+
+  let value = $(el).find(selector.join(', ')).first()[method](params);
 
   value = transformValue({ value, trim, regex, type });
 

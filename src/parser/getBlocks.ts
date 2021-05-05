@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 import { TypeOrder } from './types';
 import { Selector } from '../config';
-import getValue from '../utils/getValue';
+import getValue from './getValue';
 
 function getBlocks($: cheerio.Root, blocksSelector: Selector, collection) {
   const blocks = $(blocksSelector);
@@ -33,7 +33,7 @@ function getBlocks($: cheerio.Root, blocksSelector: Selector, collection) {
 
       const result = Object.keys(schema).reduce((acc, key) => {
         const fieldSelector = schema[key];
-        const value = getValue($(el), fieldSelector);
+        const value = getValue($, el, fieldSelector);
         acc[key] = value;
 
         return acc;
