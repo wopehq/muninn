@@ -114,8 +114,8 @@ const collectionItemSchema = {
   additionalProperties: false
 };
 
-const configSchema = {
-  $id: 'muninn.configSchema.json',
+const configBlockSchema = {
+  $id: 'muninn.configBlockSchema.json',
   type: 'object',
   properties: {
     blocksSelector: {
@@ -132,9 +132,32 @@ const configSchema = {
   additionalProperties: false
 };
 
+const configNormalSchema = {
+  $id: 'muninn.configNormalSchema.json',
+  type: 'object',
+  properties: {
+    selector: {
+      $ref: 'muninn.selectorSchema'
+    },
+    schema: {
+      type: 'object',
+      additionalProperties: {
+        $ref: 'muninn.fieldSelectorSchema'
+      }
+    }
+  },
+  required: ['schema'],
+  additionalProperties: false
+};
+
 const configFileSchema = {
   type: 'object',
-  additionalProperties: { $ref: 'muninn.configSchema.json' },
+  additionalProperties: {
+    oneOf: [
+      { $ref: 'muninn.configBlockSchema.json' },
+      { $ref: 'muninn.configNormalSchema.json' }
+    ]
+  },
   properties: {}
 };
 
@@ -145,7 +168,8 @@ const ajv = new Ajv({
     selectorSchema,
     fieldSelectorSchema,
     collectionItemSchema,
-    configSchema
+    configBlockSchema,
+    configNormalSchema
   ]
 });
 

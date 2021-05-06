@@ -25,9 +25,13 @@ export type CollectionItem = {
 };
 
 export type ConfigItem = {
-  blocksSelector: Selector;
-  collection: {
+  blocksSelector?: Selector;
+  collection?: {
     [name: string]: CollectionItem;
+  };
+  selector?: Selector;
+  schema?: {
+    [key: string]: SelectorSchema;
   };
 };
 

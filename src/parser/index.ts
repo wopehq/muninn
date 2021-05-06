@@ -1,14 +1,15 @@
 import * as cheerio from 'cheerio';
 import { Config, ConfigItem } from '../config';
 import getBlocks from './getBlocks';
+import getValue from './getValue';
 
 let untypeds = [];
 
 function collect(
   config: ConfigItem,
   data: string | Buffer
-): Record<string, unknown>[] {
-  const { collection, blocksSelector } = config;
+): Record<string, unknown>[] | object {
+  const { collection, blocksSelector, selector, schema } = config;
   const $ = cheerio.load(data);
 
   if (blocksSelector) {
@@ -16,9 +17,18 @@ function collect(
     untypeds = _untypeds;
 
     return results;
+  } else if (selector && schema) {
+    const result = {};
+    const el = $(selector);
+
+    Object.keys(schema).forEach((key) => {
+      result[key] = getValue($, el, schema[key]);
+    });
+
+    return result;
   }
 
-  return [];
+  return null;
 }
 
 export function parse(
