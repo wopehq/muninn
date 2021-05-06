@@ -49,7 +49,10 @@ const fieldSelectorSchema = {
     schema: {
       type: 'object',
       additionalProperties: {
-        $ref: 'muninn.fieldSelectorSchema'
+        oneOf: [
+          { $ref: 'muninn.fieldSelectorSchema' },
+          { $ref: 'muninn.selectorSchema' }
+        ]
       }
     }
   },
