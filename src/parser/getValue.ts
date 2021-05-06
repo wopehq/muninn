@@ -15,36 +15,43 @@ function getValue(
     params,
     regex,
     trim,
+    rootScope,
     type,
     schema
   } = getConfigSchema(fieldSelector);
 
+  let currentEl;
+
+  if (rootScope) {
+    currentEl = $(selector.join(', '));
+  } else {
+    currentEl = $(el).find(selector.join(', '));
+  }
+
   if (type === 'array') {
     const values = [];
 
-    $(el)
-      .find(selector.join(', '))
-      .each((index, el) => {
-        const value = schema
-          ? getValueWithSchema($, el, schema)
-          : transformValue({
-              value: $(el)[method](params),
-              trim,
-              regex,
-              type
-            });
+    currentEl.each((index, el) => {
+      const value = schema
+        ? getValueWithSchema($, el, schema)
+        : transformValue({
+            value: $(el)[method](params),
+            trim,
+            regex,
+            type
+          });
 
-        values.push(value);
-      });
+      values.push(value);
+    });
 
     return values;
   }
 
   if (schema) {
-    return getValueWithSchema($, el, schema);
+    return getValueWithSchema($, currentEl, schema);
   }
 
-  let value = $(el).find(selector.join(', ')).first()[method](params);
+  let value = $(currentEl).first()[method](params);
 
   value = transformValue({ value, trim, regex, type });
 
