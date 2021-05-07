@@ -20,6 +20,9 @@ const fieldSelectorSchema = {
     trim: {
       type: 'boolean'
     },
+    custom: {
+      instanceof: 'Function'
+    },
     rootScope: {
       type: 'boolean'
     },
@@ -37,7 +40,7 @@ const fieldSelectorSchema = {
   dependencies: {
     schema: {
       not: {
-        required: ['html', 'attr', 'trim', 'regex']
+        required: ['html', 'attr', 'trim', 'regex', 'custom']
       }
     },
     html: {
@@ -56,6 +59,11 @@ const fieldSelectorSchema = {
       }
     },
     trim: {
+      not: {
+        required: ['schema']
+      }
+    },
+    custom: {
       not: {
         required: ['schema']
       }

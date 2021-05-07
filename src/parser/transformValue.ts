@@ -6,10 +6,17 @@ type TransformValueArgs = {
   value?: any;
   trim?: boolean;
   type?: string;
+  custom?: Function;
   regex: RegexConfig;
 };
 
-function transformValue({ value, trim, regex, type }: TransformValueArgs): any {
+function transformValue({
+  value,
+  trim,
+  regex,
+  type,
+  custom
+}: TransformValueArgs): any {
   if (typeof value === 'string' && trim !== false) {
     value = value.trim();
   }
@@ -19,6 +26,10 @@ function transformValue({ value, trim, regex, type }: TransformValueArgs): any {
   }
 
   value = transformValueType(value, type);
+
+  if (typeof custom === 'function') {
+    value = custom(value);
+  }
 
   return value;
 }

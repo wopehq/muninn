@@ -17,6 +17,7 @@ function getValue(
     trim,
     rootScope,
     type,
+    custom,
     schema
   } = getConfigSchema(fieldSelector);
 
@@ -53,7 +54,7 @@ function getValue(
 
   let value = $(currentEl).first()[method](params);
 
-  value = transformValue({ value, trim, regex, type });
+  value = transformValue({ value, trim, regex, type, custom });
 
   return value;
 }

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const config = require('./config.json');
+const config = require('./config');
 
 const { parse, validateConfig } = require('../build/index');
 

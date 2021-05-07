@@ -17,6 +17,7 @@ function getConfigSchema(
     trim,
     type,
     rootScope,
+    custom,
     regex,
     html,
     schema
@@ -31,6 +32,7 @@ function getConfigSchema(
     params,
     rootScope,
     regex,
+    custom,
     trim,
     type,
     schema

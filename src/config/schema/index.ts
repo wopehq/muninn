@@ -9,17 +9,29 @@ import fieldSelectorSchema from './fieldSelectorSchema';
 import collectionItemSchema from './collectionItemSchema';
 import configBlockSchema from './configBlockSchema';
 import configDefaultSchema from './configDefaultSchema';
+const CLASSES = { Function: Function };
+const ajv = new Ajv();
 
-const ajv = new Ajv({
-  schemas: [
-    regexConfigSchema,
-    configFileSchema,
-    selectorSchema,
-    fieldSelectorSchema,
-    collectionItemSchema,
-    configBlockSchema,
-    configDefaultSchema
-  ]
+ajv.addKeyword({
+  keyword: 'function',
+  validate: function (data) {
+    return typeof data === 'function';
+  }
 });
+
+ajv.addKeyword({
+  keyword: 'instanceof',
+  compile: (schema) => (data) => data instanceof CLASSES[schema]
+});
+
+ajv.addSchema([
+  regexConfigSchema,
+  configFileSchema,
+  selectorSchema,
+  fieldSelectorSchema,
+  collectionItemSchema,
+  configBlockSchema,
+  configDefaultSchema
+]);
 
 export default ajv.compile(configFileSchema);
