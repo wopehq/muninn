@@ -1,5 +1,5 @@
 import cheerio = require('cheerio');
-import { SelectorSchema } from '../config';
+import { SelectorConfig } from '../config';
 import getConfigSchema from '../utils/getConfigSchema';
 import getValueWithSchema from './getValueWithSchema';
 import transformValue from './transformValue';
@@ -7,7 +7,7 @@ import transformValue from './transformValue';
 function getValue(
   $: cheerio.Root,
   el: any,
-  fieldSelector: SelectorSchema
+  fieldSelector: SelectorConfig
 ): any {
   const {
     selector,

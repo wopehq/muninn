@@ -2,7 +2,7 @@ export type Selector = string | string[];
 
 export type RegexConfig = { pattern: string; flags?: string };
 
-export type SelectorSchema = {
+export type SelectorConfig = {
   selector?: Selector;
   html?: boolean;
   attr?: string;
@@ -11,13 +11,13 @@ export type SelectorSchema = {
   rootScope?: boolean;
   regex?: RegexConfig;
   schema?: {
-    [key: string]: SelectorSchema;
+    [key: string]: SelectorConfig;
   };
 };
 
 export type CollectionItem = {
   schema: {
-    [key: string]: SelectorSchema;
+    [key: string]: SelectorConfig;
   };
   detect: {
     withInnerSelector?: string;
@@ -31,7 +31,7 @@ export type ConfigItem = {
   };
   selector?: Selector;
   schema?: {
-    [key: string]: SelectorSchema;
+    [key: string]: SelectorConfig;
   };
 };
 
@@ -47,5 +47,5 @@ export type ConfigSchema = {
   trim?: boolean;
   rootScope?: boolean;
   regex?: RegexConfig;
-  schema?: SelectorSchema;
+  schema?: SelectorConfig;
 };

@@ -1,44 +1,46 @@
 ### Selector
+
 ```ts
 type Selector = string | string[];
 
 type SelectorConfig = {
-    selector?: Selector;
-    html?: boolean;
-    attr?: string;
-    type?: string;
-    trim?: boolean;
-    rootScope?: boolean;
-    regex?: RegexConfig;
-    schema?: {
-        [key: string]: SelectorConfig;
-    };
-}
+  selector?: Selector;
+  html?: boolean;
+  attr?: string;
+  type?: string;
+  trim?: boolean;
+  rootScope?: boolean;
+  regex?: RegexConfig;
+  schema?: {
+    [key: string]: SelectorConfig;
+  };
+};
 ```
 
 ---
 
 ### Sample HTML
-```html
 
+```html
 <div class="parent">
-    <div class="first-child">First Child</div>
-    <div class="second-child">Second Child</div>
-    <div class="third-child">Third Child</div>
-    <div class="full-child">Content</div>
-    <div class="empty-child"></div>
-    <div class="number-content-child">632</div>
-    <div class="regex-test-child">Year 2021</div>
-    <a class="link" href="https://example.com/">Test Url</a>
+  <div class="first-child">First Child</div>
+  <div class="second-child">Second Child</div>
+  <div class="third-child">Third Child</div>
+  <div class="full-child">Content</div>
+  <div class="empty-child"></div>
+  <div class="number-content-child">632</div>
+  <div class="regex-test-child">Year 2021</div>
+  <a class="link" href="https://example.com/">Test Url</a>
 </div>
 ```
 
 ---
 
 #### Shorthand
+
 ```json
 {
-    "firstChildContent": ".firstChild"
+    "firstChildContent": ".first-child"
 }
 
 // Output
@@ -46,7 +48,9 @@ type SelectorConfig = {
     "firsthChild": "First Child"
 }
 ```
+
 #### One Of Selector
+
 ```json
 {
     "childContent": [".nonexistent", ".second-child"]
@@ -57,21 +61,24 @@ type SelectorConfig = {
     "childContent": "Second Child"
 }
 ```
+
 #### SelectorConfig
 
 ```json
 {
-    "thildChild": {
+    "thirdChild": {
         "selector": ".third-child"
-    } 
+    }
 }
 
 // Output
 {
-    "thildChild": "Third Child"
+    "thirdChild": "Third Child"
 }
 ```
+
 #### Multiple Selector
+
 ```json
 {
     "children": {
@@ -87,6 +94,7 @@ type SelectorConfig = {
 ```
 
 #### Define Value Type
+
 ```json
 {
     "number": {
@@ -113,6 +121,7 @@ type SelectorConfig = {
 ```
 
 #### Use Regex on Value
+
 ```json
 {
     "testRegex": {
@@ -129,6 +138,7 @@ type SelectorConfig = {
 ```
 
 #### Get Attribute
+
 ```json
 {
     "url": {
@@ -144,6 +154,7 @@ type SelectorConfig = {
 ```
 
 #### Nested Schema
+
 ```json
 {
     "link": {

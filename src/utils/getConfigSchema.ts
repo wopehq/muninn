@@ -1,14 +1,14 @@
-import { Selector, SelectorSchema, ConfigSchema } from '../config/types';
+import { Selector, SelectorConfig, ConfigSchema } from '../config/types';
 
 function getConfigSchema(
-  selectorSchema: Selector | SelectorSchema
+  selectorSchema: Selector | SelectorConfig
 ): ConfigSchema {
-  let $schema: SelectorSchema;
+  let $schema: SelectorConfig;
 
   if (typeof selectorSchema === 'string' || Array.isArray(selectorSchema)) {
     $schema = { selector: <Selector>selectorSchema };
   } else {
-    $schema = <SelectorSchema>selectorSchema;
+    $schema = <SelectorConfig>selectorSchema;
   }
 
   const {
