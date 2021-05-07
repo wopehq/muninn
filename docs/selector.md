@@ -176,3 +176,22 @@ type SelectorConfig = {
     }
 }
 ```
+
+#### Custom Method
+
+```js
+{
+    url: {
+        selector: "a.link",
+        attr: "href",
+        custom: function(value) {
+            return 'Link: ' + value;
+        }
+    }
+}
+
+// Output
+{
+    "url": "Link: https://example.com/"
+}
+```
