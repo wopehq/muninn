@@ -78,14 +78,16 @@ describe('Parser Tests', () => {
     expect(false).to.deep.equal(value);
   });
 
-  it('getValue Method - Regex', () => {
+  it('getValue Method - Custom', () => {
     const el = $('.parent');
     const selector = {
-      selector: '.regex-test-child',
-      regex: { pattern: '\\d+', flags: 'g' },
-      type: 'number'
+      selector: 'a.link',
+      attr: 'href',
+      custom: function (value) {
+        return 'Link: ' + value;
+      }
     };
     const value = getValue($, el, selector);
-    expect(2021).to.deep.equal(value);
+    expect('Link: https://example.com/').to.deep.equal(value);
   });
 });
