@@ -7,7 +7,7 @@
     "start": "ts-node src/index.ts",
     "build": "tsc",
     "sample": "node sample/",
-    "test": "mocha -r ts-node/register test/*.spec.ts",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
