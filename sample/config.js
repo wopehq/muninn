@@ -21,9 +21,15 @@ const Config = {
             selector: '.fl.iUh30 span',
             type: 'boolean'
           },
-          url: {
-            selector: '.yuRUbf a',
-            attr: 'href'
+          link: {
+            selector: '.yuRUbf',
+            schema: {
+              title: 'a',
+              url: {
+                selector: 'a',
+                attr: 'href'
+              }
+            }
           },
           customTest: {
             selector: '.yuRUbf a',
