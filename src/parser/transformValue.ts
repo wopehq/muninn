@@ -6,7 +6,7 @@ type TransformValueArgs = {
   value?: any;
   trim?: boolean;
   type?: string;
-  custom?: Function;
+  custom?: (value: any) => any;
   regex: RegexConfig;
 };
 

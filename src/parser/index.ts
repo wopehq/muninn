@@ -3,12 +3,14 @@ import { Config, ConfigItem } from '../config';
 import getBlocks from './getBlocks';
 import getValue from './getValue';
 
+type ResultObject = { [key: string]: any };
+
 let untypeds = [];
 
 function collect(
   config: ConfigItem,
   data: string | Buffer
-): Record<string, unknown>[] | object {
+): Record<string, unknown>[] | ResultObject {
   const { collection, blocksSelector, selector, schema } = config;
   const $ = cheerio.load(data);
 
