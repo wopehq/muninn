@@ -24,9 +24,9 @@ function getValue(
   let currentEl;
 
   if (rootScope) {
-    currentEl = $(selector.join(', '));
+    currentEl = $(selector.join(', ')).first();
   } else {
-    currentEl = $(el).find(selector.join(', '));
+    currentEl = $(el).first().find(selector.join(', '));
   }
 
   if (type === 'array') {
