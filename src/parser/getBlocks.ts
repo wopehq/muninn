@@ -15,20 +15,23 @@ function getBlocks($: cheerio.Root, blocksSelector: Selector, collection) {
     keys.forEach((key) => {
       const currentType = collection[key];
       const { schema, detect } = currentType;
-      const typeCheck = $(el).find(detect.withInnerSelector).length > 0;
 
-      if (!typeCheck) {
-        if (keys.length - 1 === index) {
-          typeOrders.untyped = (typeOrders.untyped || 0) + 1;
+      if (detect?.withInnerSelector) {
+        const typeCheck = $(el).find(detect?.withInnerSelector).length > 0;
 
-          untypeds.push({
-            order: index,
-            typeOrder: typeOrders.untyped,
-            type: 'untyped',
-            html: $(el).html()
-          });
+        if (!typeCheck) {
+          if (keys.length - 1 === index) {
+            typeOrders.untyped = (typeOrders.untyped || 0) + 1;
+
+            untypeds.push({
+              order: index + 1,
+              typeOrder: typeOrders.untyped,
+              type: 'untyped',
+              html: $(el).html()
+            });
+          }
+          return;
         }
-        return;
       }
 
       const result = Object.keys(schema).reduce((acc, key) => {
@@ -42,7 +45,7 @@ function getBlocks($: cheerio.Root, blocksSelector: Selector, collection) {
       typeOrders[key] = (typeOrders[key] || 0) + 1;
 
       results.push({
-        order: index,
+        order: index + 1,
         typeOrder: typeOrders[key],
         type: key,
         ...result
