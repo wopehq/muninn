@@ -16,8 +16,14 @@ function getBlocks($: cheerio.Root, blocksSelector: Selector, collection) {
       const currentType = collection[key];
       const { schema, detect } = currentType;
 
-      if (detect?.withInnerSelector) {
-        const typeCheck = $(el).find(detect?.withInnerSelector).length > 0;
+      if (detect) {
+        let typeCheck;
+
+        if (detect?.withInnerSelector) {
+          typeCheck = $(el).find(detect?.withInnerSelector).length > 0;
+        } else if (detect?.hasClassName) {
+          typeCheck = $(el).hasClass(detect?.hasClassName);
+        }
 
         if (!typeCheck) {
           if (keys.length - 1 === index) {

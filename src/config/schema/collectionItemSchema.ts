@@ -16,9 +16,11 @@ const collectionItemSchema = {
       properties: {
         withInnerSelector: {
           type: 'string'
+        },
+        hasClassName: {
+          type: 'string'
         }
       },
-      required: ['withInnerSelector'],
       additionalProperties: false
     }
   },

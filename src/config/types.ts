@@ -20,7 +20,8 @@ export type CollectionItem = {
   schema: {
     [key: string]: SelectorConfig;
   };
-  detect: {
+  detect?: {
+    hasClassName?: string;
     withInnerSelector?: string;
   };
 };
