@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import 'mocha';
 
 import execRegex from './execRegex';
+import transformValue from './transformValue';
 import transformValueType from './transformValueType';
 
 describe('Utils Tests', () => {
@@ -9,6 +10,21 @@ describe('Utils Tests', () => {
     const regex = { pattern: '\\d+', flags: 'g' };
     const value = execRegex('Lorem Ipsum 21 Temp', regex);
     expect('21').to.deep.equal(value);
+  });
+
+  it('transformValue Method - Basic', () => {
+    const value = transformValue({ value: 'Lorem Ipsum' });
+    expect('Lorem Ipsum').to.deep.equal(value);
+  });
+
+  it('transformValue Method - Trim', () => {
+    const value = transformValue({ value: ' Lorem Ipsum ', trim: true });
+    expect('Lorem Ipsum').to.deep.equal(value);
+  });
+
+  it('transformValue Method - Trim', () => {
+    const value = transformValue({ value: ' Lorem Ipsum ', trim: false });
+    expect(' Lorem Ipsum ').to.deep.equal(value);
   });
 
   it('transformValueType Method - Number', () => {
