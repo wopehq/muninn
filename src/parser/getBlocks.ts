@@ -41,8 +41,8 @@ function getBlocks($: cheerio.Root, blocksSelector: Selector, collection) {
       }
 
       const result = Object.keys(schema).reduce((acc, key) => {
-        const fieldSelector = schema[key];
-        const value = getValue($, el, fieldSelector);
+        const selectorConfig = schema[key];
+        const value = getValue($, el, selectorConfig);
         acc[key] = value;
 
         return acc;

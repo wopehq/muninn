@@ -7,7 +7,7 @@ import transformValue from '../utils/transformValue';
 function getValue(
   $: cheerio.Root,
   el: any,
-  fieldSelector: SelectorConfig
+  selectorConfig: SelectorConfig
 ): any {
   const {
     selector,
@@ -19,7 +19,7 @@ function getValue(
     type,
     custom,
     schema
-  } = getConfigSchema(fieldSelector);
+  } = getConfigSchema(selectorConfig);
 
   let currentEl;
 

@@ -19,7 +19,9 @@ function collect(
     untypeds = _untypeds;
 
     return results;
-  } else if (selector && schema) {
+  }
+
+  if (selector && schema) {
     const result = {};
     const el = $(selector);
 
