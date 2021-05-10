@@ -91,9 +91,19 @@ describe('Parser Tests', () => {
     expect('Link: https://example.com/').to.deep.equal(value);
   });
 
+  it('getValue Method - Regex', () => {
+    const el = $('.parent');
+    const selector = {
+      selector: '.regex-test-child',
+      regex: { pattern: '\\d+', flags: 'g' }
+    };
+    const value = getValue($, el, selector);
+    expect('2021').to.deep.equal(value);
+  });
+
   // # GET BLOCKS #
 
-  it('getBlocks Method', () => {
+  it('getBlocks Method - Basic', () => {
     const blockSelector = '.parent';
     const collection = {
       data: {
