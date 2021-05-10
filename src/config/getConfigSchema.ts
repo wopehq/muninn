@@ -1,4 +1,4 @@
-import { Selector, SelectorConfig, ConfigSchema } from '../config/types';
+import { Selector, SelectorConfig, ConfigSchema } from './types';
 
 function getConfigSchema(
   selectorSchema: Selector | SelectorConfig

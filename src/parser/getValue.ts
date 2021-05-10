@@ -1,6 +1,6 @@
 import cheerio = require('cheerio');
 import { SelectorConfig } from '../config';
-import getConfigSchema from '../utils/getConfigSchema';
+import getConfigSchema from '../config/getConfigSchema';
 import getValueWithSchema from './getValueWithSchema';
 import transformValue from './transformValue';
 
