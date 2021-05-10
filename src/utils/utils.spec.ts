@@ -25,4 +25,9 @@ describe('Utils Tests', () => {
     const value = transformValueType('', 'boolean');
     expect(false).to.deep.equal(value);
   });
+
+  it('transformValueType Method - Undefined Type', () => {
+    const value = transformValueType('lorem', '');
+    expect(value).to.deep.equal(value);
+  });
 });
