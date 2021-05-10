@@ -1,4 +1,4 @@
-import { RegexConfig } from '../config';
+import { RegexConfig, CustomConfig } from '../config';
 import transformValueType from './transformValueType';
 import execRegex from './execRegex';
 
@@ -6,7 +6,7 @@ type TransformValueArgs = {
   value?: any;
   trim?: boolean;
   type?: string;
-  custom?: (value: any) => any;
+  custom?: CustomConfig;
   regex?: RegexConfig;
 };
 

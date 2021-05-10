@@ -2,13 +2,15 @@ export type Selector = string | string[];
 
 export type RegexConfig = { pattern: string; flags?: string };
 
+export type CustomConfig = (value: any) => any;
+
 export type SelectorConfig = {
   selector?: Selector;
   html?: boolean;
   attr?: string;
   type?: string;
   trim?: boolean;
-  custom?: (value: any) => any;
+  custom?: CustomConfig;
   rootScope?: boolean;
   regex?: RegexConfig;
   schema?: {
@@ -47,7 +49,7 @@ export type ConfigSchema = {
   params?: string;
   type?: string;
   trim?: boolean;
-  custom?: (value: any) => any;
+  custom?: CustomConfig;
   rootScope?: boolean;
   regex?: RegexConfig;
   schema?: SelectorConfig;
