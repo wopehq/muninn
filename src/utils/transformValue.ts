@@ -1,13 +1,13 @@
 import { RegexConfig } from '../config';
-import transformValueType from '../utils/transformValueType';
-import execRegex from '../utils/execRegex';
+import transformValueType from './transformValueType';
+import execRegex from './execRegex';
 
 type TransformValueArgs = {
   value?: any;
   trim?: boolean;
   type?: string;
   custom?: (value: any) => any;
-  regex: RegexConfig;
+  regex?: RegexConfig;
 };
 
 function transformValue({

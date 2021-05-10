@@ -2,7 +2,7 @@ import cheerio = require('cheerio');
 import { SelectorConfig } from '../config';
 import getConfigSchema from '../config/getConfigSchema';
 import getValueWithSchema from './getValueWithSchema';
-import transformValue from './transformValue';
+import transformValue from '../utils/transformValue';
 
 function getValue(
   $: cheerio.Root,
