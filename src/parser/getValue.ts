@@ -15,6 +15,7 @@ function getValue(
     params,
     regex,
     trim,
+    self,
     rootScope,
     type,
     custom,
@@ -23,10 +24,17 @@ function getValue(
 
   let currentEl;
 
-  if (rootScope) {
-    currentEl = $(selector.join(', ')).first();
+  if (self) {
+    currentEl = $(el);
   } else {
-    currentEl = $(el).first().find(selector.join(', '));
+    if (rootScope) {
+      currentEl = $(selector.join(', '));
+      if (type !== 'array') {
+        currentEl = currentEl.first();
+      }
+    } else {
+      currentEl = $(el).first().find(selector.join(', '));
+    }
   }
 
   if (type === 'array') {

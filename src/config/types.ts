@@ -10,6 +10,7 @@ export type SelectorConfig = {
   attr?: string;
   type?: string;
   trim?: boolean;
+  self?: boolean;
   custom?: CustomConfig;
   rootScope?: boolean;
   regex?: RegexConfig;
@@ -49,6 +50,7 @@ export type ConfigSchema = {
   params?: string;
   type?: string;
   trim?: boolean;
+  self?: boolean;
   custom?: CustomConfig;
   rootScope?: boolean;
   regex?: RegexConfig;

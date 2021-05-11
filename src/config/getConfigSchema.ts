@@ -16,6 +16,7 @@ function getConfigSchema(
     attr,
     trim,
     type,
+    self,
     rootScope,
     custom,
     regex,
@@ -29,6 +30,7 @@ function getConfigSchema(
   return {
     selector: $selector,
     method,
+    self,
     params,
     rootScope,
     regex,
