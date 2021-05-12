@@ -26,8 +26,8 @@ function getConfigSchema(
 
   let $selector;
 
-  if (selector && !Array.isArray(selector)) {
-    $selector = [selector];
+  if (selector) {
+    $selector = Array.isArray(selector) ? selector : [selector];
   } else {
     $selector = null;
   }
