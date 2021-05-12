@@ -43,7 +43,7 @@ const fieldSelectorSchema = {
   dependencies: {
     schema: {
       not: {
-        required: ['html', 'attr', 'trim', 'self', 'regex', 'custom']
+        required: ['html', 'attr', 'trim', 'regex', 'custom']
       }
     },
     html: {
@@ -62,11 +62,6 @@ const fieldSelectorSchema = {
       }
     },
     trim: {
-      not: {
-        required: ['schema']
-      }
-    },
-    self: {
       not: {
         required: ['schema']
       }
