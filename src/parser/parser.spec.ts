@@ -15,6 +15,7 @@ const SAMPLE_HTML = `
   <div class="empty-child"></div>
   <div class="number-content-child">632</div>
   <div class="regex-test-child">Year 2021</div>
+  <div class="regex-template-test-child">https://example.com/ > example > test</div>
   <a class="link" href="https://example.com/">Test Url</a>
 </div>
 `;
@@ -99,6 +100,16 @@ describe('Parser Tests', () => {
     };
     const value = getValue($, el, selector);
     expect('2021').to.deep.equal(value);
+  });
+
+  it('getValue Method - Regex - URL Template', () => {
+    const el = $('.parent');
+    const selector = {
+      selector: '.regex-template-test-child',
+      regex: 'url'
+    };
+    const value = getValue($, el, selector);
+    expect('https://example.com/').to.deep.equal(value);
   });
 
   // # GET BLOCKS #
