@@ -24,7 +24,7 @@ function getValue(
 
   let currentEl;
 
-  if (self) {
+  if (self || !selector) {
     currentEl = $(el);
   } else {
     if (rootScope) {

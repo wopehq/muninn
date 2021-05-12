@@ -23,7 +23,15 @@ function getConfigSchema(
     html,
     schema
   } = $schema;
-  const $selector = Array.isArray(selector) ? selector : [selector];
+
+  let $selector;
+
+  if (selector && !Array.isArray(selector)) {
+    $selector = [selector];
+  } else {
+    $selector = null;
+  }
+
   const method = html ? 'html' : attr ? 'attr' : 'text';
   const params = attr;
 
