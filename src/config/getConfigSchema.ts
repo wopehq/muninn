@@ -1,11 +1,14 @@
 import { Selector, SelectorConfig, ConfigSchema } from './types';
+import parseSelector from './parseSelector';
 
 function getConfigSchema(
   selectorSchema: Selector | SelectorConfig
 ): ConfigSchema {
   let $schema: SelectorConfig;
 
-  if (typeof selectorSchema === 'string' || Array.isArray(selectorSchema)) {
+  if (typeof selectorSchema === 'string') {
+    $schema = parseSelector(selectorSchema);
+  } else if (Array.isArray(selectorSchema)) {
     $schema = { selector: <Selector>selectorSchema };
   } else {
     $schema = <SelectorConfig>selectorSchema;
