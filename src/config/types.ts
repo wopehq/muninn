@@ -1,6 +1,6 @@
 export type Selector = string | string[];
 
-export type RegexConfig = { pattern: string; flags?: string };
+export type RegexConfig = string | { pattern: string; flags?: string };
 
 export type CustomConfig = (value: any) => any;
 
