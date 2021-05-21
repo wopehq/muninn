@@ -10,25 +10,19 @@ const Config = {
       },
       organic: {
         schema: {
-          title: '.LC20lb.DKV0Md',
+          title: '.LC20lb.DKV0Md @ href',
           testRegex: {
             selector: '.LC20lb.DKV0Md',
             regex: { pattern: '\\d+', flags: 'g' },
             type: 'number'
           },
           description: '.IsZvec',
-          translatable: {
-            selector: '.fl.iUh30 span',
-            type: 'boolean'
-          },
+          translatable: '.fl.iUh30 span | number',
           link: {
             selector: '.yuRUbf',
             schema: {
               title: 'a',
-              url: {
-                selector: 'a',
-                attr: 'href'
-              }
+              url: 'a @ href'
             }
           },
           customTest: {
