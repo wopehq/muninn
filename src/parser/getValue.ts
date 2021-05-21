@@ -19,6 +19,7 @@ function getValue(
     rootScope,
     type,
     custom,
+    methods,
     schema
   } = getConfigSchema(selectorConfig);
 
@@ -62,7 +63,7 @@ function getValue(
 
   let value = $(currentEl).first()[method](params);
 
-  value = transformValue({ value, trim, regex, type, custom });
+  value = transformValue({ value, trim, regex, type, custom, methods });
 
   return value;
 }

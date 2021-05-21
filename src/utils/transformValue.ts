@@ -1,12 +1,14 @@
 import { RegexConfig, CustomConfig } from '../config';
 import transformValueType from './transformValueType';
 import execRegex from './execRegex';
+import Methods from '../parser/methods';
 
 type TransformValueArgs = {
   value?: any;
   trim?: boolean;
   type?: string;
   custom?: CustomConfig;
+  methods?: string[];
   regex?: RegexConfig;
 };
 
@@ -15,7 +17,8 @@ function transformValue({
   trim,
   regex,
   type,
-  custom
+  custom,
+  methods
 }: TransformValueArgs): any {
   if (typeof value === 'string' && trim !== false) {
     value = value.trim();
@@ -23,6 +26,12 @@ function transformValue({
 
   if (regex) {
     value = execRegex(value, regex);
+  }
+
+  if (methods?.length > 0) {
+    methods.forEach((name) => {
+      value = Methods[name](value);
+    });
   }
 
   value = transformValueType(value, type);

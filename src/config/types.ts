@@ -12,6 +12,7 @@ export type SelectorConfig = {
   trim?: boolean;
   self?: boolean;
   custom?: CustomConfig;
+  methods?: string[];
   rootScope?: boolean;
   regex?: RegexConfig;
   schema?: {
@@ -52,6 +53,7 @@ export type ConfigSchema = {
   trim?: boolean;
   self?: boolean;
   custom?: CustomConfig;
+  methods?: string[];
   rootScope?: boolean;
   regex?: RegexConfig;
   schema?: SelectorConfig;
