@@ -9,6 +9,7 @@ type SelectorConfig = {
   attr?: string;
   type?: string;
   trim?: boolean;
+  custom?: Function;
   rootScope?: boolean;
   regex?: RegexConfig;
   schema?: {
@@ -36,7 +37,7 @@ type SelectorConfig = {
 
 ---
 
-#### Shorthand
+#### Shortcut
 
 ```json
 {
@@ -54,6 +55,12 @@ type SelectorConfig = {
 ```json
 {
     "childContent": [".nonexistent", ".second-child"]
+}
+
+// or
+
+{
+    "childContent": ".nonexistent, .second-child"
 }
 
 // Output
@@ -109,7 +116,14 @@ type SelectorConfig = {
         "selector": ".empty-child",
         "type": "boolean"
     },
+}
 
+// or with shortcut syntax
+
+{
+    "number": ".number-content-child | number",
+    "testBoolean": ".full-child | boolean",
+    "testBoolean2": ".empty-child | boolean"
 }
 
 // Output
@@ -145,6 +159,12 @@ type SelectorConfig = {
         "selector": "a.link",
         "attr": "href"
     }
+}
+
+// or with shortcut syntax
+
+{
+    "url": "a.link @ href"
 }
 
 // Output
