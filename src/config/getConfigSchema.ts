@@ -1,5 +1,6 @@
 import { Selector, SelectorConfig, ConfigSchema } from './types';
 import parseSelector from './parseSelector';
+import deepParseSelector from './deepParseSelector';
 
 function getConfigSchema(
   selectorSchema: Selector | SelectorConfig
@@ -10,8 +11,10 @@ function getConfigSchema(
     $schema = parseSelector(selectorSchema);
   } else if (Array.isArray(selectorSchema)) {
     $schema = { selector: <Selector>selectorSchema };
+  } else if (typeof selectorSchema === 'object') {
+    $schema = deepParseSelector(selectorSchema);
   } else {
-    $schema = <SelectorConfig>selectorSchema;
+    $schema = selectorSchema;
   }
 
   const {
