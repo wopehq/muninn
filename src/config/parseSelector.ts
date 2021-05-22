@@ -17,8 +17,8 @@ const parseSelector = (selector: string) => {
     [$selector, attr] = $selector.split('@').map((key) => key.trim());
   }
 
-  newSelector.selector = $selector;
-  newSelector.attr = attr;
+  if ($selector) newSelector.selector = $selector;
+  if (attr) newSelector.attr = attr;
 
   if (pipelines?.length) {
     newSelector.methods = pipelines.map((pipe) => pipe.trim());

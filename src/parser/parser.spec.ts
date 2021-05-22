@@ -79,11 +79,30 @@ describe('Parser Tests', () => {
     expect(false).to.deep.equal(value);
   });
 
+  it('getValue Method - Value Type: Shortcut Syntax', () => {
+    const el = $('.parent');
+    const selector = '.empty-child | boolean';
+    const value = getValue($, el, selector);
+    expect(false).to.deep.equal(value);
+  });
+
   it('getValue Method - Custom', () => {
     const el = $('.parent');
     const selector = {
       selector: 'a.link',
       attr: 'href',
+      custom: function (value) {
+        return 'Link: ' + value;
+      }
+    };
+    const value = getValue($, el, selector);
+    expect('Link: https://example.com/').to.deep.equal(value);
+  });
+
+  it('getValue Method - Custom Shortcut Syntax', () => {
+    const el = $('.parent');
+    const selector = {
+      selector: 'a.link @ href',
       custom: function (value) {
         return 'Link: ' + value;
       }
