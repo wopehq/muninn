@@ -14,7 +14,7 @@ const parseSelector = (selector: string) => {
   }
 
   if ($selector?.includes('@')) {
-    [$selector, attr] = selector.split('@').map((key) => key.trim());
+    [$selector, attr] = $selector.split('@').map((key) => key.trim());
   }
 
   newSelector.selector = $selector;
