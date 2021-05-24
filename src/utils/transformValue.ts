@@ -30,7 +30,9 @@ function transformValue({
 
   if (methods?.length > 0) {
     methods.forEach((name) => {
-      value = Methods[name](value);
+      if (Methods[name]) {
+        value = Methods[name](value);
+      }
     });
   }
 

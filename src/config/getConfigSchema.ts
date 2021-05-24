@@ -39,7 +39,8 @@ function getConfigSchema(
     $selector = null;
   }
 
-  const method = html ? 'html' : attr ? 'attr' : 'text';
+  const isHTML = html || methods?.includes('html');
+  const method = isHTML ? 'html' : attr ? 'attr' : 'text';
   const params = attr;
 
   return {

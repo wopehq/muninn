@@ -10,7 +10,7 @@ const Config = {
       },
       organic: {
         schema: {
-          title: '.LC20lb.DKV0Md @ href',
+          title: 'div | html',
           translatable: '.fl.iUh30 span | boolean'
         },
         detect: {
