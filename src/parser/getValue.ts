@@ -61,7 +61,7 @@ function getValue(
     return getValueWithSchema($, currentEl, schema);
   }
 
-  let value = $(currentEl).first()[method](params);
+  let value = $(currentEl).first()?.[method]?.(params) || null;
 
   value = transformValue({ value, trim, regex, type, custom, methods });
 
