@@ -1,6 +1,6 @@
-import { Config, validateConfig } from './config';
+import { SchemaConfig, validateConfig } from './config';
 import { parse } from './parser';
 
-export { Config, validateConfig, parse };
+export { SchemaConfig, validateConfig, parse };
 
 export default parse;

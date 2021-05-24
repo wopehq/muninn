@@ -1,3 +1,5 @@
+import * as cheerio from 'cheerio';
+
 export type Selector = string | string[];
 
 export type RegexConfig = string | { pattern: string; flags?: string };
@@ -15,34 +17,19 @@ export type SelectorConfig = {
   methods?: string[];
   rootScope?: boolean;
   regex?: RegexConfig;
-  schema?: {
-    [key: string]: SelectorConfig;
-  };
+  schema?: Schema;
 };
 
-export type CollectionItem = {
-  schema: {
-    [key: string]: SelectorConfig;
-  };
-  detect?: {
-    hasClassName?: string;
-    withInnerSelector?: string;
-  };
+export type SchemaConfig = {
+  [configName: string]: ConfigItem;
 };
+
+export type Schema = (el: cheerio.Cheerio) => SchemaConfig | SchemaConfig;
 
 export type ConfigItem = {
-  blocksSelector?: Selector;
-  collection?: {
-    [name: string]: CollectionItem;
-  };
   selector?: Selector;
-  schema?: {
-    [key: string]: SelectorConfig;
-  };
-};
-
-export type Config = {
-  [configName: string]: ConfigItem;
+  type?: string;
+  schema?: Schema;
 };
 
 export type ConfigSchema = {
@@ -56,5 +43,5 @@ export type ConfigSchema = {
   methods?: string[];
   rootScope?: boolean;
   regex?: RegexConfig;
-  schema?: SelectorConfig;
+  schema?: Schema;
 };

@@ -6,8 +6,6 @@ import regexConfigSchema from './regexConfigSchema';
 import configFileSchema from './configFileSchema';
 import selectorSchema from './selectorSchema';
 import fieldSelectorSchema from './fieldSelectorSchema';
-import collectionItemSchema from './collectionItemSchema';
-import configBlockSchema from './configBlockSchema';
 import configDefaultSchema from './configDefaultSchema';
 const CLASSES = { Function: Function };
 const ajv = new Ajv();
@@ -29,8 +27,6 @@ ajv.addSchema([
   configFileSchema,
   selectorSchema,
   fieldSelectorSchema,
-  collectionItemSchema,
-  configBlockSchema,
   configDefaultSchema
 ]);
 

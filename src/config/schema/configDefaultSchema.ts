@@ -5,14 +5,22 @@ const configDefaultSchema = {
     selector: {
       $ref: 'muninn.selectorSchema'
     },
+    type: {
+      type: 'string'
+    },
     schema: {
-      type: 'object',
-      additionalProperties: {
-        $ref: 'muninn.fieldSelectorSchema'
-      }
+      oneOf: [
+        { instanceof: 'Function' },
+        {
+          type: 'object',
+          additionalProperties: {
+            $ref: 'muninn.fieldSelectorSchema'
+          }
+        }
+      ]
     }
   },
-  required: ['schema'],
+  required: ['selector', 'schema'],
   additionalProperties: false
 };
 

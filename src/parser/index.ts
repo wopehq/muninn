@@ -1,47 +1,46 @@
 import * as cheerio from 'cheerio';
-import { Config, ConfigItem } from '../config';
-import getBlocks from './getBlocks';
-import getValue from './getValue';
+import { SchemaConfig, ConfigItem } from '../config';
+import getValueWithSchema from './getValueWithSchema';
 
 type ResultObject = { [key: string]: any };
-
-let untypeds = [];
 
 function collect(
   config: ConfigItem,
   data: string | Buffer
 ): Record<string, unknown>[] | ResultObject {
-  const { collection, blocksSelector, selector, schema } = config;
+  const { selector, schema } = config;
   const $ = cheerio.load(data);
 
-  if (blocksSelector) {
-    const [results, _untypeds] = getBlocks($, blocksSelector, collection);
-    untypeds = _untypeds;
-
-    return results;
-  }
-
   if (selector && schema) {
-    const result = {};
     const el = $(selector);
 
-    Object.keys(schema).forEach((key) => {
-      result[key] = getValue($, el, schema[key]);
-    });
+    if (config.type === 'array') {
+      const values = [];
 
-    return result;
+      el.each((index, cel) => {
+        let currentSchema: SchemaConfig;
+        if (typeof schema === 'function') {
+          currentSchema = schema($(cel));
+        } else {
+          currentSchema = schema;
+        }
+        values.push(getValueWithSchema($, cel, currentSchema));
+      });
+
+      return values;
+    }
+
+    return getValueWithSchema($, el, schema);
   }
 
   return null;
 }
 
 export function parse(
-  config: Config,
+  config: ConfigItem,
   data: string | Buffer
 ): Record<string, unknown> {
-  const results = {
-    __untyped: untypeds
-  };
+  const results = {};
 
   Object.keys(config).forEach((key) => {
     results[key] = collect(config[key], data);

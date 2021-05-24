@@ -14,7 +14,7 @@ async function main() {
 
   console.time('parser');
   const results = parse(config, data);
-  console.log(results);
+  console.log(JSON.stringify(results, null, 2));
   console.timeEnd('parser');
 }
 

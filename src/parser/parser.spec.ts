@@ -4,7 +4,6 @@ import 'mocha';
 import * as cheerio from 'cheerio';
 
 import getValue from './getValue';
-import getBlocks from './getBlocks';
 
 const SAMPLE_HTML = `
 <div class="parent">
@@ -129,46 +128,5 @@ describe('Parser Tests', () => {
     };
     const value = getValue($, el, selector);
     expect('https://example.com/').to.deep.equal(value);
-  });
-
-  // # GET BLOCKS #
-
-  it('getBlocks Method - Basic', () => {
-    const blockSelector = '.parent';
-    const collection = {
-      data: {
-        schema: {
-          firstChild: '.first-child'
-        }
-      }
-    };
-    const [result, untypeds] = getBlocks($, blockSelector, collection);
-    expect([]).to.deep.equal(untypeds);
-    expect([
-      {
-        firstChild: 'First Child',
-        order: 1,
-        typeOrder: 1,
-        type: 'data'
-      },
-      {
-        firstChild: 'First Child',
-        order: 2,
-        typeOrder: 2,
-        type: 'data'
-      },
-      {
-        firstChild: 'First Child',
-        order: 3,
-        typeOrder: 3,
-        type: 'data'
-      },
-      {
-        firstChild: 'First Child',
-        order: 4,
-        typeOrder: 4,
-        type: 'data'
-      }
-    ]).to.deep.equal(result);
   });
 });

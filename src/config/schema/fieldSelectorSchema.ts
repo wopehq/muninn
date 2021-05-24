@@ -33,13 +33,18 @@ const fieldSelectorSchema = {
       type: 'boolean'
     },
     schema: {
-      type: 'object',
-      additionalProperties: {
-        oneOf: [
-          { $ref: 'muninn.fieldSelectorSchema' },
-          { $ref: 'muninn.selectorSchema' }
-        ]
-      }
+      oneOf: [
+        { instanceof: 'Function' },
+        {
+          type: 'object',
+          additionalProperties: {
+            oneOf: [
+              { $ref: 'muninn.fieldSelectorSchema' },
+              { $ref: 'muninn.selectorSchema' }
+            ]
+          }
+        }
+      ]
     }
   },
   required: [],
