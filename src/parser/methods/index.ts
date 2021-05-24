@@ -1,11 +1,13 @@
 import toFloat from './float';
 import toNumber from './number';
 import toBoolean from './boolean';
-import toTrim from './trim';
+import trim from './trim';
+import url from './url';
 
 export default {
   float: toFloat,
   number: toNumber,
   boolean: toBoolean,
-  trim: toTrim
+  trim,
+  url
 };
