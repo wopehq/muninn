@@ -21,7 +21,6 @@ function getConfigSchema(
     selector,
     attr,
     trim,
-    type,
     self,
     rootScope,
     custom,
@@ -30,6 +29,8 @@ function getConfigSchema(
     html,
     schema
   } = $schema;
+
+  const type = methods?.includes('array') ? 'array' : $schema.type;
 
   let $selector;
 
