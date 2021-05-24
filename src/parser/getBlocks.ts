@@ -21,7 +21,9 @@ function getBlocks($: cheerio.Root, blocksSelector: Selector, collection) {
 
         if (detect?.withInnerSelector) {
           typeCheck = $(el).find(detect?.withInnerSelector).length > 0;
-        } else if (detect?.hasClassName) {
+        }
+
+        if (detect?.hasClassName) {
           typeCheck = $(el).hasClass(detect?.hasClassName);
         }
 
