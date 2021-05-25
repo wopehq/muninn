@@ -20,9 +20,6 @@ const fieldSelectorSchema = {
     trim: {
       type: 'boolean'
     },
-    self: {
-      type: 'boolean'
-    },
     custom: {
       instanceof: 'Function'
     },

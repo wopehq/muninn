@@ -15,7 +15,6 @@ function getValue(
     params,
     regex,
     trim,
-    self,
     rootScope,
     type,
     custom,
@@ -25,7 +24,7 @@ function getValue(
 
   let currentEl;
 
-  if (self || !selector) {
+  if (!selector) {
     currentEl = $(el);
   } else {
     if (rootScope) {

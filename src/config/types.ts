@@ -12,7 +12,6 @@ export type SelectorConfig = {
   attr?: string;
   type?: string;
   trim?: boolean;
-  self?: boolean;
   custom?: CustomConfig;
   methods?: string[];
   rootScope?: boolean;
@@ -38,7 +37,6 @@ export type ConfigSchema = {
   params?: string;
   type?: string;
   trim?: boolean;
-  self?: boolean;
   custom?: CustomConfig;
   methods?: string[];
   rootScope?: boolean;
