@@ -11,6 +11,7 @@ const parseSelector = (selector: string) => {
 
   if (selector?.includes('|')) {
     [$selector, ...pipelines] = selector.split('|').map((key) => key.trim());
+    pipelines?.map((p) => p.trim());
   }
 
   if ($selector?.includes('@')) {
@@ -19,10 +20,7 @@ const parseSelector = (selector: string) => {
 
   if ($selector) newSelector.selector = $selector;
   if (attr) newSelector.attr = attr;
-
-  if (pipelines?.length) {
-    newSelector.methods = pipelines.map((pipe) => pipe.trim());
-  }
+  if (pipelines?.length) newSelector.methods = pipelines;
 
   return newSelector;
 };
