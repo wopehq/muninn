@@ -11,9 +11,14 @@ async function main() {
   const errors = validateConfig(config);
 
   console.log('errors', errors);
-
   console.time('parser');
-  const results = parse(config, data);
+
+  const results = {};
+
+  Object.keys(config).forEach((key) => {
+    results[key] = parse(config[key], data);
+  });
+
   console.log(JSON.stringify(results, null, 2));
   console.timeEnd('parser');
 }
