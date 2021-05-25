@@ -4,7 +4,7 @@ import getValueWithSchema from './getValueWithSchema';
 
 type ResultObject = { [key: string]: any };
 
-function collect(
+export function parse(
   config: ConfigItem,
   data: string | Buffer
 ): Record<string, unknown>[] | ResultObject {
@@ -34,17 +34,4 @@ function collect(
   }
 
   return null;
-}
-
-export function parse(
-  config: ConfigItem,
-  data: string | Buffer
-): Record<string, unknown> {
-  const results = {};
-
-  Object.keys(config).forEach((key) => {
-    results[key] = collect(config[key], data);
-  });
-
-  return results;
 }
