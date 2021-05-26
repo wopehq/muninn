@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc",
+    "coverage": "jest --collect-coverage",
     "sample": "node sample/",
     "test": "mocha -r ts-node/register src/**/*.spec.ts  src/**/**/*.spec.ts",
     "lint": "eslint . --ext .ts",
