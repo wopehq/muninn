@@ -1,6 +1,22 @@
+import { Root, Cheerio } from 'cheerio';
 import parseSelector from './getSelector';
 
-function getConfig(config) {
+type ValueArgs = {
+  $?: Root;
+  el?: Cheerio | string;
+};
+
+function getConfig({ $, el }: ValueArgs, config) {
+  if (!config) return null;
+
+  if (typeof config === 'function') {
+    let element = null;
+    if ($ && el) {
+      element = $(el);
+    }
+    config = config(element);
+  }
+
   if (typeof config?.selector === 'string' || Array.isArray(config?.selector)) {
     config = { ...config, ...parseSelector(config.selector) };
   } else {
