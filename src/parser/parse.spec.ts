@@ -50,7 +50,7 @@ describe('parse Tests', () => {
     expect(['Unblock', 'Unblock']).to.deep.equal(value);
   });
 
-  it('Case 2:  { selector, array*, schema }', () => {
+  it('Case 3:  { selector, array*, schema }', () => {
     const data = SAMPLE_HTML;
     const config = {
       selector: '.blocks @ href',
