@@ -6,6 +6,8 @@ type ElementArgs = {
 };
 
 function getElement({ $, el }: ElementArgs, config) {
+  if (!config) return el;
+
   const { selector, rootScope, type } = config;
   let element;
 
