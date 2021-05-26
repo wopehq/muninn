@@ -1,7 +1,6 @@
-import { REGEXES } from '../constant';
-import { RegexConfig } from '../config/types';
+import REGEXES from './constant';
 
-function execRegex(value: string, regex: RegexConfig): string {
+function execRegex(value: string, regex): string {
   let $regex;
   if (typeof regex === 'string') {
     if (REGEXES[regex]) {

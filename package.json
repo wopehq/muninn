@@ -7,7 +7,7 @@
     "start": "ts-node src/index.ts",
     "build": "tsc",
     "sample": "node sample/",
-    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts  src/**/**/*.spec.ts",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
@@ -16,7 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "ajv": "^8.1.0",
-    "cheerio": "^1.0.0-rc.6"
+    "cheerio": "1.0.0-rc.6",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/mocha": "^8.2.2",

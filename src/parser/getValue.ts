@@ -1,70 +1,67 @@
-import cheerio = require('cheerio');
-import { Selector, SelectorConfig } from '../config';
-import getConfigSchema from '../config/getConfigSchema';
-import getValueWithSchema from './getValueWithSchema';
-import transformValue from '../utils/transformValue';
+import { Root, Cheerio } from 'cheerio';
 
-function getValue(
-  $: cheerio.Root,
-  el: any,
-  selectorConfig: Selector | SelectorConfig
-): any {
-  const {
-    selector,
-    method,
-    params,
-    regex,
-    trim,
-    rootScope,
-    type,
-    custom,
-    methods,
-    schema
-  } = getConfigSchema(selectorConfig);
+import getConfig from '../config/getConfig';
+import getElement from './getElement';
+import transformValue from './transformValue';
 
-  let currentEl;
+type ValueArgs = {
+  $: Root;
+  el?: Cheerio | string;
+};
 
-  if (!selector) {
-    currentEl = $(el);
-  } else {
-    if (rootScope) {
-      currentEl = $(selector.join(', '));
-      if (type !== 'array') {
-        currentEl = currentEl.first();
-      }
-    } else {
-      currentEl = $(el).first().find(selector.join(', '));
-    }
-  }
+function getArrayValue({ $, el: element }: ValueArgs, config) {
+  const values = [];
 
-  if (type === 'array') {
-    const values = [];
+  $(element).each((index, el) => {
+    const { selector, type, ...rest } = config;
+    const value = getValue({ $, el: $(el) }, rest);
+    values.push(value);
+  });
 
-    currentEl.each((index, el) => {
-      const value = schema
-        ? getValueWithSchema($, el, schema)
-        : transformValue({
-            value: $(el)[method](params),
-            trim,
-            regex,
-            type
-          });
+  return values;
+}
 
-      values.push(value);
-    });
+function getSchemaValue({ $, el }: ValueArgs, config) {
+  const value = Object.keys(config).reduce((values, key) => {
+    const currentRawConfig = getConfig(config[key]);
+    values[key] = getValue({ $, el }, currentRawConfig);
 
     return values;
-  }
-
-  if (schema) {
-    return getValueWithSchema($, currentEl, schema);
-  }
-
-  let value = $(currentEl).first()?.[method]?.(params) || null;
-
-  value = transformValue({ value, trim, regex, type, custom, methods });
+  }, {});
 
   return value;
+}
+
+function getSimpleValue({ $, el }: ValueArgs, config) {
+  const { html, attr } = config;
+  const element = $(el);
+
+  let value;
+
+  if (html) {
+    value = element.html();
+  } else if (attr) {
+    value = element.attr(attr);
+  } else {
+    value = element.text();
+  }
+
+  return transformValue(value, config);
+}
+
+function getValue({ $, el }: ValueArgs, rawConfig) {
+  const config = getConfig(rawConfig);
+  const element = getElement({ $, el }, config);
+  const { type, selector, ...rest } = config;
+  const { schema } = rest;
+
+  if (type === 'array') {
+    return getArrayValue({ $, el: element }, rest);
+  } else if (schema) {
+    return getSchemaValue({ $, el: element }, schema);
+  } else {
+    return getSimpleValue({ $, el: element }, rest);
+  }
 }
 
 export default getValue;

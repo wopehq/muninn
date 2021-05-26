@@ -1,4 +1,4 @@
-import execRegex from '../../utils/execRegex';
+import execRegex from '../regex/execRegex';
 
 export default (val: any): string => {
   return execRegex(val, 'url');
