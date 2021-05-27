@@ -193,4 +193,33 @@ describe('getValue Tests', () => {
     const value = getValue({ $ }, config);
     expect('link not found').to.deep.equal(value);
   });
+
+  it('Case 13: { selector, fill }', () => {
+    const config = {
+      selector: 'a.href',
+      fill: 'link censored'
+    };
+    const value = getValue({ $ }, config);
+    expect('link censored').to.deep.equal(value);
+  });
+
+  it('Case 13: { selector, fill }', () => {
+    const config = {
+      selector: '.parent',
+      type: 'array',
+      schema: {
+        link: {
+          selector: 'a.link',
+          fill: 'link censored'
+        }
+      }
+    };
+    const value = getValue({ $ }, config);
+    expect([
+      { link: 'link censored' },
+      { link: 'link censored' },
+      { link: 'link censored' },
+      { link: 'link censored' }
+    ]).to.deep.equal(value);
+  });
 });

@@ -3,8 +3,12 @@ import { ElementPassArg } from './types';
 import transformValue from './transformValue';
 
 function getSimpleValue({ $, el }: ElementPassArg, config) {
-  const { html, attr, initial } = config;
+  const { html, attr, initial, fill } = config;
   const element = $(el);
+
+  if (fill) {
+    return fill;
+  }
 
   let value;
 

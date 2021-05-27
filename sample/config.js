@@ -3,6 +3,7 @@ const Config = {
   type: 'array',
   schema: {
     title: '.c4Djg',
+    type: { fill: 'result' },
     link: {
       schema: {
         url: '.d5oMvf > a @ href',
