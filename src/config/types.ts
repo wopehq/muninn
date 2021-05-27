@@ -12,6 +12,7 @@ export type SelectorConfig = {
   type?: string;
   trim?: boolean;
   custom?: CustomConfig;
+  initial?: any;
   methods?: string[];
   rootScope?: boolean;
   regex?: RegexConfig;

@@ -184,4 +184,13 @@ describe('getValue Tests', () => {
       { link: 'Link: https://example.com/' }
     ]).to.deep.equal(value);
   });
+
+  it('Case 12: { selector, initial }', () => {
+    const config = {
+      selector: 'b.href',
+      initial: 'link not found'
+    };
+    const value = getValue({ $ }, config);
+    expect('link not found').to.deep.equal(value);
+  });
 });

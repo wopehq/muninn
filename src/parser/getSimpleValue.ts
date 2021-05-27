@@ -3,7 +3,7 @@ import { ElementPassArg } from './types';
 import transformValue from './transformValue';
 
 function getSimpleValue({ $, el }: ElementPassArg, config) {
-  const { html, attr } = config;
+  const { html, attr, initial } = config;
   const element = $(el);
 
   let value;
@@ -14,6 +14,10 @@ function getSimpleValue({ $, el }: ElementPassArg, config) {
     value = element.attr(attr);
   } else {
     value = element.text();
+  }
+
+  if (initial && !value) {
+    value = initial;
   }
 
   return transformValue(value, config);
