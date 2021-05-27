@@ -1,8 +1,8 @@
-import * as cheerio from 'cheerio';
+import { load } from 'cheerio';
 import getValue from './getValue';
 
 function parse(data, config) {
-  const $ = cheerio.load(data);
+  const $ = load(data);
 
   return getValue({ $ }, config);
 }

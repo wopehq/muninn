@@ -1,13 +1,8 @@
-import { Root, Cheerio } from 'cheerio';
+import { ElementPassArg } from './types';
 
 import getValue from './getValue';
 
-type ValueArgs = {
-  $: Root;
-  el?: Cheerio | string;
-};
-
-function getArrayValue({ $, el: element }: ValueArgs, config) {
+function getArrayValue({ $, el: element }: ElementPassArg, config) {
   const values = [];
 
   $(element).each((index, el) => {

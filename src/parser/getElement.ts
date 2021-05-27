@@ -1,11 +1,6 @@
-import { Root, Cheerio } from 'cheerio';
+import { ElementPassArg } from './types';
 
-type ElementArgs = {
-  $: Root;
-  el?: Cheerio | string;
-};
-
-function getElement({ $, el }: ElementArgs, config) {
+function getElement({ $, el }: ElementPassArg, config) {
   if (!config) return el;
 
   const { selector, rootScope, type } = config;

@@ -1,13 +1,8 @@
-import { Root, Cheerio } from 'cheerio';
+import { ElementPassArg } from './types';
 
 import transformValue from './transformValue';
 
-type ValueArgs = {
-  $: Root;
-  el?: Cheerio | string;
-};
-
-function getSimpleValue({ $, el }: ValueArgs, config) {
+function getSimpleValue({ $, el }: ElementPassArg, config) {
   const { html, attr } = config;
   const element = $(el);
 

@@ -1,12 +1,7 @@
-import { Root, Cheerio } from 'cheerio';
 import parseSelector from './getSelector';
+import { ElementPassArg } from '../parser/types';
 
-type ValueArgs = {
-  $?: Root;
-  el?: Cheerio | string;
-};
-
-function getConfig({ $, el }: ValueArgs, config) {
+function getConfig({ $, el }: ElementPassArg, config) {
   if (!config) return null;
 
   if (typeof config === 'function') {
