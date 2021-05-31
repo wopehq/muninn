@@ -1,16 +1,17 @@
-const Config = {
-  selector: '.uEierd',
-  type: 'array',
+module.exports = {
   schema: {
-    title: '.c4Djg',
-    type: { fill: 'result' },
-    link: {
+    title: '#productTitle',
+    price: '#priceblock_ourprice',
+    rating: {
+      selector: '#acrPopover span',
+      regex: { pattern: '\\d+\\.?\\d?', flag: 'gim' }
+    },
+    features: {
+      selector: '#productOverview_feature_div .a-spacing-small | array',
       schema: {
-        url: '.d5oMvf > a @ href',
-        name: '.qzEoUe'
+        name: 'td:nth-child(1)',
+        value: 'td:nth-child(2)'
       }
     }
   }
 };
-
-module.exports = Config;
