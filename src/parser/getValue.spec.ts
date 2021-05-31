@@ -222,4 +222,24 @@ describe('getValue Tests', () => {
       { link: 'link censored' }
     ]).to.deep.equal(value);
   });
+
+  it('Case 14: { selector, regex }', () => {
+    const el = $('.parent');
+    const selector = {
+      selector: '.regex-test-child',
+      regex: { pattern: '\\d+', flags: 'g' }
+    };
+    const value = getValue({ $, el }, selector);
+    expect('2021').to.deep.equal(value);
+  });
+
+  it('Case 15: { selector, regex/url }', () => {
+    const el = $('.parent');
+    const selector = {
+      selector: '.regex-template-test-child',
+      regex: 'url'
+    };
+    const value = getValue({ $, el }, selector);
+    expect('https://example.com/').to.deep.equal(value);
+  });
 });

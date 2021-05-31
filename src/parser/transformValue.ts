@@ -1,4 +1,5 @@
 import Methods from './methods';
+import execRegex from './regex/execRegex';
 
 function transformValue(value, config) {
   const { trim, regex, type, custom } = config;
@@ -8,8 +9,9 @@ function transformValue(value, config) {
     value = value.trim();
   }
 
-  // TODO - Regex
-  // -
+  if (regex) {
+    value = execRegex(value, regex);
+  }
 
   if (Array.isArray(methods)) {
     methods.push(type);
