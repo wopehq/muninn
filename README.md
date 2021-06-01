@@ -28,7 +28,7 @@ const config = {
       regex: { pattern: '\\d+\\.?\\d?', flag: 'gim' }
     },
     features: {
-      selector: '#productOverview_feature_div .a-spacing-small | array',
+      selector: '#productOverview_feature_div tr.a-spacing-small | array',
       schema: {
         name: 'td:nth-child(1)',
         value: 'td:nth-child(2)'
@@ -54,10 +54,6 @@ const result = parse(data, config);
   "price": "$308.99",
   "rating": "4.9",
   "features": [
-    {
-      "name": "Brand",
-      "value": "AMD"
-    },
     {
       "name": "Brand",
       "value": "AMD"
