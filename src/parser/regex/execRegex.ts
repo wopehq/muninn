@@ -2,7 +2,8 @@ import REGEXES from './constant';
 
 function execRegex(value: string, regex): string {
   let $regex;
-  if (typeof regex === 'string') {
+  const isPreDefinedRegex = typeof regex === 'string';
+  if (isPreDefinedRegex) {
     if (REGEXES[regex]) {
       $regex = REGEXES[regex];
     }
@@ -11,7 +12,9 @@ function execRegex(value: string, regex): string {
     $regex = new RegExp(pattern, flags);
   }
   const result = $regex.exec(value);
-  const newValue = result?.[0] || value;
+  const newValue = isPreDefinedRegex
+    ? result?.[0]
+    : result?.[1] || result?.[0] || value;
 
   return newValue;
 }
