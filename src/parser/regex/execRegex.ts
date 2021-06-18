@@ -7,9 +7,12 @@ function execRegex(value: string, regex): string {
     if (REGEXES[regex]) {
       $regex = REGEXES[regex];
     }
-  } else {
+  } else if(regex.pattern) {
     const { pattern, flags } = regex;
     $regex = new RegExp(pattern, flags);
+
+  }else{
+    $regex = regex
   }
   const result = $regex.exec(value);
   const newValue = isPreDefinedRegex
