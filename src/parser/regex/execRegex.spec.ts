@@ -22,7 +22,7 @@ describe('execRegex Tests', () => {
     expect('26').to.deep.equal(result);
   });
   it('Case 4: Define it as a regex object', () => {
-    const value = 'omer 1907';
+    const value = 'test 27';
     const result = execRegex(value, /\d+/g);
     expect('1907').to.deep.equal(result);
   });

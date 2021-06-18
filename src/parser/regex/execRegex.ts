@@ -11,7 +11,7 @@ function execRegex(value: string, regex): string {
     const { pattern, flags } = regex;
     $regex = new RegExp(pattern, flags);
 
-  }else{
+  }else {
     $regex = regex
   }
   const result = $regex.exec(value);
