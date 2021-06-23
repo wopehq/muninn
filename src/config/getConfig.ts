@@ -22,9 +22,11 @@ function getConfig({ $, el }: ElementPassArg, config) {
 
   const type = methods?.includes('array') ? 'array' : config.type;
   const html = methods?.includes('html') ? true : config.html;
+  const exist = methods?.includes('exist') ? true : config.exist;
 
   if (type) config.type = type;
   if (html) config.html = html;
+  if (exist) config.exist = exist;
 
   return config;
 }

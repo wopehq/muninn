@@ -88,4 +88,14 @@ describe('getConfig Tests', () => {
       methods: ['html']
     }).to.deep.equal(value);
   });
+
+  it('Case 11: object config: () => ({ selector | exist })', () => {
+    const config = { selector: 'a.link | exist' };
+    const value = getConfig({}, config);
+    expect({
+      selector: 'a.link',
+      exist: true,
+      methods: ['exist']
+    }).to.deep.equal(value);
+  });
 });

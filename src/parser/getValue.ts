@@ -9,8 +9,12 @@ import getArrayValue from './getArrayValue';
 function getValue({ $, el }: ElementPassArg, rawConfig) {
   const config = getConfig({ $, el }, rawConfig);
   const element = getElement({ $, el }, config);
-  const { type, selector, condition, ...rest } = config;
+  const { type, selector, condition, exist, ...rest } = config;
   const { schema } = rest;
+
+  if (exist) {
+    return !!$(el).length;
+  }
 
   if (condition && !condition($(el))) {
     return null;
