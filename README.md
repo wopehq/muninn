@@ -1,6 +1,6 @@
 # muninn
 
-Muninn is an HTML parsing tool. It is fast. It allows you to create an adjustable configuration file. This makes it easy to keep parser settings up to date despite changing selectors. It takes very little time to learn thanks to the easy syntax. It uses the [cheerio](https://github.com/cheeriojs/cheerio) library for parsing. It is simple and flexible for various needs.
+Muninn is an HTML parsing tool. It is fast. It allows you to create a configuration file. This makes it easy to keep parser settings up to date despite changing selectors. It takes very little time to learn thanks to the easy syntax. It uses the [cheerio](https://github.com/cheeriojs/cheerio) library for parsing. It is simple and flexible for various needs.
 
 It also has a useful extension that visualizes your configuration files on the pages you will parse. See [Muninn Extension](https://github.com/aykutkardas/muninn-extension)
 
