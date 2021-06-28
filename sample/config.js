@@ -3,7 +3,7 @@ module.exports = {
     title: '#productTitle',
     price: '#priceblock_ourprice',
     rating: {
-      selector: '#acrPopover span',
+      selector: '#acrPopover span | float',
       regex: { pattern: '\\d+\\.?\\d?', flag: 'gim' }
     },
     features: {
