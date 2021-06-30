@@ -242,4 +242,18 @@ describe('getValue Tests', () => {
     const value = getValue({ $, el }, selector);
     expect('https://example.com/').to.deep.equal(value);
   });
+
+  it('Case 16: { selector, exist }', () => {
+    const el = $('.parent');
+    const selector = '.empty-child | exist';
+    const value = getValue({ $, el }, selector);
+    expect(true).to.deep.equal(value);
+  });
+
+  it('Case 17: { selector, non-exist }', () => {
+    const el = $('.parent');
+    const selector = '.non-exist-child | exist';
+    const value = getValue({ $, el }, selector);
+    expect(false).to.deep.equal(value);
+  });
 });

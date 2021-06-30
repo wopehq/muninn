@@ -13,7 +13,7 @@ function getValue({ $, el }: ElementPassArg, rawConfig) {
   const { schema } = rest;
 
   if (exist) {
-    return !!$(el).length;
+    return $(selector).length > 0;
   }
 
   if (condition && !condition($(el))) {
