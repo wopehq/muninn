@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
+import getConfig from '../config/getConfig';
 
 import transformValue from './transformValue';
 
@@ -33,9 +34,16 @@ describe('transformValue Tests', () => {
   });
 
   it('Case 5: trim', () => {
-    const config = { methods: ['trim'] };
+    const config = getConfig({}, { methods: ['trim'] });
     const value = ' content ';
     const result = transformValue(value, config);
     expect('content').to.deep.equal(result);
+  });
+
+  it('Case 5: non-trim', () => {
+    const config = getConfig({}, { methods: ['non-trim'] });
+    const value = ' content ';
+    const result = transformValue(value, config);
+    expect(' content ').to.deep.equal(result);
   });
 });
