@@ -1,7 +1,7 @@
 {
   "name": "muninn",
   "version": "0.2.10",
-  "description": "",
+  "description": "It parses the html and collects the requested data as desired.",
   "main": "build/index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
@@ -12,7 +12,13 @@
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
-  "keywords": [],
+  "keywords": [
+    "htmlparser",
+    "selector",
+    "scraper",
+    "parser",
+    "html"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
