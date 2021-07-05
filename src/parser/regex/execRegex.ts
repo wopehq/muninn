@@ -1,22 +1,21 @@
 import REGEXES from './constant';
 
 function execRegex(value: string, regex): string {
-  let $regex;
   const isPreDefinedRegex = typeof regex === 'string';
+  let $regex;
+
   if (isPreDefinedRegex) {
     if (REGEXES[regex]) {
       $regex = REGEXES[regex];
     }
-  } else {
+  } else if (regex?.pattern) {
     const { pattern, flags } = regex;
     $regex = new RegExp(pattern, flags);
+  } else if (regex?.exec) {
+    $regex = regex;
   }
-  const result = $regex.exec(value);
-  const newValue = isPreDefinedRegex
-    ? result?.[0]
-    : result?.[1] || result?.[0] || value;
 
-  return newValue;
+  return value.match($regex)?.[0] || null;
 }
 
 export default execRegex;

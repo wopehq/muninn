@@ -16,9 +16,15 @@ describe('execRegex Tests', () => {
     expect('test@email.com').to.deep.equal(result);
   });
 
-  it('Case 3: Regex', () => {
+  it('Case 3: As Object', () => {
     const value = 'test 26';
     const result = execRegex(value, { pattern: '\\d+' });
+    expect('26').to.deep.equal(result);
+  });
+
+  it('Case 4: As Regex Object ', () => {
+    const value = 'test 26';
+    const result = execRegex(value, /\d+/);
     expect('26').to.deep.equal(result);
   });
 });
