@@ -4,6 +4,7 @@ import 'mocha';
 import * as cheerio from 'cheerio';
 
 import getValue from './getValue';
+import { RawConfig } from '../config/types';
 
 const BLOCK_HTML = `
 <div class="parent">
@@ -34,21 +35,21 @@ const $ = cheerio.load(SAMPLE_HTML);
 
 describe('getValue Tests', () => {
   it('Case 1:  { selector }', () => {
-    const config = { selector: '.first-child' };
+    const config: RawConfig = { selector: '.first-child' };
     const value = getValue({ $ }, config);
     expect('First Child').to.deep.equal(value);
   });
 
   it('Case 2:  { [selector, selector] }', () => {
     const el = '.parent';
-    const config = { selector: ['.first-child', '.second-child'] };
+    const config: RawConfig = { selector: ['.first-child', '.second-child'] };
     const value = getValue({ $, el }, config);
     expect('First Child').to.deep.equal(value);
   });
 
   it('Case 3:  { [selector, selector], array }', () => {
     const el = $('.parent').first();
-    const config = {
+    const config: RawConfig = {
       selector: ['.first-child', '.second-child'],
       type: 'array'
     };
@@ -58,7 +59,7 @@ describe('getValue Tests', () => {
 
   it('Case 4:  { selector, schema }', () => {
     const el = $('.blocks').first();
-    const config = {
+    const config: RawConfig = {
       selector: '.parent',
       schema: {
         firstChild: '.first-child',
@@ -74,7 +75,7 @@ describe('getValue Tests', () => {
 
   it('Case 5:  { selector, schema, array }', () => {
     const el = $('.blocks');
-    const config = {
+    const config: RawConfig = {
       selector: '.parent',
       type: 'array',
       schema: {
@@ -104,7 +105,7 @@ describe('getValue Tests', () => {
   });
 
   it('Case 6:  { selector, schema: { selector: schema } }', () => {
-    const config = {
+    const config: RawConfig = {
       selector: '.blocks',
       schema: {
         parent: {
@@ -165,7 +166,7 @@ describe('getValue Tests', () => {
   });
 
   it('Case 11: { selector, custom }', () => {
-    const config = {
+    const config: RawConfig = {
       selector: '.parent',
       type: 'array',
       schema: {
@@ -204,7 +205,7 @@ describe('getValue Tests', () => {
   });
 
   it('Case 13: { selector, fill }', () => {
-    const config = {
+    const config: RawConfig = {
       selector: '.parent',
       type: 'array',
       schema: {
@@ -235,7 +236,7 @@ describe('getValue Tests', () => {
 
   it('Case 15: { selector, regex/url }', () => {
     const el = $('.parent');
-    const selector = {
+    const selector: RawConfig = {
       selector: '.regex-template-test-child',
       regex: 'url'
     };

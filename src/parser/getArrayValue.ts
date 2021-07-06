@@ -1,8 +1,9 @@
 import { ElementPassArg } from './types';
 
 import getValue from './getValue';
+import { Config } from '../config/types';
 
-function getArrayValue({ $, el: element }: ElementPassArg, config) {
+function getArrayValue({ $, el: element }: ElementPassArg, config: Config) {
   const values = [];
 
   if (config?.methods?.includes('size')) {

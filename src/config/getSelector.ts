@@ -1,9 +1,9 @@
-import { SelectorConfig } from './types';
+import { Selector, Config, RawConfig } from './types';
 
-const parseSelector = (selector: string | string[]) => {
-  const newSelector: SelectorConfig = {};
-  let $selector;
-  let methods, attr;
+const parseSelector = (selector: Selector): RawConfig => {
+  const config: Config = {};
+
+  let $selector, methods, attr;
 
   if (Array.isArray(selector)) {
     return { selector: selector.join(', ') };
@@ -27,18 +27,20 @@ const parseSelector = (selector: string | string[]) => {
   }
 
   if ($selector)
-    newSelector.selector = Array.isArray($selector)
+    config.selector = Array.isArray($selector)
       ? $selector.join(', ')
       : $selector;
-  if (attr) newSelector.attr = attr;
+
+  if (attr) config.attr = attr;
+
   if (methods?.length) {
     if (methods.includes('array')) {
-      newSelector.type = 'array';
+      config.type = 'array';
     }
-    newSelector.methods = methods.filter((i) => i !== 'array');
+    config.methods = methods.filter((i) => i !== 'array');
   }
 
-  return newSelector;
+  return config;
 };
 
 export default parseSelector;

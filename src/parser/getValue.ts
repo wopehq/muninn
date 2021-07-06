@@ -1,4 +1,5 @@
 import { ElementPassArg } from './types';
+import { InputConfig } from '../config/types';
 
 import getConfig from '../config/getConfig';
 import getElement from './getElement';
@@ -6,8 +7,8 @@ import getSimpleValue from './getSimpleValue';
 import getSchemaValue from './getSchemaValue';
 import getArrayValue from './getArrayValue';
 
-function getValue({ $, el }: ElementPassArg, rawConfig) {
-  const config = getConfig({ $, el }, rawConfig);
+function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
+  const config = getConfig({ $, el }, inputConfig);
   const element = getElement({ $, el }, config);
   const { type, selector, condition, exist, ...rest } = config;
   const { schema } = rest;

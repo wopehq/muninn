@@ -4,6 +4,7 @@ import 'mocha';
 import * as cheerio from 'cheerio';
 
 import getElement from './getElement';
+import { Config } from '../config/types';
 
 const BLOCK_HTML = `
 <div class="parent">
@@ -32,14 +33,14 @@ const $ = cheerio.load(SAMPLE_HTML);
 
 describe('getElement Tests', () => {
   it('Case 1: { selector } without `element`', () => {
-    const config = { selector: '.first-child' };
+    const config: Config = { selector: '.first-child' };
     const element = getElement({ $ }, config);
     expect('first-child').to.deep.equal(element.attr('class'));
   });
 
   it('Case 2: { selector }', () => {
     const el = '.blocks';
-    const config = { selector: '.first-child' };
+    const config: Config = { selector: '.first-child' };
     const element = getElement({ $, el }, config);
     expect('first-child').to.deep.equal(element.attr('class'));
     expect(1).to.deep.equal(element.length);
@@ -47,7 +48,7 @@ describe('getElement Tests', () => {
 
   it('Case 3: { selector type: array }', () => {
     const el = $('.parent').first();
-    const config = { selector: 'div', type: 'array' };
+    const config: Config = { selector: 'div', type: 'array' };
     const element = getElement({ $, el }, config);
     expect(8).to.deep.equal(element.length);
   });

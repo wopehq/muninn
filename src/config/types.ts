@@ -1,21 +1,41 @@
 import * as cheerio from 'cheerio';
 
 export type Selector = string | string[];
-export type CustomConfig = (value: any) => any;
-export type RegexConfig = string | { pattern: string; flags?: string };
-export type Schema = (el: cheerio.Cheerio) => SelectorConfig | SelectorConfig;
 
-export type SelectorConfig = {
+export type PreDefinedRegex = 'email' | 'url';
+export type RegexObject = { pattern: string; flags?: string };
+export type RegexConfig = PreDefinedRegex | RegexObject | RegExp;
+
+export type CustomFunction = (value: any) => any;
+export type ConditionFunction = ($: cheerio.Cheerio) => boolean;
+export type ConfigFunction = (el: cheerio.Cheerio) => {
+  [key: string]: InputConfig;
+};
+
+export type ConfigTypeValues = 'number' | 'float' | 'boolean' | 'array';
+
+export class RawConfig {
   selector?: Selector;
   html?: boolean;
   attr?: string;
-  type?: string;
+  type?: ConfigTypeValues;
   trim?: boolean;
-  custom?: CustomConfig;
+  exist?: boolean;
   initial?: any;
   fill?: any;
   methods?: string[];
-  rootScope?: boolean;
   regex?: RegexConfig;
-  schema?: Schema;
-};
+  custom?: CustomFunction;
+  condition?: ConditionFunction;
+  schema?:
+    | ConfigFunction
+    | {
+        [key: string]: InputConfig;
+      };
+}
+
+export type InputConfig = ConfigFunction | RawConfig | Selector;
+
+export class Config extends RawConfig {
+  selector?: string;
+}

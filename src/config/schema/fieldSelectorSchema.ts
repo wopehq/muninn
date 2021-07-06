@@ -26,9 +26,6 @@ const fieldSelectorSchema = {
     methods: {
       type: 'array'
     },
-    rootScope: {
-      type: 'boolean'
-    },
     schema: {
       oneOf: [
         { instanceof: 'Function' },

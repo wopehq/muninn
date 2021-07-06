@@ -1,34 +1,40 @@
 import parseSelector from './getSelector';
 import { ElementPassArg } from '../parser/types';
+import { Config, InputConfig, RawConfig } from './types';
 
-function getConfig({ $, el }: ElementPassArg, config) {
-  if (!config) return null;
+function getConfig(
+  { $, el }: ElementPassArg,
+  inputConfig: InputConfig
+): Config {
+  if (!inputConfig) return null;
 
-  if (typeof config === 'function') {
-    let element = null;
-    if ($ && el) {
-      element = $(el);
-    }
-    config = config(element);
+  if (typeof inputConfig === 'function') {
+    inputConfig = <RawConfig>inputConfig($ && el ? $(el) : null);
   }
 
-  if (typeof config?.selector === 'string' || Array.isArray(config?.selector)) {
-    config = { ...config, ...parseSelector(config.selector) };
-  } else {
-    config = parseSelector(config);
+  if (typeof inputConfig === 'string' || Array.isArray(inputConfig)) {
+    inputConfig = parseSelector(inputConfig);
+  } else if (inputConfig?.selector) {
+    const config = <Config>inputConfig;
+    inputConfig = {
+      ...config,
+      ...parseSelector(config.selector)
+    };
   }
 
-  const { methods } = config;
+  const { methods } = inputConfig;
+  const type = methods?.includes('array') ? 'array' : inputConfig.type;
+  const html = methods?.includes('html') ? true : inputConfig.html;
+  const exist = methods?.includes('exist') ? true : inputConfig.exist;
+  let trim = methods?.includes('trim') ? true : inputConfig.trim;
+  trim = methods?.includes('non-trim') ? false : inputConfig.trim;
 
-  const type = methods?.includes('array') ? 'array' : config.type;
-  const html = methods?.includes('html') ? true : config.html;
-  const exist = methods?.includes('exist') ? true : config.exist;
-  let trim = methods?.includes('trim') ? true : config.trim;
-  trim = methods?.includes('non-trim') ? false : config.trim;
+  if (type) inputConfig.type = type;
+  if (html) inputConfig.html = html;
+  if (exist) inputConfig.exist = exist;
+  if (typeof trim === 'boolean') inputConfig.trim = trim;
 
-  if (html) config.html = html;
-  if (exist) config.exist = exist;
-  if (typeof trim === 'boolean') config.trim = trim;
+  const config = <Config>inputConfig;
 
   return config;
 }

@@ -1,28 +1,25 @@
+import * as cheerio from 'cheerio';
 import { ElementPassArg } from './types';
+import { Config } from '../config/types';
 
-function getElement({ $, el }: ElementPassArg, config) {
-  if (!config) return el;
+function getElement(
+  { $, el }: ElementPassArg,
+  config: Config
+): cheerio.Cheerio {
+  if (!config) return $(el);
 
-  const { selector, rootScope, type } = config;
+  const { selector, type } = config;
   let element;
 
   if (!selector) {
-    element = $(el || 'body');
-  } else if (rootScope) {
-    element = $(selector);
+    element = $(el || 'html');
+  } else if (el) {
+    element = $(el).find(selector);
   } else {
-    if (el) {
-      element = $(el).find(selector);
-    } else {
-      element = $(selector);
-    }
+    element = $(selector);
   }
 
-  if (type !== 'array') {
-    return element.first();
-  }
-
-  return element;
+  return type !== 'array' ? element.first() : element;
 }
 
 export default getElement;

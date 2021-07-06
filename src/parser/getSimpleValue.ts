@@ -1,8 +1,9 @@
 import { ElementPassArg } from './types';
 
 import transformValue from './transformValue';
+import { Config } from '../config/types';
 
-function getSimpleValue({ $, el }: ElementPassArg, config) {
+function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
   const { html, attr, initial, fill } = config;
   const element = $(el);
 

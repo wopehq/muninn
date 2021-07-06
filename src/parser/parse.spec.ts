@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
+import { InputConfig } from '../config/types';
 
 import parse from './parse';
 
@@ -38,21 +39,21 @@ const SAMPLE_HTML = `
 describe('parse Tests', () => {
   it('Case 1:  { selector }', () => {
     const data = SAMPLE_HTML;
-    const config = { selector: '.first-child' };
+    const config: InputConfig = { selector: '.first-child' };
     const value = parse(data, config);
     expect('First Child').to.deep.equal(value);
   });
 
   it('Case 2:  { selector, array* }', () => {
     const data = SAMPLE_HTML;
-    const config = '.unblock div h4 | array';
+    const config: InputConfig = '.unblock div h4 | array';
     const value = parse(data, config);
     expect(['Unblock', 'Unblock']).to.deep.equal(value);
   });
 
   it('Case 3:  { selector, array*, schema }', () => {
     const data = SAMPLE_HTML;
-    const config = {
+    const config: InputConfig = {
       selector: '.blocks @ href',
       schema: {
         unblock: {

@@ -1,7 +1,8 @@
+import { Config } from '../config/types';
 import Methods from './methods';
 import execRegex from './regex/execRegex';
 
-function transformValue(value, config) {
+function transformValue(value: any, config: Config) {
   const { trim, regex, type, custom } = config;
   let { methods } = config;
 
