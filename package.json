@@ -12,6 +12,10 @@
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aykutkardas/muninn.git"
+  },
   "keywords": [
     "htmlparser",
     "selector",
