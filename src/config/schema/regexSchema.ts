@@ -1,5 +1,5 @@
-const regexConfigSchema = {
-  $id: 'muninn.regexConfigSchema',
+const regexSchema = {
+  $id: 'muninn.regexSchema',
   oneOf: [
     {
       type: 'object',
@@ -18,4 +18,4 @@ const regexConfigSchema = {
   ]
 };
 
-export default regexConfigSchema;
+export default regexSchema;
