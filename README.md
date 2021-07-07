@@ -6,7 +6,6 @@ It also has a useful extension that visualizes your configuration files on the p
 
 ## [Documentation](https://worn.gitbook.io/muninn/)
 
-
 ## Sample
 
 ```js
@@ -32,7 +31,7 @@ const config = {
 
 // The `data` is an HTML Content of type string.
 // https://www.amazon.com/AMD-Ryzen-3700X-16-Thread-Processor/dp/B07SXMZLPK/
-const data = "<html>...</html>";
+const data = '<html>...</html>';
 
 const result = parse(data, config);
 ```
@@ -68,3 +67,7 @@ const result = parse(data, config);
   ]
 }
 ```
+
+## License
+
+Distributed under the MIT License. See LICENSE for more information.
