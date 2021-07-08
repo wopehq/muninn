@@ -1,5 +1,4 @@
 sample/
-docs/
 coverage/
 .prettierrc
 tsconfig.json
