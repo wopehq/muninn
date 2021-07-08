@@ -4,7 +4,7 @@ Muninn is an HTML parsing tool. It is fast. It allows you to create a configurat
 
 It also has a useful extension that visualizes your configuration files on the pages you will parse. See [Muninn Extension](https://github.com/aykutkardas/muninn-extension)
 
-## [Documentation](https://worn.gitbook.io/muninn/)
+## [Documentation](https://seodo.gitbook.io/muninn/)
 
 ## Sample
 
