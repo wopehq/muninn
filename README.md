@@ -21,7 +21,7 @@ const config = {
     price: '#priceblock_ourprice',
     rating: {
       selector: '#acrPopover span | float',
-      regex: { pattern: '\\d+\\.?\\d?', flag: 'gim' }
+      regex: /\d+\.?\d?/
     },
     features: {
       selector: '#productOverview_feature_div tr.a-spacing-small | array',
