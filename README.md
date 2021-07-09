@@ -1,5 +1,9 @@
 # muninn
 
+[![npm](https://img.shields.io/npm/v/muninn?color=%234fc921)](https://www.npmjs.com/package/muninn)
+[![Build Status](https://github.com/teamseodo/muninn/workflows/build/badge.svg?color=%234fc921)](https://github.com/teamseodo/muninn/actions)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?color=%234fc921)](https://opensource.org/licenses/MIT)
+
 Muninn is an HTML parsing tool. It is fast. It allows you to create a configuration file. This makes it easy to keep parser settings up to date despite changing selectors. It takes very little time to learn thanks to the easy syntax. It uses the [cheerio](https://github.com/cheeriojs/cheerio) library for parsing. It is simple and flexible for various needs.
 
 It also has a useful extension that visualizes your configuration files on the pages you will parse. See [Muninn Extension](https://github.com/aykutkardas/muninn-extension)
