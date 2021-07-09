@@ -40,10 +40,31 @@ describe('transformValue Tests', () => {
     expect('content').to.deep.equal(result);
   });
 
-  it('Case 5: non-trim', () => {
+  it('Case 6: non-trim', () => {
     const config = getConfig({}, { methods: ['non-trim'] });
     const value = ' content ';
     const result = transformValue(value, config);
     expect(' content ').to.deep.equal(result);
+  });
+
+  it('Case 7: lowercase', () => {
+    const config = getConfig({}, { methods: ['lowercase'] });
+    const value = 'CONTENT';
+    const result = transformValue(value, config);
+    expect('content').to.deep.equal(result);
+  });
+
+  it('Case 8: uppercase', () => {
+    const config = getConfig({}, { methods: ['uppercase'] });
+    const value = 'content';
+    const result = transformValue(value, config);
+    expect('CONTENT').to.deep.equal(result);
+  });
+
+  it('Case 9: length', () => {
+    const config = getConfig({}, { methods: ['length'] });
+    const value = 'content';
+    const result = transformValue(value, config);
+    expect(7).to.deep.equal(result);
   });
 });
