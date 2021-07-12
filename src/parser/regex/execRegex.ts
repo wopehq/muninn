@@ -15,7 +15,7 @@ function execRegex(value: string, regex): string {
     $regex = regex;
   }
 
-  return value.match($regex)?.[0] || null;
+  return value?.match($regex)?.[0] || null;
 }
 
 export default execRegex;
