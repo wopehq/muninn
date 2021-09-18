@@ -11,6 +11,11 @@ export type ConditionFunction = ($: cheerio.Cheerio) => boolean;
 export type ConfigFunction = (el: cheerio.Cheerio) => {
   [key: string]: InputConfig;
 };
+export type ElementFilterFunction = (
+  index: number,
+  element: any,
+  $: cheerio.Root
+) => boolean;
 
 export type ConfigTypeValues = 'number' | 'float' | 'boolean' | 'array';
 
@@ -21,6 +26,7 @@ export class RawConfig {
   type?: ConfigTypeValues;
   trim?: boolean;
   exist?: boolean;
+  elementFilter?: ElementFilterFunction;
   initial?: any;
   fill?: any;
   methods?: string[];

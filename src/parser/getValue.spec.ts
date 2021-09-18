@@ -257,4 +257,17 @@ describe('getValue Tests', () => {
     const value = getValue({ $, el }, selector);
     expect(false).to.deep.equal(value);
   });
+
+  it('Case 18:  { [selector, selector], array with elementFilter }', () => {
+    const el = $('.parent').first();
+    const config: RawConfig = {
+      selector: ['.first-child', '.second-child'],
+      type: 'array',
+      elementFilter: (index, el, $) => {
+        return $(el).hasClass('first-child');
+      }
+    };
+    const value = getValue({ $, el }, config);
+    expect(['First Child']).to.deep.equal(value);
+  });
 });

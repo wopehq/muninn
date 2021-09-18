@@ -10,11 +10,19 @@ function getArrayValue({ $, el: element }: ElementPassArg, config: Config) {
     return $(element).length;
   }
 
-  $(element).each((index, el) => {
+  function eachFunction(index, el) {
     const { selector, type, ...rest } = config;
     const value = getValue({ $, el: $(el) }, rest);
     values.push(value);
-  });
+  }
+
+  if (typeof config?.elementFilter === 'function') {
+    $(element)
+      .filter((index, el) => config.elementFilter(index, el, $))
+      .each(eachFunction);
+  } else {
+    $(element).each(eachFunction);
+  }
 
   return values;
 }
