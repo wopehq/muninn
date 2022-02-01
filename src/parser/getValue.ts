@@ -22,6 +22,9 @@ function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
   }
 
   if (type === 'array') {
+    if (config?.methods?.includes('size')) {
+      return $(element).length;
+    }
     return getArrayValue({ $, el: element }, rest);
   } else if (schema) {
     const currentSchema = getConfig({ $, el }, schema);
