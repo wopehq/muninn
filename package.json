@@ -1,6 +1,6 @@
 {
   "name": "muninn",
-  "version": "0.3.6",
+  "version": "0.4.1",
   "description": "It parses the html and collects the requested data as desired.",
   "main": "build/index.js",
   "scripts": {
@@ -42,6 +42,6 @@
     "mocha": "^8.3.2",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
+    "typescript": "^4.5.5"
   }
 }

@@ -2,7 +2,10 @@ import { load, Root } from 'cheerio';
 import { InputConfig } from '../config/types';
 import getValue from './getValue';
 
-function parse(data: string | Root, config: InputConfig): Object {
+function parse(
+  data: string | Root,
+  config: InputConfig
+): Record<string, unknown> {
   let $;
 
   if (typeof data === 'string') {

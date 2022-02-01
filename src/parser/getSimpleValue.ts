@@ -5,12 +5,10 @@ import { Config } from '../config/types';
 
 function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
   const { html, attr, initial, fill } = config;
+
+  if (fill) return fill;
+
   const element = $(el);
-
-  if (fill) {
-    return fill;
-  }
-
   let value;
 
   if (html) {

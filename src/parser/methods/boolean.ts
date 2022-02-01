@@ -1,3 +1,3 @@
-export default (val: any): boolean => {
-  return Boolean(val);
-};
+const boolean = (val: any): boolean => Boolean(val);
+
+export default boolean;

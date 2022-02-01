@@ -1,3 +1,3 @@
-export default (val: string): string => {
-  return val.toUpperCase();
-};
+const uppercase = (val: string): string => val.toUpperCase();
+
+export default uppercase;
