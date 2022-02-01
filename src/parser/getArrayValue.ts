@@ -6,7 +6,7 @@ import { Config } from '../config/types';
 function getArrayValue(
   { $, el: element }: ElementPassArg,
   config: Config
-): any[] | number {
+): any[] {
   const values = [];
 
   function eachFunction(index, el) {
