@@ -1,5 +1,5 @@
 import execRegex from '../regex/execRegex';
 
-export default (val: any): string => {
-  return execRegex(val, 'url');
-};
+const url = (val: any): string => execRegex(val, 'url');
+
+export default url;

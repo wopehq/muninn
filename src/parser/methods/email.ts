@@ -1,5 +1,5 @@
 import execRegex from '../regex/execRegex';
 
-export default (val: any): string => {
-  return execRegex(val, 'email');
-};
+const email = (val: any): string => execRegex(val, 'email');
+
+export default email;

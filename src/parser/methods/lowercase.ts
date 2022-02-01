@@ -1,3 +1,3 @@
-export default (val: string): string => {
-  return val.toLowerCase();
-};
+const lowercase = (val: string): string => val.toLowerCase();
+
+export default lowercase;

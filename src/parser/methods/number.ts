@@ -1,3 +1,3 @@
-export default (val: string): number => {
-  return parseInt(val);
-};
+const number = (val: string): number => parseInt(val);
+
+export default number;
