@@ -4,7 +4,10 @@ import getConfig from '../config/getConfig';
 import getValue from './getValue';
 import { Config } from '../config/types';
 
-function getSchemaValue({ $, el }: ElementPassArg, config: Config): Object {
+function getSchemaValue(
+  { $, el }: ElementPassArg,
+  config: Config
+): Record<string, unknown> {
   const value = Object.keys(config).reduce((values, key) => {
     const currentRawConfig = getConfig({ $, el }, config[key]);
     values[key] = getValue({ $, el }, currentRawConfig);
