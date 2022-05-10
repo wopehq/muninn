@@ -1,6 +1,6 @@
-import { Root, Cheerio } from 'cheerio';
+import { Cheerio, CheerioAPI, Element } from 'cheerio';
 
 export type ElementPassArg = {
-  $?: Root;
-  el?: Cheerio | Element | string;
+  $?: CheerioAPI;
+  el?: Cheerio<Element> | string | Element;
 };

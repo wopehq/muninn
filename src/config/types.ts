@@ -1,4 +1,4 @@
-import * as cheerio from 'cheerio';
+import { Cheerio, CheerioAPI, Element } from 'cheerio';
 
 export type Selector = string | string[];
 
@@ -6,15 +6,15 @@ export type PreDefinedRegex = 'email' | 'url';
 export type RegexObject = { pattern: string; flags?: string };
 export type RegexConfig = PreDefinedRegex | RegexObject | RegExp;
 
-export type CustomFunction = (value: any) => any;
-export type ConditionFunction = ($: cheerio.Cheerio) => boolean;
-export type ConfigFunction = (el: cheerio.Cheerio) => {
+export type CustomFunction = (value: Cheerio<Element>) => any;
+export type ConditionFunction = ($: CheerioAPI | Cheerio<Element>) => boolean;
+export type ConfigFunction = (el: Cheerio<Element>) => {
   [key: string]: InputConfig;
 };
 export type ElementFilterFunction = (
   index: number,
-  element: any,
-  $: cheerio.Root
+  element: Cheerio<Element> | Element,
+  $: CheerioAPI
 ) => boolean;
 
 export type ConfigTypeValues = 'number' | 'float' | 'boolean' | 'array';
