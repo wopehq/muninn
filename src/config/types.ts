@@ -7,7 +7,7 @@ export type RegexObject = { pattern: string; flags?: string };
 export type RegexConfig = PreDefinedRegex | RegexObject | RegExp;
 
 export type CustomFunction = (value: Cheerio<any>) => any;
-export type ConditionFunction = ($: Cheerio<Node>) => boolean;
+export type ConditionFunction = ($: Cheerio<Element>) => boolean;
 export type ConfigFunction = (el: Cheerio<any>) => {
   [key: string]: InputConfig;
 };
