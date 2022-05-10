@@ -6,14 +6,14 @@ export type PreDefinedRegex = 'email' | 'url';
 export type RegexObject = { pattern: string; flags?: string };
 export type RegexConfig = PreDefinedRegex | RegexObject | RegExp;
 
-export type CustomFunction = (value: any) => any;
+export type CustomFunction = (value: Cheerio<any>) => any;
 export type ConditionFunction = ($: Cheerio<Node>) => boolean;
-export type ConfigFunction = (el: any) => {
+export type ConfigFunction = (el: Cheerio<any>) => {
   [key: string]: InputConfig;
 };
 export type ElementFilterFunction = (
   index: number,
-  element: any,
+  element: Cheerio<any>,
   $: CheerioAPI
 ) => boolean;
 
