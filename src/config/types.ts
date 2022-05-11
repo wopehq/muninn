@@ -45,3 +45,7 @@ export type InputConfig = ConfigFunction | RawConfig | Selector;
 export class Config extends RawConfig {
   selector?: string;
 }
+
+export type Schema = {
+  [key: string]: InputConfig;
+};
