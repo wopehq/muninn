@@ -13,6 +13,10 @@ function transformValue(value: any, config: Config) {
     value = execRegex(value, regex);
   }
 
+  if (value === undefined) {
+    return null;
+  }
+
   if (type) {
     methods.push(type);
   }
