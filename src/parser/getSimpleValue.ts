@@ -23,7 +23,7 @@ function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
     value = initial;
   }
 
-  if (value === undefined) {
+  if (value === undefined || (value === '' && initial !== '')) {
     return null;
   }
 
