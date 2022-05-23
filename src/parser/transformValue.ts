@@ -5,10 +5,6 @@ import execRegex from './regex/execRegex';
 function transformValue(value: any, config: Config) {
   const { trim, regex, type, methods = [], custom } = config;
 
-  if (value === undefined) {
-    return null;
-  }
-
   if (typeof value === 'string' && trim !== false) {
     value = value.trim();
   }

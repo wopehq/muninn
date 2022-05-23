@@ -23,6 +23,10 @@ function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
     value = initial;
   }
 
+  if (value === undefined) {
+    return null;
+  }
+
   return transformValue(value, config);
 }
 
