@@ -6,7 +6,13 @@ import { Config } from '../config/types';
 function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
   const { html, attr, initial, fill } = config;
 
-  if (fill) return fill;
+  if (fill) {
+    if (typeof fill === 'function') {
+      return fill();
+    }
+
+    return fill;
+  }
 
   const element = $(el);
   let value;
