@@ -3,7 +3,7 @@ import Methods from './methods';
 import execRegex from './regex/execRegex';
 
 function transformValue(value: any, config: Config) {
-  const { trim, regex, type, methods = [], custom } = config;
+  const { trim, regex, type, methods = [], transform } = config;
 
   if (typeof value === 'string' && trim !== false) {
     value = value.trim();
@@ -23,8 +23,8 @@ function transformValue(value: any, config: Config) {
     }
   });
 
-  if (typeof custom === 'function') {
-    value = custom(value);
+  if (typeof transform === 'function') {
+    value = transform(value);
   }
 
   return value;
