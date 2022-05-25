@@ -14,7 +14,7 @@ const rawConfigSchema = {
     fill: {},
     methods: { type: 'array' },
     regex: { $ref: 'muninn.regexSchema' },
-    // custom: { instanceof: 'Function' },
+    // transform: { instanceof: 'Function' },
     // condition: { instanceof: 'Function' },
     schema: {
       oneOf: [

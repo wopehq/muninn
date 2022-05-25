@@ -6,7 +6,7 @@ export type PreDefinedRegex = 'email' | 'url';
 export type RegexObject = { pattern: string; flags?: string };
 export type RegexConfig = PreDefinedRegex | RegexObject | RegExp;
 
-export type CustomFunction = (value: Cheerio<Element>) => any;
+export type TransformFunction = (value: Cheerio<Element>) => any;
 export type ConditionFunction = ($: CheerioAPI | Cheerio<Element>) => boolean;
 export type ConfigFunction = (el: Cheerio<Element>) => {
   [key: string]: InputConfig;
@@ -31,7 +31,7 @@ export class RawConfig {
   fill?: any;
   methods?: string[];
   regex?: RegexConfig;
-  custom?: CustomFunction;
+  transform?: TransformFunction;
   condition?: ConditionFunction;
   schema?:
     | ConfigFunction

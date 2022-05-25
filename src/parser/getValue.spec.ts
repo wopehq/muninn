@@ -165,7 +165,7 @@ describe('getValue Tests', () => {
     expect('<div class="content">Test</div>').to.deep.equal(value);
   });
 
-  it('Case 11: { selector, custom }', () => {
+  it('Case 11: { selector, transform }', () => {
     const config: RawConfig = {
       selector: '.parent',
       type: 'array',
@@ -173,7 +173,7 @@ describe('getValue Tests', () => {
         link: {
           selector: 'a.link',
           attr: 'href',
-          custom: (val) => 'Link: ' + val
+          transform: (val) => 'Link: ' + val
         }
       }
     };
