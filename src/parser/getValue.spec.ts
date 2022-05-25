@@ -204,6 +204,15 @@ describe('getValue Tests', () => {
     expect('link censored').to.deep.equal(value);
   });
 
+  it('Case 13: { selector, fill() }', () => {
+    const config = {
+      selector: 'a.href',
+      fill: () => 'link censored'
+    };
+    const value = getValue({ $ }, config);
+    expect('link censored').to.deep.equal(value);
+  });
+
   it('Case 13: { selector, fill }', () => {
     const config: RawConfig = {
       selector: '.parent',
