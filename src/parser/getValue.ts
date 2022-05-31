@@ -18,7 +18,7 @@ function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
   }
 
   if (condition && !condition($(el))) {
-    return null;
+    return rest.initial ?? null;
   }
 
   if (type === 'array') {
