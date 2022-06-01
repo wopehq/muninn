@@ -26,6 +26,7 @@ export class RawConfig {
   type?: ConfigTypeValues;
   trim?: boolean;
   exist?: boolean;
+  rootScope?: boolean;
   elementFilter?: ElementFilterFunction;
   initial?: any;
   fill?: any;
