@@ -6,7 +6,7 @@ function getConfig(
   { $, el }: ElementPassArg,
   inputConfig: InputConfig
 ): Config {
-  if (!inputConfig) return null;
+  if (!inputConfig) return {};
 
   if (typeof inputConfig === 'function') {
     inputConfig = <RawConfig>inputConfig($ && el ? $(el) : null);
