@@ -39,6 +39,7 @@ export class RawConfig {
     | {
         [key: string]: InputConfig;
       };
+  ignoreIntersectingElements?: 'ignore-kids' | 'ignore-parents';
 }
 
 export type InputConfig = ConfigFunction | RawConfig | Selector;
