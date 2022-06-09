@@ -29,7 +29,11 @@ function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
     value = initial;
   }
 
-  if (value === undefined || (value === '' && initial !== '')) {
+  if (
+    value === null ||
+    value === undefined ||
+    (value === '' && initial !== '')
+  ) {
     return null;
   }
 
