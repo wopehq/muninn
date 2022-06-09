@@ -19,7 +19,7 @@ export type ElementFilterFunction = (
 
 export type ConfigTypeValues = 'number' | 'float' | 'boolean' | 'array';
 
-export class RawConfig {
+export interface RawConfig {
   selector?: Selector;
   html?: boolean;
   attr?: string;
@@ -39,11 +39,12 @@ export class RawConfig {
     | {
         [key: string]: InputConfig;
       };
+  ignoreIntersectingElements?: 'ignore-kids' | 'ignore-parents';
 }
 
 export type InputConfig = ConfigFunction | RawConfig | Selector;
 
-export class Config extends RawConfig {
+export interface Config extends RawConfig {
   selector?: string;
 }
 
