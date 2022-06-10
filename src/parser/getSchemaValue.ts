@@ -1,8 +1,7 @@
-import { ElementPassArg } from './types';
-
 import getConfig from '../config/getConfig';
-import getValue from './getValue';
 import { Config } from '../config/types';
+import getValue from './getValue';
+import { ElementPassArg } from './types';
 
 function getSchemaValue(
   { $, el }: ElementPassArg,
