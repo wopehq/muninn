@@ -1,10 +1,7 @@
 import { expect } from 'chai';
-import 'mocha';
-
 import * as cheerio from 'cheerio';
-
-import getValue from './getValue';
 import { RawConfig } from '../config/types';
+import getValue from './getValue';
 
 const BLOCK_HTML = `
 <div class="parent">
@@ -67,6 +64,7 @@ describe('getValue Tests', () => {
       }
     };
     const value = getValue({ $, el }, config);
+
     expect({
       firstChild: 'First Child',
       secondChild: 'Second Child'
@@ -278,5 +276,49 @@ describe('getValue Tests', () => {
     };
     const value = getValue({ $, el }, config);
     expect(['First Child']).to.deep.equal(value);
+  });
+});
+
+describe('ignoreExistenceChecks', () => {
+  const el = $('.parent');
+
+  it('ReturnNull', () => {
+    const config: RawConfig = {
+      selector: '.non-existent',
+      ignoreExistenceChecks: false,
+      schema: {
+        selector: '.non-existent'
+      }
+    };
+    const value = getValue({ $, el }, config);
+
+    expect(null).to.deep.equal(value);
+  });
+
+  it('ReturEmptyObject', () => {
+    const config: RawConfig = {
+      selector: '.non-existent',
+      ignoreExistenceChecks: true,
+      schema: {}
+    };
+    const value = getValue({ $, el }, config);
+
+    expect({}).to.deep.equal(value);
+  });
+
+  it('ReturObjectWithNullValues', () => {
+    const config: RawConfig = {
+      selector: '.non-existent',
+      ignoreExistenceChecks: true,
+      schema: {
+        willBeNull: '#fake-selector'
+      }
+    };
+    const value = getValue({ $, el }, config);
+    const expected = {
+      willBeNull: null
+    };
+
+    expect(value).to.deep.equal(expected);
   });
 });

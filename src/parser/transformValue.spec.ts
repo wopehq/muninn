@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import 'mocha';
 import getConfig from '../config/getConfig';
 
 import transformValue from './transformValue';
