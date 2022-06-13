@@ -1,4 +1,4 @@
-import { Config } from '../config/types';
+import { RawConfig } from '../config/types';
 import parseSelector from '../config/getSelector';
 import transformValue from './transformValue';
 import { ElementPassArg } from './types';
@@ -6,27 +6,8 @@ import { Value } from './value';
 
 function getSimpleValue<Initial = unknown>(
   { $, el }: ElementPassArg,
-  config: Config<Initial>
+  config: RawConfig<Initial>
 ): Value<Initial> {
-  if (typeof config === 'function') {
-    config = {
-      selector: '',
-      schema: config($(el))
-    };
-  }
-
-  if (Array.isArray(config)) {
-    for (const c of config) {
-      const value = getSimpleValue({ $, el }, c);
-
-      if (value !== null && value !== undefined) {
-        return value;
-      }
-    }
-
-    return null;
-  }
-
   if (typeof config === 'string') {
     config = parseSelector(config);
   }

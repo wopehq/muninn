@@ -1,39 +1,21 @@
 import { ElementPassArg } from './types';
-import { Config } from '../config/types';
+import { RawConfig } from '../config/types';
 
-import getConfig from '../config/getConfig';
 import getElement from './getElement';
 import getSimpleValue from './getSimpleValue';
 import getSchemaValue from './getSchemaValue';
 import getArrayValue from './getArrayValue';
-import { getRawConfig } from './getRawConfig';
 
 function getValue<Initial = unknown>(
   { $, el }: ElementPassArg,
-  conf: Config<Initial>
+  config: RawConfig<Initial> | RawConfig<Initial>[]
 ) {
-  const rawConf = getRawConfig(conf);
-
-  if (Array.isArray(rawConf)) {
-    for (const conf of rawConf) {
-      const val = getValue({ $, el }, conf);
-
-      if (val !== null && val !== undefined) {
-        return val;
-      }
-    }
-
-    return null;
-  }
-
-  const config = getConfig({ $, el }, rawConf);
-
   if (Array.isArray(config)) {
     for (const conf of config) {
-      const val = getValue({ $, el }, conf);
+      const value = getValue({ $, el }, conf);
 
-      if (val !== null && val !== undefined) {
-        return val;
+      if (value !== null) {
+        return value;
       }
     }
 
@@ -54,7 +36,7 @@ function getValue<Initial = unknown>(
   }
 
   if (type === 'array') {
-    if (config?.methods?.includes('size')) {
+    if (config.methods?.includes('size')) {
       return $(element).length;
     }
 
