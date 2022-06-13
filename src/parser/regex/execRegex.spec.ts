@@ -1,6 +1,4 @@
 import { expect } from 'chai';
-import 'mocha';
-
 import execRegex from './execRegex';
 
 describe('execRegex Tests', () => {

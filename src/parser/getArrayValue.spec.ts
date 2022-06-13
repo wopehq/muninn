@@ -16,7 +16,7 @@ const SAMPLE_HTML = `
 describe('getArrayValue', () => {
   let $: CheerioAPI;
 
-  before(() => {
+  beforeAll(() => {
     $ = cheerio.load(SAMPLE_HTML);
   });
 

@@ -1,7 +1,5 @@
 import { expect } from 'chai';
-import 'mocha';
 import { InputConfig } from '../config/types';
-
 import parse from './parse';
 
 const BLOCK_HTML = `

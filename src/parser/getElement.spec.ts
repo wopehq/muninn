@@ -1,10 +1,7 @@
 import { expect } from 'chai';
-import 'mocha';
-
 import * as cheerio from 'cheerio';
-
-import getElement from './getElement';
 import { Config } from '../config/types';
+import getElement from './getElement';
 
 const BLOCK_HTML = `
 <div class="parent">

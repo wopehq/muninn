@@ -1,10 +1,7 @@
 import { expect } from 'chai';
-import 'mocha';
-
 import * as cheerio from 'cheerio';
-
-import getValue from './getValue';
 import { RawConfig } from '../config/types';
+import getValue from './getValue';
 
 const BLOCK_HTML = `
 <div class="parent">
@@ -67,6 +64,7 @@ describe('getValue Tests', () => {
       }
     };
     const value = getValue({ $, el }, config);
+
     expect({
       firstChild: 'First Child',
       secondChild: 'Second Child'
