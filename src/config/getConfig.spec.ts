@@ -30,7 +30,9 @@ describe('getConfig Tests', () => {
   it('Case 4:  array config: [selector, selector]', () => {
     const config = ['a.link', 'b.link'];
     const value = getConfig({}, config);
-    expect({ selector: 'a.link, b.link' }).to.deep.equal(value);
+    const expected = [{ selector: 'a.link' }, { selector: 'b.link' }];
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 5: object config: { selector, attr }', () => {

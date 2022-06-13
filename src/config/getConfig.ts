@@ -4,15 +4,19 @@ import { Config, InputConfig, RawConfig } from './types';
 
 function getConfig(
   { $, el }: ElementPassArg,
-  inputConfig: InputConfig
-): Config {
+  inputConfig?: InputConfig
+): Config | Config[] {
   if (!inputConfig) return {};
 
   if (typeof inputConfig === 'function') {
     inputConfig = <RawConfig>inputConfig($ && el ? $(el) : null);
   }
 
-  if (typeof inputConfig === 'string' || Array.isArray(inputConfig)) {
+  if (Array.isArray(inputConfig)) {
+    return inputConfig.map((conf) => getConfig({ $, el }, conf));
+  }
+
+  if (typeof inputConfig === 'string') {
     inputConfig = parseSelector(inputConfig);
   } else if (inputConfig?.selector) {
     const config = <Config>inputConfig;

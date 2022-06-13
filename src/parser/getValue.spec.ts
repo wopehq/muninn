@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as cheerio from 'cheerio';
-import { RawConfig } from '../config/types';
+import { InputConfig, RawConfig } from '../config/types';
 import getValue from './getValue';
 
 const BLOCK_HTML = `
@@ -39,7 +39,7 @@ describe('getValue Tests', () => {
 
   it('Case 2:  { [selector, selector] }', () => {
     const el = '.parent';
-    const config: RawConfig = { selector: ['.first-child', '.second-child'] };
+    const config: RawConfig = { selector: '.first-child, .second-child' };
     const value = getValue({ $, el }, config);
     expect('First Child').to.deep.equal(value);
   });
@@ -47,7 +47,7 @@ describe('getValue Tests', () => {
   it('Case 3:  { [selector, selector], array }', () => {
     const el = $('.parent').first();
     const config: RawConfig = {
-      selector: ['.first-child', '.second-child'],
+      selector: '.first-child, .second-child',
       type: 'array'
     };
     const value = getValue({ $, el }, config);
@@ -268,7 +268,7 @@ describe('getValue Tests', () => {
   it('Case 18:  { [selector, selector], array with elementFilter }', () => {
     const el = $('.parent').first();
     const config: RawConfig = {
-      selector: ['.first-child', '.second-child'],
+      selector: '.first-child, .second-child',
       type: 'array',
       elementFilter: (index, el, $) => {
         return $(el).hasClass('first-child');
@@ -320,5 +320,16 @@ describe('ignoreExistenceChecks', () => {
     };
 
     expect(value).to.deep.equal(expected);
+  });
+});
+
+describe('MultipleSchemas', () => {
+  it('GetContentsOfTheFirstMatchingSelector', () => {
+    const conf: InputConfig = ['#non-existent', '.first-child'];
+    const el = $('.parent:first');
+    const val = getValue({ $, el }, conf);
+    const expected = $('.first-child:first').text();
+
+    expect(val).to.eq(expected);
   });
 });

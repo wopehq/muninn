@@ -9,6 +9,19 @@ import getArrayValue from './getArrayValue';
 
 function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
   const config = getConfig({ $, el }, inputConfig);
+
+  if (Array.isArray(config)) {
+    for (const conf of config) {
+      const val = getValue({ $, el }, conf);
+
+      if (val !== null && val !== undefined) {
+        return val;
+      }
+    }
+
+    return null;
+  }
+
   const element = getElement({ $, el }, config);
   const { type, condition, exist, ...rest } = config;
   const { schema } = rest;

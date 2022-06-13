@@ -5,10 +5,6 @@ const parseSelector = (selector: Selector): RawConfig => {
 
   let $selector, methods, attr;
 
-  if (Array.isArray(selector)) {
-    return { selector: selector.join(', ') };
-  }
-
   if (typeof selector !== 'string') {
     return selector;
   }

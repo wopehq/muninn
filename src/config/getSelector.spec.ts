@@ -36,7 +36,7 @@ describe('getSelector Tests', () => {
   });
 
   it('Case 5: [selector, selector]', () => {
-    const selector = ['a.link', 'b.link'];
+    const selector = 'a.link, b.link';
     const value = getSelector(selector);
     expect({
       selector: 'a.link, b.link'

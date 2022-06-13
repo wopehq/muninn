@@ -1,6 +1,6 @@
 import { Cheerio, CheerioAPI, Element } from 'cheerio';
 
-export type Selector = string | string[];
+export type Selector = string;
 
 export type PreDefinedRegex = 'email' | 'url';
 export type RegexObject = { pattern: string; flags?: string };
@@ -43,7 +43,7 @@ export interface RawConfig {
   ignoreExistenceChecks?: boolean;
 }
 
-export type InputConfig = ConfigFunction | RawConfig | Selector;
+export type InputConfig = ConfigFunction | RawConfig | RawConfig[] | Selector;
 
 export interface Config extends RawConfig {
   selector?: string;
