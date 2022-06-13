@@ -280,3 +280,47 @@ describe('getValue Tests', () => {
     expect(['First Child']).to.deep.equal(value);
   });
 });
+
+describe('ignoreExistenceChecks', () => {
+  const el = $('.parent');
+
+  it('ReturnNull', () => {
+    const config: RawConfig = {
+      selector: '.non-existent',
+      ignoreExistenceChecks: false,
+      schema: {
+        selector: '.non-existent'
+      }
+    };
+    const value = getValue({ $, el }, config);
+
+    expect(null).to.deep.equal(value);
+  });
+
+  it('ReturEmptyObject', () => {
+    const config: RawConfig = {
+      selector: '.non-existent',
+      ignoreExistenceChecks: true,
+      schema: {}
+    };
+    const value = getValue({ $, el }, config);
+
+    expect({}).to.deep.equal(value);
+  });
+
+  it('ReturObjectWithNullValues', () => {
+    const config: RawConfig = {
+      selector: '.non-existent',
+      ignoreExistenceChecks: true,
+      schema: {
+        willBeNull: '#fake-selector'
+      }
+    };
+    const value = getValue({ $, el }, config);
+    const expected = {
+      willBeNull: null
+    };
+
+    expect(value).to.deep.equal(expected);
+  });
+});

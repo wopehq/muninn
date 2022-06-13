@@ -10,11 +10,12 @@ import getArrayValue from './getArrayValue';
 function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
   const config = getConfig({ $, el }, inputConfig);
   const element = getElement({ $, el }, config);
-  const { type, selector, condition, exist, ...rest } = config;
+  const { type, condition, exist, ...rest } = config;
   const { schema } = rest;
+  const elemExists = element.length > 0;
 
   if (exist) {
-    return $(selector).length > 0;
+    return elemExists;
   }
 
   if (condition && !condition($(el))) {
@@ -25,9 +26,17 @@ function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
     if (config?.methods?.includes('size')) {
       return $(element).length;
     }
+
     return getArrayValue({ $, el: element }, rest);
   } else if (schema) {
     const currentSchema = getConfig({ $, el }, schema);
+
+    if (!elemExists) {
+      if (!(config.ignoreExistenceChecks === true)) {
+        return rest.initial ?? null;
+      }
+    }
+
     return getSchemaValue({ $, el: element }, currentSchema);
   } else {
     return getSimpleValue({ $, el: element }, rest);

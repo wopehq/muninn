@@ -40,6 +40,7 @@ export interface RawConfig {
         [key: string]: InputConfig;
       };
   ignoreIntersectingElements?: 'ignore-kids' | 'ignore-parents';
+  ignoreExistenceChecks?: boolean;
 }
 
 export type InputConfig = ConfigFunction | RawConfig | Selector;
