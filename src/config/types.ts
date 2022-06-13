@@ -1,4 +1,5 @@
 import { Cheerio, CheerioAPI, Element } from 'cheerio';
+import { Value } from '../parser/value';
 
 export type Selector = string;
 
@@ -6,11 +7,16 @@ export type PreDefinedRegex = 'email' | 'url';
 export type RegexObject = { pattern: string; flags?: string };
 export type RegexConfig = PreDefinedRegex | RegexObject | RegExp;
 
-export type TransformFunction = (value: any) => any;
+export type TransformFunction<Initial = unknown> = (
+  value: Value<Initial>
+) => Value<Initial>;
 export type ConditionFunction = ($: CheerioAPI | Cheerio<Element>) => boolean;
-export type ConfigFunction = (el: Cheerio<Element>) => {
-  [key: string]: InputConfig;
-};
+export interface Schema<Initial = unknown> {
+  [key: string]: Config<Initial>;
+}
+export type SchemaGenerator<Initial = unknown> = (
+  el: Cheerio<Element>
+) => Schema<Initial>;
 export type ElementFilterFunction = (
   index: number,
   element: Cheerio<Element> | Element,
@@ -19,8 +25,8 @@ export type ElementFilterFunction = (
 
 export type ConfigTypeValues = 'number' | 'float' | 'boolean' | 'array';
 
-export interface RawConfig {
-  selector?: Selector;
+export interface RawConfig<Initial = unknown> {
+  selector: Selector;
   html?: boolean;
   attr?: string;
   type?: ConfigTypeValues;
@@ -28,27 +34,19 @@ export interface RawConfig {
   exist?: boolean;
   rootScope?: boolean;
   elementFilter?: ElementFilterFunction;
-  initial?: any;
+  initial?: Initial;
   fill?: any;
   methods?: string[];
   regex?: RegexConfig;
-  transform?: TransformFunction;
+  transform?: TransformFunction<Initial>;
   condition?: ConditionFunction;
-  schema?:
-    | ConfigFunction
-    | {
-        [key: string]: InputConfig;
-      };
+  schema?: SchemaGenerator<Initial> | Schema<Initial>;
   ignoreIntersectingElements?: 'ignore-kids' | 'ignore-parents';
   ignoreExistenceChecks?: boolean;
 }
 
-export type InputConfig = ConfigFunction | RawConfig | RawConfig[] | Selector;
-
-export interface Config extends RawConfig {
-  selector?: string;
-}
-
-export type Schema = {
-  [key: string]: InputConfig;
-};
+export type Config<Initial = unknown> =
+  | SchemaGenerator<Initial>
+  | RawConfig<Initial>
+  | RawConfig<Initial>[]
+  | Selector;

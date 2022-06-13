@@ -1,7 +1,9 @@
-import { Selector, Config, RawConfig } from './types';
+import { Selector, RawConfig } from './types';
 
-const parseSelector = (selector: Selector): RawConfig => {
-  const config: Config = {};
+function parseSelector<Initial = unknown>(
+  selector: Selector
+): RawConfig<Initial> {
+  const config: RawConfig<Initial> = { selector };
 
   let $selector, methods, attr;
 
@@ -37,6 +39,6 @@ const parseSelector = (selector: Selector): RawConfig => {
   }
 
   return config;
-};
+}
 
 export default parseSelector;

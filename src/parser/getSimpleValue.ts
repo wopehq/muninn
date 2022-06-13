@@ -1,9 +1,36 @@
-import { ElementPassArg } from './types';
-
-import transformValue from './transformValue';
 import { Config } from '../config/types';
+import parseSelector from '../config/getSelector';
+import transformValue from './transformValue';
+import { ElementPassArg } from './types';
+import { Value } from './value';
 
-function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
+function getSimpleValue<Initial = unknown>(
+  { $, el }: ElementPassArg,
+  config: Config<Initial>
+): Value<Initial> {
+  if (typeof config === 'function') {
+    config = {
+      selector: '',
+      schema: config($(el))
+    };
+  }
+
+  if (Array.isArray(config)) {
+    for (const c of config) {
+      const value = getSimpleValue({ $, el }, c);
+
+      if (value !== null && value !== undefined) {
+        return value;
+      }
+    }
+
+    return null;
+  }
+
+  if (typeof config === 'string') {
+    config = parseSelector(config);
+  }
+
   const { html, attr, initial, fill } = config;
 
   if (fill) {
@@ -15,7 +42,7 @@ function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
   }
 
   const element = $(el);
-  let value;
+  let value: string | Initial;
 
   if (html) {
     value = element.html();
@@ -32,12 +59,12 @@ function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
   if (
     value === null ||
     value === undefined ||
-    (value === '' && initial !== '')
+    (value === '' && typeof initial === 'string' && initial !== '')
   ) {
     return null;
   }
 
-  return transformValue(value, config);
+  return transformValue<Initial>(value, config);
 }
 
 export default getSimpleValue;

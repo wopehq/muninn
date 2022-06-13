@@ -21,7 +21,7 @@ describe('getArrayValue', () => {
   });
 
   it('withoutIgnore', () => {
-    const result = getArrayValue({ $, el: '#root div' }, {});
+    const result = getArrayValue({ $, el: '#root div' }, { selector: '' });
     const expected = [
       'First Child Second Child',
       'Second Child',
@@ -34,7 +34,7 @@ describe('getArrayValue', () => {
   it('withIgnoreKids', () => {
     const result = getArrayValue(
       { $, el: '#root div' },
-      { ignoreIntersectingElements: 'ignore-kids' }
+      { selector: '', ignoreIntersectingElements: 'ignore-kids' }
     );
     const expected = ['First Child Second Child', 'Third Child'];
 
@@ -44,7 +44,7 @@ describe('getArrayValue', () => {
   it('withIgnoreParents', () => {
     const result = getArrayValue(
       { $, el: '#root div' },
-      { ignoreIntersectingElements: 'ignore-parents' }
+      { selector: '', ignoreIntersectingElements: 'ignore-parents' }
     );
     const expected = ['Second Child', 'Third Child'];
 

@@ -1,10 +1,10 @@
 import { load, CheerioAPI } from 'cheerio';
-import { InputConfig } from '../config/types';
+import { Config } from '../config/types';
 import getValue from './getValue';
 
-function parse(
+function parse<Initial = unknown>(
   data: string | CheerioAPI,
-  config: InputConfig
+  config: Config<Initial>
 ): Record<string, unknown> {
   let $;
 

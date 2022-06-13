@@ -1,14 +1,32 @@
 import { ElementPassArg } from './types';
-import { InputConfig } from '../config/types';
+import { Config } from '../config/types';
 
 import getConfig from '../config/getConfig';
 import getElement from './getElement';
 import getSimpleValue from './getSimpleValue';
 import getSchemaValue from './getSchemaValue';
 import getArrayValue from './getArrayValue';
+import { getRawConfig } from './getRawConfig';
 
-function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
-  const config = getConfig({ $, el }, inputConfig);
+function getValue<Initial = unknown>(
+  { $, el }: ElementPassArg,
+  conf: Config<Initial>
+) {
+  const rawConf = getRawConfig(conf);
+
+  if (Array.isArray(rawConf)) {
+    for (const conf of rawConf) {
+      const val = getValue({ $, el }, conf);
+
+      if (val !== null && val !== undefined) {
+        return val;
+      }
+    }
+
+    return null;
+  }
+
+  const config = getConfig({ $, el }, rawConf);
 
   if (Array.isArray(config)) {
     for (const conf of config) {
@@ -42,15 +60,19 @@ function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
 
     return getArrayValue({ $, el: element }, rest);
   } else if (schema) {
-    const currentSchema = getConfig({ $, el }, schema);
-
     if (!elemExists) {
       if (!(config.ignoreExistenceChecks === true)) {
         return rest.initial ?? null;
       }
     }
 
-    return getSchemaValue({ $, el: element }, currentSchema);
+    let schm = schema;
+
+    if (typeof schm === 'function') {
+      schm = schm($ && el ? $(el) : null);
+    }
+
+    return getSchemaValue({ $, el: element }, schm);
   } else {
     return getSimpleValue({ $, el: element }, rest);
   }

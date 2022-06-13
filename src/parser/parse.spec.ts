@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { InputConfig } from '../config/types';
+import { RawConfig } from '../config/types';
 import parse from './parse';
 
 const BLOCK_HTML = `
@@ -37,21 +37,21 @@ const SAMPLE_HTML = `
 describe('parse Tests', () => {
   it('Case 1:  { selector }', () => {
     const data = SAMPLE_HTML;
-    const config: InputConfig = { selector: '.first-child' };
+    const config: RawConfig = { selector: '.first-child' };
     const value = parse(data, config);
     expect('First Child').to.deep.equal(value);
   });
 
   it('Case 2:  { selector, array* }', () => {
     const data = SAMPLE_HTML;
-    const config: InputConfig = '.unblock div h4 | array';
+    const config: RawConfig = { selector: '.unblock div h4 | array' };
     const value = parse(data, config);
     expect(['Unblock', 'Unblock']).to.deep.equal(value);
   });
 
   it('Case 3:  { selector, array*, schema }', () => {
     const data = SAMPLE_HTML;
-    const config: InputConfig = {
+    const config: RawConfig = {
       selector: '.blocks @ href',
       schema: {
         unblock: {

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as cheerio from 'cheerio';
-import { InputConfig, RawConfig } from '../config/types';
+import { Config, RawConfig } from '../config/types';
 import getValue from './getValue';
 
 const BLOCK_HTML = `
@@ -325,7 +325,10 @@ describe('ignoreExistenceChecks', () => {
 
 describe('MultipleSchemas', () => {
   it('GetContentsOfTheFirstMatchingSelector', () => {
-    const conf: InputConfig = ['#non-existent', '.first-child'];
+    const conf: Config = [
+      { selector: '#non-existent' },
+      { selector: '.first-child' }
+    ];
     const el = $('.parent:first');
     const val = getValue({ $, el }, conf);
     const expected = $('.first-child:first').text();

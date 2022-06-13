@@ -1,18 +1,25 @@
 import { Cheerio, CheerioAPI, Element } from 'cheerio';
-import { Config, RawConfig } from '../config/types';
+import { RawConfig } from '../config/types';
 import getValue from './getValue';
 import { ElementPassArg } from './types';
 
-function getArrayValue(
+function getArrayValue<Initial = unknown>(
   { $, el: element }: ElementPassArg,
-  config: Config
+  config: RawConfig<Initial>
 ): any[] {
   const values = [];
   let elems = $(element);
 
   function eachFunction(index, el) {
     const { selector, type, ...rest } = config;
-    const value = getValue({ $, el: $(el) }, rest);
+    const value = getValue(
+      { $, el: $(el) },
+      {
+        selector: '',
+        ...rest
+      }
+    );
+
     values.push(value);
   }
 
