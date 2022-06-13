@@ -1,6 +1,7 @@
-import parseSelector from './getSelector';
+import parseSelector from './parseSelector';
 import { ElementPassArg } from '../parser/types';
 import { Config, RawConfig } from './types';
+import { applyMethods } from './applyMethods';
 
 function getConfig<Initial = unknown>(
   { $, el }: ElementPassArg,
@@ -36,17 +37,7 @@ function getConfig<Initial = unknown>(
     };
   }
 
-  const { methods } = conf;
-  const type = methods?.includes('array') ? 'array' : conf.type;
-  const html = methods?.includes('html') ? true : conf.html;
-  const exist = methods?.includes('exist') ? true : conf.exist;
-  let trim = methods?.includes('trim') ? true : conf.trim;
-  trim = methods?.includes('non-trim') ? false : conf.trim;
-
-  if (type) conf.type = type;
-  if (html) conf.html = html;
-  if (exist) conf.exist = exist;
-  if (typeof trim === 'boolean') conf.trim = trim;
+  applyMethods(conf);
 
   return conf;
 }

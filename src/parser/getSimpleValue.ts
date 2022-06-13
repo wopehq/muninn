@@ -1,5 +1,5 @@
 import { RawConfig } from '../config/types';
-import parseSelector from '../config/getSelector';
+import parseSelector from '../config/parseSelector';
 import transformValue from './transformValue';
 import { ElementPassArg } from './types';
 import { Value } from './value';
@@ -12,15 +12,7 @@ function getSimpleValue<Initial = unknown>(
     config = parseSelector(config);
   }
 
-  const { html, attr, initial, fill } = config;
-
-  if (fill) {
-    if (typeof fill === 'function') {
-      return fill();
-    }
-
-    return fill;
-  }
+  const { html, attr, initial } = config;
 
   const element = $(el);
   let value: string | Initial;
@@ -40,7 +32,7 @@ function getSimpleValue<Initial = unknown>(
   if (
     value === null ||
     value === undefined ||
-    (value === '' && typeof initial === 'string' && initial !== '')
+    (value === '' && !(typeof initial === 'string' && initial === ''))
   ) {
     return null;
   }

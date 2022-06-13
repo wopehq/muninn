@@ -1,13 +1,14 @@
 import { expect } from 'chai';
 
 import getConfig from './getConfig';
-import { RawConfig } from './types';
 
 describe('getConfig Tests', () => {
   it('Case 1: string config: @ attr', () => {
     const config = { selector: '@ href' };
     const value = getConfig({}, config);
-    expect({ attr: 'href' }).to.deep.equal(value);
+    const expected = { selector: '', attr: 'href' };
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 2: string config: selector', () => {
@@ -74,17 +75,17 @@ describe('getConfig Tests', () => {
 
   it('Case 10: object config: () => ({ selector @ attr | html* })', () => {
     const config = {
-      selector: '',
-      schema: () => ({ selector: 'a.link @ href | html' })
+      selector: 'a.link @ href | html'
     };
     const value = getConfig({}, config);
-
-    expect({
+    const expected = {
       selector: 'a.link',
       attr: 'href',
       html: true,
       methods: ['html']
-    }).to.deep.equal(value);
+    };
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 11: object config: () => ({ selector | exist })', () => {

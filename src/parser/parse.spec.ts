@@ -62,7 +62,7 @@ describe('parse Tests', () => {
       }
     };
     const value = parse(data, config);
-    expect({
+    const expected = {
       unblock: [
         {
           title: 'Unblock',
@@ -73,6 +73,8 @@ describe('parse Tests', () => {
           description: 'Description'
         }
       ]
-    }).to.deep.equal(value);
+    };
+
+    expect(value).to.deep.equal(expected);
   });
 });

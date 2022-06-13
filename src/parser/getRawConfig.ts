@@ -1,4 +1,4 @@
-import parseSelector from '../config/getSelector';
+import parseSelector from '../config/parseSelector';
 import { Config, RawConfig } from '../config/types';
 
 export function getRawConfig<Initial = unknown>(
@@ -17,6 +17,13 @@ export function getRawConfig<Initial = unknown>(
 
   if (Array.isArray(conf)) {
     return conf.map((c) => getRawConfig(c) as RawConfig<Initial>);
+  }
+
+  if (conf.selector !== '') {
+    return {
+      ...conf,
+      ...parseSelector(conf.selector)
+    };
   }
 
   return conf;

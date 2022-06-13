@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { applyMethods } from '../config/applyMethods';
 
 import transformValue from './transformValue';
 
@@ -39,10 +40,11 @@ describe('transformValue Tests', () => {
   });
 
   it('Case 6: non-trim', () => {
-    const config = { selector: '', methods: ['non-trim'] };
+    const config = applyMethods({ selector: '', methods: ['non-trim'] });
     const value = ' content ';
     const result = transformValue(value, config);
-    expect(' content ').to.deep.equal(result);
+
+    expect(result).to.deep.equal(value);
   });
 
   it('Case 7: lowercase', () => {

@@ -1,18 +1,22 @@
 import { expect } from 'chai';
 
-import getSelector from './getSelector';
+import getSelector from './parseSelector';
 
 describe('getSelector Tests', () => {
   it('Case 1: @ attr', () => {
     const selector = '@ href';
     const value = getSelector(selector);
-    expect({ attr: 'href' }).to.deep.equal(value);
+    const expected = { selector: '', attr: 'href' };
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 2: selector @ attr', () => {
     const selector = 'a.link @ href';
     const value = getSelector(selector);
-    expect({ selector: 'a.link', attr: 'href' }).to.deep.equal(value);
+    const expected = { selector: 'a.link', attr: 'href' };
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 3: selector @ attr | method', () => {

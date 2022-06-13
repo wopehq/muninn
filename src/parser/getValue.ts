@@ -23,16 +23,30 @@ function getValue<Initial = unknown>(
   }
 
   const element = getElement({ $, el }, config);
-  const { type, condition, exist, ...rest } = config;
+  const { type, condition, exist, fill, ...rest } = config;
   const { schema } = rest;
   const elemExists = element.length > 0;
 
-  if (exist) {
+  if (exist || config.methods?.includes('exist')) {
     return elemExists;
   }
 
   if (condition && !condition($(el))) {
     return rest.initial ?? null;
+  }
+
+  if (fill) {
+    if (typeof fill === 'function') {
+      return fill();
+    }
+
+    return fill;
+  }
+
+  if (!elemExists) {
+    if (!(config.ignoreExistenceChecks === true)) {
+      return rest.initial ?? null;
+    }
   }
 
   if (type === 'array') {
@@ -42,12 +56,6 @@ function getValue<Initial = unknown>(
 
     return getArrayValue({ $, el: element }, rest);
   } else if (schema) {
-    if (!elemExists) {
-      if (!(config.ignoreExistenceChecks === true)) {
-        return rest.initial ?? null;
-      }
-    }
-
     let schm = schema;
 
     if (typeof schm === 'function') {

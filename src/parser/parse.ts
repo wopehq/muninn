@@ -1,4 +1,5 @@
 import { load, CheerioAPI } from 'cheerio';
+import parseSelector from '../config/parseSelector';
 import { Config } from '../config/types';
 import { getRawConfig } from './getRawConfig';
 import getValue from './getValue';
