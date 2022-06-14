@@ -56,13 +56,13 @@ function getValue<Initial = unknown>(
 
     return getArrayValue({ $, el: element }, rest);
   } else if (schema) {
-    let schm = schema;
+    let currentSchema = schema;
 
-    if (typeof schm === 'function') {
-      schm = schm($ && el ? $(el) : null);
+    if (typeof currentSchema === 'function') {
+      currentSchema = currentSchema($ && el ? $(el) : null);
     }
 
-    return getSchemaValue({ $, el: element }, schm);
+    return getSchemaValue({ $, el: element }, currentSchema);
   } else {
     return getSimpleValue({ $, el: element }, rest);
   }
