@@ -1,21 +1,21 @@
-import { ElementPassArg } from './types';
-
+import { RawConfig } from '../config/types';
+import parseSelector from '../config/parseSelector';
 import transformValue from './transformValue';
-import { Config } from '../config/types';
+import { ElementPassArg } from './types';
+import { Value } from './value';
 
-function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
-  const { html, attr, initial, fill } = config;
-
-  if (fill) {
-    if (typeof fill === 'function') {
-      return fill();
-    }
-
-    return fill;
+function getSimpleValue<Initial = unknown>(
+  { $, el }: ElementPassArg,
+  config: RawConfig<Initial>
+): Value<Initial> {
+  if (typeof config === 'string') {
+    config = parseSelector(config);
   }
 
+  const { html, attr, initial } = config;
+
   const element = $(el);
-  let value;
+  let value: string | Initial;
 
   if (html) {
     value = element.html();
@@ -32,12 +32,12 @@ function getSimpleValue({ $, el }: ElementPassArg, config: Config) {
   if (
     value === null ||
     value === undefined ||
-    (value === '' && initial !== '')
+    (value === '' && !(typeof initial === 'string' && initial === ''))
   ) {
     return null;
   }
 
-  return transformValue(value, config);
+  return transformValue<Initial>(value, config);
 }
 
 export default getSimpleValue;

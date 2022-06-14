@@ -4,31 +4,27 @@ import getConfig from './getConfig';
 
 describe('getConfig Tests', () => {
   it('Case 1: string config: @ attr', () => {
-    const config = '@ href';
+    const config = { selector: '@ href' };
     const value = getConfig({}, config);
-    expect({ attr: 'href' }).to.deep.equal(value);
+    const expected = { selector: '', attr: 'href' };
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 2: string config: selector', () => {
-    const config = 'a.link';
+    const config = { selector: 'a.link' };
     const value = getConfig({}, config);
     expect({ selector: 'a.link' }).to.deep.equal(value);
   });
 
   it('Case 3: string config: selector @ attr', () => {
-    const config = 'a.link @ href';
+    const config = { selector: 'a.link @ href' };
     const value = getConfig({}, config);
     expect({ selector: 'a.link', attr: 'href' }).to.deep.equal(value);
   });
 
   it('Case 4:  array config: [selector, selector]', () => {
-    const config = 'a.link, b.link';
-    const value = getConfig({}, config);
-    expect({ selector: 'a.link, b.link' }).to.deep.equal(value);
-  });
-
-  it('Case 4:  array config: [selector, selector]', () => {
-    const config = ['a.link', 'b.link'];
+    const config = { selector: 'a.link, b.link' };
     const value = getConfig({}, config);
     expect({ selector: 'a.link, b.link' }).to.deep.equal(value);
   });
@@ -78,14 +74,18 @@ describe('getConfig Tests', () => {
   });
 
   it('Case 10: object config: () => ({ selector @ attr | html* })', () => {
-    const config = () => ({ selector: 'a.link @ href | html' });
+    const config = {
+      selector: 'a.link @ href | html'
+    };
     const value = getConfig({}, config);
-    expect({
+    const expected = {
       selector: 'a.link',
       attr: 'href',
       html: true,
       methods: ['html']
-    }).to.deep.equal(value);
+    };
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 11: object config: () => ({ selector | exist })', () => {

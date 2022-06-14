@@ -1,20 +1,33 @@
 import { ElementPassArg } from './types';
-import { InputConfig } from '../config/types';
+import { RawConfig } from '../config/types';
 
-import getConfig from '../config/getConfig';
 import getElement from './getElement';
 import getSimpleValue from './getSimpleValue';
 import getSchemaValue from './getSchemaValue';
 import getArrayValue from './getArrayValue';
 
-function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
-  const config = getConfig({ $, el }, inputConfig);
+function getValue<Initial = unknown>(
+  { $, el }: ElementPassArg,
+  config: RawConfig<Initial> | RawConfig<Initial>[]
+) {
+  if (Array.isArray(config)) {
+    for (const conf of config) {
+      const value = getValue({ $, el }, conf);
+
+      if (value !== null) {
+        return value;
+      }
+    }
+
+    return null;
+  }
+
   const element = getElement({ $, el }, config);
-  const { type, condition, exist, ...rest } = config;
+  const { type, condition, exist, fill, ...rest } = config;
   const { schema } = rest;
   const elemExists = element.length > 0;
 
-  if (exist) {
+  if (exist || config.methods?.includes('exist')) {
     return elemExists;
   }
 
@@ -22,19 +35,31 @@ function getValue({ $, el }: ElementPassArg, inputConfig: InputConfig) {
     return rest.initial ?? null;
   }
 
+  if (fill) {
+    if (typeof fill === 'function') {
+      return fill();
+    }
+
+    return fill;
+  }
+
+  if (!elemExists) {
+    if (!(config.ignoreExistenceChecks === true)) {
+      return rest.initial ?? null;
+    }
+  }
+
   if (type === 'array') {
-    if (config?.methods?.includes('size')) {
+    if (config.methods?.includes('size')) {
       return $(element).length;
     }
 
     return getArrayValue({ $, el: element }, rest);
   } else if (schema) {
-    const currentSchema = getConfig({ $, el }, schema);
+    let currentSchema = schema;
 
-    if (!elemExists) {
-      if (!(config.ignoreExistenceChecks === true)) {
-        return rest.initial ?? null;
-      }
+    if (typeof currentSchema === 'function') {
+      currentSchema = currentSchema($ && el ? $(el) : null);
     }
 
     return getSchemaValue({ $, el: element }, currentSchema);

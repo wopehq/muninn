@@ -1,42 +1,45 @@
-import parseSelector from './getSelector';
+import parseSelector from './parseSelector';
 import { ElementPassArg } from '../parser/types';
-import { Config, InputConfig, RawConfig } from './types';
+import { Config, RawConfig } from './types';
+import { applyMethods } from './applyMethods';
 
-function getConfig(
+function getConfig<Initial = unknown>(
   { $, el }: ElementPassArg,
-  inputConfig: InputConfig
-): Config {
-  if (!inputConfig) return {};
-
-  if (typeof inputConfig === 'function') {
-    inputConfig = <RawConfig>inputConfig($ && el ? $(el) : null);
+  conf?: RawConfig<Initial>
+): RawConfig<Initial>;
+function getConfig<Initial = unknown>(
+  { $, el }: ElementPassArg,
+  conf?: Config<Initial>
+): Config<Initial> | Config<Initial>[] {
+  if (!conf) {
+    return { selector: '' };
   }
 
-  if (typeof inputConfig === 'string' || Array.isArray(inputConfig)) {
-    inputConfig = parseSelector(inputConfig);
-  } else if (inputConfig?.selector) {
-    const config = <Config>inputConfig;
-    inputConfig = {
-      ...config,
-      ...parseSelector(config.selector)
+  if (typeof conf === 'function') {
+    const schema = conf($ && el ? $(el) : null);
+
+    conf = {
+      selector: '',
+      schema
     };
   }
 
-  const { methods } = inputConfig;
-  const type = methods?.includes('array') ? 'array' : inputConfig.type;
-  const html = methods?.includes('html') ? true : inputConfig.html;
-  const exist = methods?.includes('exist') ? true : inputConfig.exist;
-  let trim = methods?.includes('trim') ? true : inputConfig.trim;
-  trim = methods?.includes('non-trim') ? false : inputConfig.trim;
+  if (Array.isArray(conf)) {
+    return conf.map((conf) => getConfig({ $, el }, conf));
+  }
 
-  if (type) inputConfig.type = type;
-  if (html) inputConfig.html = html;
-  if (exist) inputConfig.exist = exist;
-  if (typeof trim === 'boolean') inputConfig.trim = trim;
+  if (typeof conf === 'string') {
+    conf = parseSelector(conf);
+  } else if (conf?.selector) {
+    conf = {
+      ...conf,
+      ...parseSelector(conf.selector)
+    };
+  }
 
-  const config = <Config>inputConfig;
+  applyMethods(conf);
 
-  return config;
+  return conf;
 }
 
 export default getConfig;

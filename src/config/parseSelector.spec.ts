@@ -1,23 +1,27 @@
 import { expect } from 'chai';
 
-import getSelector from './getSelector';
+import parseSelector from './parseSelector';
 
-describe('getSelector Tests', () => {
+describe('parseSelector Tests', () => {
   it('Case 1: @ attr', () => {
     const selector = '@ href';
-    const value = getSelector(selector);
-    expect({ attr: 'href' }).to.deep.equal(value);
+    const value = parseSelector(selector);
+    const expected = { selector: '', attr: 'href' };
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 2: selector @ attr', () => {
     const selector = 'a.link @ href';
-    const value = getSelector(selector);
-    expect({ selector: 'a.link', attr: 'href' }).to.deep.equal(value);
+    const value = parseSelector(selector);
+    const expected = { selector: 'a.link', attr: 'href' };
+
+    expect(value).to.deep.equal(expected);
   });
 
   it('Case 3: selector @ attr | method', () => {
     const selector = 'a.link @ href | url';
-    const value = getSelector(selector);
+    const value = parseSelector(selector);
     expect({
       selector: 'a.link',
       attr: 'href',
@@ -27,7 +31,7 @@ describe('getSelector Tests', () => {
 
   it('Case 4: selector @ attr | method | method', () => {
     const selector = 'a.link @ href | url | uppercase';
-    const value = getSelector(selector);
+    const value = parseSelector(selector);
     expect({
       selector: 'a.link',
       attr: 'href',
@@ -36,8 +40,8 @@ describe('getSelector Tests', () => {
   });
 
   it('Case 5: [selector, selector]', () => {
-    const selector = ['a.link', 'b.link'];
-    const value = getSelector(selector);
+    const selector = 'a.link, b.link';
+    const value = parseSelector(selector);
     expect({
       selector: 'a.link, b.link'
     }).to.deep.equal(value);
@@ -45,7 +49,7 @@ describe('getSelector Tests', () => {
 
   it('Case 6: selector, array*', () => {
     const selector = '.parent div | array';
-    const value = getSelector(selector);
+    const value = parseSelector(selector);
     expect({
       selector: '.parent div',
       type: 'array',

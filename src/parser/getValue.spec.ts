@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import * as cheerio from 'cheerio';
-import { RawConfig } from '../config/types';
+import parseSelector from '../config/parseSelector';
+import { Config, RawConfig } from '../config/types';
 import getValue from './getValue';
 
 const BLOCK_HTML = `
@@ -39,7 +40,7 @@ describe('getValue Tests', () => {
 
   it('Case 2:  { [selector, selector] }', () => {
     const el = '.parent';
-    const config: RawConfig = { selector: ['.first-child', '.second-child'] };
+    const config: RawConfig = { selector: '.first-child, .second-child' };
     const value = getValue({ $, el }, config);
     expect('First Child').to.deep.equal(value);
   });
@@ -47,7 +48,7 @@ describe('getValue Tests', () => {
   it('Case 3:  { [selector, selector], array }', () => {
     const el = $('.parent').first();
     const config: RawConfig = {
-      selector: ['.first-child', '.second-child'],
+      selector: '.first-child, .second-child',
       type: 'array'
     };
     const value = getValue({ $, el }, config);
@@ -203,11 +204,12 @@ describe('getValue Tests', () => {
   });
 
   it('Case 13: { selector, fill() }', () => {
-    const config = {
+    const config: RawConfig = {
       selector: 'a.href',
       fill: () => 'link censored'
     };
     const value = getValue({ $ }, config);
+
     expect('link censored').to.deep.equal(value);
   });
 
@@ -254,28 +256,31 @@ describe('getValue Tests', () => {
   it('Case 16: { selector, exist }', () => {
     const el = $('.parent');
     const selector = '.empty-child | exist';
-    const value = getValue({ $, el }, selector);
+    const value = getValue({ $, el }, parseSelector(selector));
+
     expect(true).to.deep.equal(value);
   });
 
   it('Case 17: { selector, non-exist }', () => {
     const el = $('.parent');
-    const selector = '.non-exist-child | exist';
-    const value = getValue({ $, el }, selector);
-    expect(false).to.deep.equal(value);
+    const selector = '.non-exist-child';
+    const value = getValue({ $, el }, { selector, methods: ['exist'] });
+
+    expect(value).to.deep.equal(false);
   });
 
   it('Case 18:  { [selector, selector], array with elementFilter }', () => {
     const el = $('.parent').first();
     const config: RawConfig = {
-      selector: ['.first-child', '.second-child'],
+      selector: '.first-child, .second-child',
       type: 'array',
       elementFilter: (index, el, $) => {
         return $(el).hasClass('first-child');
       }
     };
     const value = getValue({ $, el }, config);
-    expect(['First Child']).to.deep.equal(value);
+
+    expect(value).to.deep.equal(['First Child']);
   });
 });
 
@@ -320,5 +325,19 @@ describe('ignoreExistenceChecks', () => {
     };
 
     expect(value).to.deep.equal(expected);
+  });
+});
+
+describe('MultipleSchemas', () => {
+  it('GetContentsOfTheFirstMatchingSelector', () => {
+    const conf: Config = [
+      { selector: '#non-existent' },
+      { selector: '.first-child' }
+    ];
+    const el = $('.parent:first');
+    const val = getValue({ $, el }, conf);
+    const expected = $('.first-child:first').text();
+
+    expect(val).to.eq(expected);
   });
 });

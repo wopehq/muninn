@@ -1,8 +1,11 @@
-import { Cheerio } from 'cheerio';
+import { Cheerio, Element } from 'cheerio';
 import { ElementPassArg } from './types';
-import { Config } from '../config/types';
+import { RawConfig } from '../config/types';
 
-function getElement({ $, el }: ElementPassArg, config: Config): Cheerio<any> {
+function getElement<Initial = unknown>(
+  { $, el }: ElementPassArg,
+  config: RawConfig<Initial>
+): Cheerio<Element> {
   if (!config) return $(el);
 
   const { selector, rootScope, type } = config;
