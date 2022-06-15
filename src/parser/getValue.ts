@@ -50,7 +50,7 @@ function getValue<Initial = unknown>(
   }
 
   if (type === 'array') {
-    if (config.methods?.includes('size')) {
+    if (config.methods?.includes('length')) {
       return $(element).length;
     }
 

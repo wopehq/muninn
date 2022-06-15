@@ -1,4 +1,3 @@
-const length = (val: string): number =>
-  typeof val === 'string' ? val.length : 0;
+const length = (val: any): number => val?.length || 0;
 
 export default length;

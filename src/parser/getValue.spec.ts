@@ -341,3 +341,30 @@ describe('MultipleSchemas', () => {
     expect(val).to.eq(expected);
   });
 });
+
+describe('LengthUtils', () => {
+  it('OnStringValue', () => {
+    const conf: Config = {
+      selector: '.first-child:first',
+      methods: ['length']
+    };
+    const el = $('.parent');
+    const val = getValue({ $, el }, conf);
+    const expected = $('.first-child:first').text().length;
+
+    expect(val).to.eq(expected);
+  });
+
+  it('OnArrayValue', () => {
+    const conf: Config = {
+      selector: '.first-child',
+      type: 'array',
+      methods: ['length']
+    };
+    const el = $('.parent');
+    const val = getValue({ $, el }, conf);
+    const expected = $('.first-child').length;
+
+    expect(val).to.eq(expected);
+  });
+});
