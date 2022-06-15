@@ -13,14 +13,10 @@ function getSchemaValue<Initial = unknown>(
     const rawConf = getRawConfig(conf);
 
     if (Array.isArray(rawConf)) {
-      for (const conf of rawConf) {
-        let schema = conf.schema;
+      for (const rconf of rawConf) {
+        const currentRawConfig = getConfig({ $, el }, rconf);
 
-        if (typeof schema === 'function') {
-          schema = schema($ && el ? $(el) : null);
-        }
-
-        const val = getSchemaValue<Initial>({ $, el }, schema);
+        const val = getValue({ $, el }, currentRawConfig);
 
         if (val !== null && val !== undefined) {
           values[key] = val;
