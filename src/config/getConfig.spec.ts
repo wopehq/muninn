@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 
 import getConfig from './getConfig';
+import parseSelector from './parseSelector';
 
 describe('getConfig Tests', () => {
   it('Case 1: string config: @ attr', () => {
@@ -96,5 +97,13 @@ describe('getConfig Tests', () => {
       exist: true,
       methods: ['exist']
     }).to.deep.equal(value);
+  });
+
+  it('MultipleStringSelectors', () => {
+    const selectors = ['a.link', 'b.link'];
+    const result = getConfig({}, selectors);
+    const expected = selectors.map((s) => parseSelector(s));
+
+    expect(result).to.deep.equal(expected);
   });
 });
