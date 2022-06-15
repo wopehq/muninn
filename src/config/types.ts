@@ -26,7 +26,7 @@ export type ElementFilterFunction = (
 export type ConfigTypeValues = 'number' | 'float' | 'boolean' | 'array';
 
 export interface RawConfig<Initial = unknown> {
-  selector: Selector;
+  selector?: Selector;
   html?: boolean;
   attr?: string;
   type?: ConfigTypeValues;
@@ -49,4 +49,5 @@ export type Config<Initial = unknown> =
   | SchemaGenerator<Initial>
   | RawConfig<Initial>
   | RawConfig<Initial>[]
-  | Selector;
+  | Selector
+  | Selector[];
