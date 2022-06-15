@@ -45,4 +45,23 @@ describe('getSchemaValue', () => {
 
     expect(result).toStrictEqual(expected);
   });
+
+  it('SchemaValueNotFound', () => {
+    const schema: Schema = {
+      val: [
+        {
+          selector: '#fake-selector'
+        },
+        {
+          selector: '#fake-selector-2'
+        }
+      ]
+    };
+    const $ = load(sample);
+    const el = $('#root') as Cheerio<Element>;
+    const result = getSchemaValue({ $, el }, schema);
+    const expected = { val: null };
+
+    expect(result).toStrictEqual(expected);
+  });
 });

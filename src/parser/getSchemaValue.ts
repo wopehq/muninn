@@ -24,6 +24,10 @@ function getSchemaValue<Initial = unknown>(
         }
       }
 
+      if (!Object.prototype.hasOwnProperty.call(values, key)) {
+        values[key] = null;
+      }
+
       return values;
     }
 
