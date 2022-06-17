@@ -56,4 +56,37 @@ describe('parseSelector Tests', () => {
       methods: []
     }).to.deep.equal(value);
   });
+
+  it('only a method provided', () => {
+    const selector = '| uppercase';
+    const result = parseSelector(selector);
+    const expected = {
+      selector: '',
+      methods: ['uppercase']
+    };
+
+    expect(result).to.deep.eq(expected);
+  });
+
+  it('only two methods provided', () => {
+    const selector = '| uppercase | lowercase';
+    const result = parseSelector(selector);
+    const expected = {
+      selector: '',
+      methods: ['uppercase', 'lowercase']
+    };
+
+    expect(result).to.deep.eq(expected);
+  });
+
+  it('only an attribute provided', () => {
+    const selector = '@ href';
+    const result = parseSelector(selector);
+    const expected = {
+      selector: '',
+      attr: 'href'
+    };
+
+    expect(result).to.deep.eq(expected);
+  });
 });

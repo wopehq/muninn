@@ -17,7 +17,7 @@ function parseSelector<Initial = unknown>(
     methods = methods.map((p: string) => p.trim());
   }
 
-  if (!$selector) {
+  if ($selector === undefined) {
     $selector = selector;
   }
 
