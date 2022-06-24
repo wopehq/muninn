@@ -31,10 +31,10 @@ describe('getArrayValue', () => {
     expect(result).to.be.deep.eq(expected);
   });
 
-  it('withIgnoreKids', () => {
+  it('withIgnoreChildren', () => {
     const result = getArrayValue(
       { $, el: '#root div' },
-      { selector: '', ignoreIntersectingElements: 'ignore-kids' }
+      { selector: '', ignoreIntersectingElements: 'ignore-children' }
     );
     const expected = ['First Child Second Child', 'Third Child'];
 
