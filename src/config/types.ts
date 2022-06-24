@@ -41,7 +41,7 @@ export interface RawConfig<Initial = unknown> {
   transform?: TransformFunction<Initial>;
   condition?: ConditionFunction;
   schema?: SchemaGenerator<Initial> | Schema<Initial>;
-  ignoreIntersectingElements?: 'ignore-kids' | 'ignore-parents';
+  ignoreIntersectingElements?: 'ignore-children' | 'ignore-parents';
   ignoreExistenceChecks?: boolean;
 }
 

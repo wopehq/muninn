@@ -63,7 +63,7 @@ function makeUniqueElemsReducer(
       const currentWraps = elemWraps($current, elem);
       const elemWrapsCurrent = elemWraps(elem, $current);
 
-      if (ignoreStyle === 'ignore-kids') {
+      if (ignoreStyle === 'ignore-children') {
         if (currentWraps) {
           insertCurrIdx = i;
 
