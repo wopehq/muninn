@@ -28,7 +28,7 @@ export type ConfigTypeValues = 'number' | 'float' | 'boolean' | 'array';
 export interface RawConfig<Initial = unknown> {
   selector?: Selector;
   html?: boolean;
-  attr?: string;
+  attr?: string | string[];
   type?: ConfigTypeValues;
   trim?: boolean;
   exist?: boolean;

@@ -15,12 +15,21 @@ function getSimpleValue<Initial = unknown>(
   const { html, attr, initial } = config;
 
   const element = $(el);
-  let value: string | Initial;
+  let value: string | Record<string, string> | Initial;
 
   if (html) {
     value = element.html();
   } else if (attr) {
-    value = element.attr(attr);
+    if (Array.isArray(attr)) {
+      value = attr.reduce((acc, arg) => {
+        acc[arg] = element.attr(arg);
+        return acc;
+      }, {});
+    } else if (attr === '$all') {
+      value = element.attr();
+    } else {
+      value = element.attr(attr);
+    }
   } else {
     value = element.text();
   }
