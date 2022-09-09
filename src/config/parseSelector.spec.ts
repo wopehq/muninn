@@ -11,6 +11,22 @@ describe('parseSelector Tests', () => {
     expect(value).to.deep.equal(expected);
   });
 
+  it('Case 1.1: | @ multiple attrs', () => {
+    const selector = '@ href, rel';
+    const value = parseSelector(selector);
+    const expected = { selector: '', attr: ['href', 'rel'] };
+
+    expect(value).to.deep.equal(expected);
+  });
+
+  it('Case 1.2: @ all attrs', () => {
+    const selector = '@ $all';
+    const value = parseSelector(selector);
+    const expected = { selector: '', attr: '$all' };
+
+    expect(value).to.deep.equal(expected);
+  });
+
   it('Case 2: selector @ attr', () => {
     const selector = 'a.link @ href';
     const value = parseSelector(selector);

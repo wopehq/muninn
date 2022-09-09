@@ -5,7 +5,7 @@ function parseSelector<Initial = unknown>(
 ): RawConfig<Initial> {
   const config: RawConfig<Initial> = { selector: '' };
 
-  let $selector: string, methods: string[], attr: string;
+  let $selector: string, methods: string[], attr: string | string[];
 
   if (typeof selector !== 'string') {
     return selector;
@@ -23,6 +23,8 @@ function parseSelector<Initial = unknown>(
 
   if ($selector.includes('@')) {
     [$selector, attr] = $selector.split('@').map((key) => key.trim());
+    const attrs = attr.split(',').map((key) => key.trim());
+    attr = attrs.length > 1 ? attrs : attr;
   }
 
   if ($selector)

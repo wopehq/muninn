@@ -16,7 +16,7 @@ const BLOCK_HTML = `
   <div class="trim-child"> Trim Content </div>
   <div class="html-child"><div class="content">Test</div></div>
   <div class="regex-template-test-child">https://example.com/ > example > test</div>
-  <a class="link" href="https://example.com/">Test Url</a>
+  <a class="link" href="https://example.com/" rel="noreferrer">Test Url</a>
 </div>
 `;
 
@@ -156,6 +156,24 @@ describe('getValue Tests', () => {
     const config = { selector: '.link', attr: 'href' };
     const value = getValue({ $ }, config);
     expect('https://example.com/').to.deep.equal(value);
+  });
+
+  it('Case 9.1:  { selector, mulitple attrs }', () => {
+    const config = { selector: '.link', attr: ['href', 'rel'] };
+    const value = getValue({ $ }, config);
+    expect({ href: 'https://example.com/', rel: 'noreferrer' }).to.deep.equal(
+      value
+    );
+  });
+
+  it('Case 9.2:  { selector, all attrs }', () => {
+    const config = { selector: '.link', attr: '$all' };
+    const value = getValue({ $ }, config);
+    expect({
+      href: 'https://example.com/',
+      rel: 'noreferrer',
+      class: 'link'
+    }).to.deep.equal(value);
   });
 
   it('Case 10: { selector, html }', () => {

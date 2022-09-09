@@ -1,1 +1,4 @@
-export type Value<Initial = unknown> = string | Initial;
+export type Value<Initial = unknown> =
+  | string
+  | Record<string, string>
+  | Initial;
