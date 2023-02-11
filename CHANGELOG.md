@@ -1,3 +1,9 @@
+v0.15.0
+
+- Remove unused `validateConfig` feature.
+- Update dependencies.
+- Update npmignore file.
+
 v0.14.0
 
 - Add multiple attribute support.
