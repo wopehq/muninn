@@ -1,4 +1,9 @@
-sample/
 coverage/
+.github/
 .prettierrc
+.eslintrc
+.eslintignore
 tsconfig.json
+src/
+CHANGELOG.md
+jest.config.js
