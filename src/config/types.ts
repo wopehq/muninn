@@ -15,7 +15,8 @@ export interface Schema<Initial = unknown> {
   [key: string]: Config<Initial>;
 }
 export type SchemaGenerator<Initial = unknown> = (
-  el: Cheerio<Element>
+  el: Cheerio<Element>,
+  $: CheerioAPI
 ) => Schema<Initial>;
 export type ElementFilterFunction = (
   index: number,

@@ -59,7 +59,7 @@ function getValue<Initial = unknown>(
     let currentSchema = schema;
 
     if (typeof currentSchema === 'function') {
-      currentSchema = currentSchema($ && el ? $(el) : null);
+      currentSchema = currentSchema($ && el ? $(el) : null, $);
     }
 
     return getSchemaValue({ $, el: element }, currentSchema);
