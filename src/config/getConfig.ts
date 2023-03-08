@@ -24,7 +24,7 @@ function getConfig<Initial = unknown>(
   }
 
   if (typeof conf === 'function') {
-    const schema = conf($ && el ? $(el) : null);
+    const schema = conf($ && el ? $(el) : null, $);
 
     conf = {
       selector: '',
