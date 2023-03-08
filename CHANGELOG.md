@@ -1,5 +1,13 @@
 v0.15.0
 
+- Add `CheerioAPI` as second parameter to `SchemaGenerator`
+
+```ts
+schema: (el: Cheerio<Element>, $: CheerioAPI) => {};
+```
+
+v0.15.0
+
 - Remove unused `validateConfig` feature.
 - Update dependencies.
 - Update npmignore file.
