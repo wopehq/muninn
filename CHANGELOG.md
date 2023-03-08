@@ -1,4 +1,4 @@
-v0.15.0
+v0.16.0
 
 - Add `CheerioAPI` as second parameter to `SchemaGenerator`
 
