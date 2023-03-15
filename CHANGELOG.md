@@ -1,3 +1,7 @@
+v0.17.0
+
+- Add `arrayTransform` support.
+
 v0.16.0
 
 - Add `CheerioAPI` as second parameter to `SchemaGenerator`

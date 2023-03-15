@@ -385,4 +385,17 @@ describe('LengthUtils', () => {
 
     expect(val).to.eq(expected);
   });
+
+  it('ArrayTransform', () => {
+    const config: RawConfig = {
+      selector: 'a',
+      attr: 'href',
+      type: 'array',
+      arrayTransform: (value) => (value as string[]).join('-')
+    };
+    const value = getValue({ $ }, config);
+    expect(
+      'https://example.com/-https://example.com/-https://example.com/-https://example.com/'
+    ).to.deep.equal(value);
+  });
 });

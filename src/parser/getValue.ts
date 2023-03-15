@@ -54,7 +54,13 @@ function getValue<Initial = unknown>(
       return $(element).length;
     }
 
-    return getArrayValue({ $, el: element }, rest);
+    const arrayValue = getArrayValue({ $, el: element }, rest);
+
+    if (config.arrayTransform) {
+      return config.arrayTransform(arrayValue);
+    }
+
+    return arrayValue;
   } else if (schema) {
     let currentSchema = schema;
 
