@@ -40,6 +40,7 @@ export interface RawConfig<Initial = unknown> {
   methods?: string[];
   regex?: RegexConfig;
   transform?: TransformFunction<Initial>;
+  arrayTransform?: TransformFunction<any[]>;
   condition?: ConditionFunction;
   schema?: SchemaGenerator<Initial> | Schema<Initial>;
   ignoreIntersectingElements?: 'ignore-children' | 'ignore-parents';
