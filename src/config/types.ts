@@ -8,7 +8,8 @@ export type RegexObject = { pattern: string; flags?: string };
 export type RegexConfig = PreDefinedRegex | RegexObject | RegExp;
 
 export type TransformFunction<Initial = unknown> = (
-  value: Value<Initial>
+  value: Value<Initial>,
+  element?: Cheerio<Element>
 ) => Value<Initial>;
 export type ConditionFunction = ($: CheerioAPI | Cheerio<Element>) => boolean;
 export interface Schema<Initial = unknown> {
