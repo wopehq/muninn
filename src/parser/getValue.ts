@@ -57,7 +57,7 @@ function getValue<Initial = unknown>(
     const arrayValue = getArrayValue({ $, el: element }, rest);
 
     if (config.arrayTransform) {
-      return config.arrayTransform(arrayValue);
+      return config.arrayTransform(arrayValue, element);
     }
 
     return arrayValue;

@@ -46,7 +46,7 @@ function getSimpleValue<Initial = unknown>(
     return null;
   }
 
-  return transformValue<Initial>(value, config);
+  return transformValue<Initial>(value, config, element);
 }
 
 export default getSimpleValue;

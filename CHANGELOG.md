@@ -1,3 +1,7 @@
+v0.18.0
+
+- Add `element` parameter to `transform`
+
 v0.17.0
 
 - Add `arrayTransform` support.

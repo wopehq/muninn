@@ -1,3 +1,4 @@
+import { Cheerio, Element } from 'cheerio';
 import { RawConfig } from '../config/types';
 import Methods from './methods';
 import execRegex from './regex/execRegex';
@@ -5,7 +6,8 @@ import { Value } from './value';
 
 function transformValue<Initial = unknown>(
   value: Value<Initial>,
-  config: RawConfig<Initial>
+  config: RawConfig<Initial>,
+  element: Cheerio<Element>
 ) {
   const { trim, regex, type, methods = [], transform } = config;
 
@@ -28,7 +30,7 @@ function transformValue<Initial = unknown>(
   });
 
   if (typeof transform === 'function') {
-    value = transform(value);
+    value = transform(value, element);
   }
 
   return value;
