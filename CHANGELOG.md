@@ -1,3 +1,12 @@
+v0.19.0
+
+- The `fill` property now accepts falsy values other than `undefined`.
+```ts
+{ fill: null }
+{ fill: false }
+{ fill: "" }
+```
+
 v0.18.0
 
 - Add `element` parameter to `transform`

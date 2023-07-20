@@ -221,6 +221,33 @@ describe('getValue Tests', () => {
     expect('link censored').to.deep.equal(value);
   });
 
+  it('Case 13: { selector, fill }', () => {
+    const config = {
+      selector: 'a.href',
+      fill: null
+    };
+    const value = getValue({ $ }, config);
+    expect(null).to.deep.equal(value);
+  });
+
+  it('Case 13: { selector, fill }', () => {
+    const config = {
+      selector: 'a.href',
+      fill: undefined
+    };
+    const value = getValue({ $ }, config);
+    expect(null).to.deep.equal(value);
+  });
+
+  it('Case 13: { selector, fill }', () => {
+    const config = {
+      selector: 'a.href',
+      fill: false
+    };
+    const value = getValue({ $ }, config);
+    expect(false).to.deep.equal(value);
+  });
+
   it('Case 13: { selector, fill() }', () => {
     const config: RawConfig = {
       selector: 'a.href',

@@ -35,7 +35,7 @@ function getValue<Initial = unknown>(
     return rest.initial ?? null;
   }
 
-  if (fill) {
+  if (typeof fill !== 'undefined') {
     if (typeof fill === 'function') {
       return fill();
     }
