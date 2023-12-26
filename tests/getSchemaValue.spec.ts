@@ -1,6 +1,7 @@
+import { describe, it, expect } from 'vitest';
 import { Cheerio, Element, load } from 'cheerio';
-import { Schema } from '../config/types';
-import getSchemaValue from './getSchemaValue';
+import { Schema } from '../src/config/types';
+import getSchemaValue from '../src/parser/getSchemaValue';
 
 const sample = `
   <div id="root">

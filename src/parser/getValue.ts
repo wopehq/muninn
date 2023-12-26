@@ -10,6 +10,8 @@ function getValue<Initial = unknown>(
   { $, el }: ElementPassArg,
   config: RawConfig<Initial> | RawConfig<Initial>[]
 ) {
+  if (!config) return null;
+
   if (Array.isArray(config)) {
     for (const conf of config) {
       const value = getValue({ $, el }, conf);

@@ -5,8 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
-    "coverage": "jest --collect-coverage",
-    "test": "jest src",
+    "coverage": "vitest --collect-coverage",
+    "test": "vitest run",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
@@ -29,18 +29,15 @@
   "devDependencies": {
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-typescript": "^7.17.12",
-    "@types/chai": "^4.3.1",
-    "@types/jest": "^28.1.1",
-    "@types/node": "^17.0.41",
+    "@types/node": "^20.10.5",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
-    "chai": "^4.3.4",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "jest": "^28.1.1",
     "prettier": "^2.2.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.3.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
   }
 }

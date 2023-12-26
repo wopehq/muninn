@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { RawConfig } from '../config/types';
-import parse from './parse';
+import { describe, it, expect } from 'vitest';
+import { RawConfig } from '../src/config/types';
+import parse from '../src/parser/parse';
 
 const BLOCK_HTML = `
 <div class="parent">

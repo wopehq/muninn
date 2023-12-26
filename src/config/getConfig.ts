@@ -5,55 +5,53 @@ import { applyMethods } from './applyMethods';
 
 function getConfig(
   { $, el }: ElementPassArg,
-  conf?: string
+  config?: string
 ): ReturnType<typeof parseSelector>;
 function getConfig(
   { $, el }: ElementPassArg,
-  conf?: string[]
+  config?: string[]
 ): ReturnType<typeof parseSelector>[];
 function getConfig<Initial = unknown>(
   { $, el }: ElementPassArg,
-  conf?: RawConfig<Initial>
+  config?: RawConfig<Initial>
 ): RawConfig<Initial>;
 function getConfig<Initial = unknown>(
   { $, el }: ElementPassArg,
-  conf?: Config<Initial>
+  config?: Config<Initial>
 ): Config<Initial> | Config<Initial>[] {
-  if (!conf) {
+  if (!config) {
     return { selector: '' };
   }
 
-  if (typeof conf === 'function') {
-    const schema = conf($ && el ? $(el) : null, $);
+  if (Array.isArray(config)) {
+    return config.map((conf: string | RawConfig<Initial>) => {
+      if (typeof conf === 'string') {
+        return parseSelector<Initial>(conf);
+      }
 
-    conf = {
+      return getConfig<Initial>({ $, el }, conf);
+    });
+  }
+
+  if (typeof config === 'function') {
+    const schema = config($ && el ? $(el) : null, $);
+
+    config = {
       selector: '',
       schema
     };
   }
 
-  if (Array.isArray(conf)) {
-    return conf.map((c: string | RawConfig<Initial>) => {
-      if (typeof c === 'string') {
-        return parseSelector<Initial>(c);
-      }
-
-      return getConfig<Initial>({ $, el }, c);
-    });
-  }
-
-  if (typeof conf === 'string') {
-    conf = parseSelector(conf);
-  } else if (conf?.selector) {
-    conf = {
-      ...conf,
-      ...parseSelector(conf.selector)
+  if (typeof config === 'string') {
+    config = parseSelector(config);
+  } else if (config?.selector) {
+    config = {
+      ...config,
+      ...parseSelector(config.selector)
     };
   }
 
-  applyMethods(conf);
-
-  return conf;
+  return applyMethods(config);
 }
 
 export default getConfig;
