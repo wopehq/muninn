@@ -43,10 +43,10 @@ function getValue<Initial = unknown>(
     return fill;
   }
 
-  if (!elemExists) {
-    if (!(config.ignoreExistenceChecks === true)) {
-      return rest.initial ?? null;
-    }
+  const isIgnoreExistenceChecks = config.ignoreExistenceChecks === true;
+
+  if (!elemExists && !isIgnoreExistenceChecks) {
+    return rest.initial ?? null;
   }
 
   if (type === 'array') {

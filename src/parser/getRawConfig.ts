@@ -2,29 +2,29 @@ import parseSelector from '../config/parseSelector';
 import { Config, RawConfig } from '../config/types';
 
 export function getRawConfig<Initial = unknown>(
-  conf: Config<Initial>
+  config: Config<Initial>
 ): RawConfig<Initial> | RawConfig<Initial>[] {
-  if (typeof conf === 'string') {
-    return parseSelector(conf);
+  if (typeof config === 'string') {
+    return parseSelector(config);
   }
 
-  if (typeof conf === 'function') {
+  if (typeof config === 'function') {
     return {
       selector: '',
-      schema: conf
+      schema: config
     };
   }
 
-  if (Array.isArray(conf)) {
-    return conf.map((c) => getRawConfig(c) as RawConfig<Initial>);
+  if (Array.isArray(config)) {
+    return config.map(getRawConfig) as RawConfig<Initial>[];
   }
 
-  if (conf.selector !== '') {
+  if (config.selector !== '') {
     return {
-      ...conf,
-      ...parseSelector(conf.selector)
+      ...config,
+      ...parseSelector(config.selector)
     };
   }
 
-  return conf;
+  return config;
 }
