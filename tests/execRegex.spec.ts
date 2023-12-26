@@ -1,11 +1,23 @@
-import { expect } from 'chai';
-import execRegex from './execRegex';
+import { describe, it, expect } from 'vitest';
+import execRegex from '../src/parser/regex/execRegex';
 
 describe('execRegex Tests', () => {
   it('Case 1: Pre-defined Regex - url', () => {
     const value = 'test https://google.com/ ';
     const result = execRegex(value, 'url');
     expect('https://google.com/').to.deep.equal(result);
+  });
+
+  it('Case 1.1: Pre-defined Regex - url', () => {
+    const value = 'test https://google.com/images test ';
+    const result = execRegex(value, 'url');
+    expect('https://google.com/images').to.deep.equal(result);
+  });
+
+  it('Case 1.2: Pre-defined Regex - url', () => {
+    const value = 'test https://google.com/images?q=sunset test ';
+    const result = execRegex(value, 'url');
+    expect('https://google.com/images?q=sunset').to.deep.equal(result);
   });
 
   it('Case 2: Pre-defined Regex - email', () => {

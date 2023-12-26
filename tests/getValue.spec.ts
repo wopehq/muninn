@@ -1,8 +1,8 @@
-import { expect } from 'chai';
-import * as cheerio from 'cheerio';
-import parseSelector from '../config/parseSelector';
-import { Config, RawConfig } from '../config/types';
-import getValue from './getValue';
+import { describe, it, expect } from 'vitest';
+import { load } from 'cheerio';
+import parseSelector from '../src/config/parseSelector';
+import { Config, RawConfig } from '../src/config/types';
+import getValue from '../src/parser/getValue';
 
 const BLOCK_HTML = `
 <div class="parent">
@@ -29,7 +29,7 @@ const SAMPLE_HTML = `
 </body>
 `;
 
-const $ = cheerio.load(SAMPLE_HTML);
+const $ = load(SAMPLE_HTML);
 
 describe('getValue Tests', () => {
   it('Case 1:  { selector }', () => {

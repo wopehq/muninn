@@ -5,6 +5,6 @@
     "declarationMap": true,
     "skipLibCheck": true
   },
-  "exclude": ["./src/**/*.spec.ts"],
+  "exclude": ["./tests/**/*"],
   "include": ["./src/**/*"]
 }

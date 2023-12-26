@@ -1,7 +1,7 @@
-import { expect } from 'chai';
-import * as cheerio from 'cheerio';
-import { Config } from '../config/types';
-import getElement from './getElement';
+import { describe, it, expect } from 'vitest';
+import { load } from 'cheerio';
+import { Config } from '../src/config/types';
+import getElement from '../src/parser/getElement';
 
 const BLOCK_HTML = `
 <div class="parent">
@@ -26,7 +26,7 @@ const SAMPLE_HTML = `
 </body>
 `;
 
-const $ = cheerio.load(SAMPLE_HTML);
+const $ = load(SAMPLE_HTML);
 
 describe('getElement Tests', () => {
   it('Case 1: { selector } without `element`', () => {

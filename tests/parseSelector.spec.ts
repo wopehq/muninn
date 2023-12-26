@@ -1,6 +1,6 @@
-import { expect } from 'chai';
+import { describe, it, expect } from 'vitest';
 
-import parseSelector from './parseSelector';
+import parseSelector from '../src/config/parseSelector';
 
 describe('parseSelector Tests', () => {
   it('Case 1: @ attr', () => {

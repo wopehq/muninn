@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import * as cheerio from 'cheerio';
-import getSimpleValue from './getSimpleValue';
+import { describe, it, expect } from 'vitest';
+import { load } from 'cheerio';
+import getSimpleValue from '../src/parser/getSimpleValue';
 
 const SAMPLE_HTML = `
   <div id="root"></div>
@@ -8,7 +8,7 @@ const SAMPLE_HTML = `
 
 describe('getSimpleValue', () => {
   it('ignoreNull', () => {
-    const $ = cheerio.load(SAMPLE_HTML);
+    const $ = load(SAMPLE_HTML);
     const el = $('#root');
     const config = {
       html: true,

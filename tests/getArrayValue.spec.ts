@@ -1,7 +1,6 @@
-import { expect } from 'chai';
-import * as cheerio from 'cheerio';
-import { CheerioAPI } from 'cheerio';
-import getArrayValue from './getArrayValue';
+import { describe, it, expect } from 'vitest';
+import { load } from 'cheerio';
+import getArrayValue from '../src/parser/getArrayValue';
 
 const SAMPLE_HTML = `
   <div id="root">
@@ -13,13 +12,9 @@ const SAMPLE_HTML = `
   </div>
 `;
 
+const $ = load(SAMPLE_HTML);
+
 describe('getArrayValue', () => {
-  let $: CheerioAPI;
-
-  beforeAll(() => {
-    $ = cheerio.load(SAMPLE_HTML);
-  });
-
   it('withoutIgnore', () => {
     const result = getArrayValue({ $, el: '#root div' }, { selector: '' });
     const expected = [
