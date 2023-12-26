@@ -8,20 +8,7 @@ function getArrayValue<Initial = unknown>(
   config: RawConfig<Initial>
 ): any[] {
   const values = [];
-  let elems = $(element);
-
-  function eachFunction(index, el) {
-    const { selector, type, ...rest } = config;
-    const value = getValue(
-      { $, el: $(el) },
-      {
-        selector: '',
-        ...rest
-      }
-    );
-
-    values.push(value);
-  }
+  let elems: Cheerio<Element> | Cheerio<Element>[] = $(element);
 
   if (config?.elementFilter) {
     elems = elems.filter((index, el) => config.elementFilter(index, el, $));
@@ -35,7 +22,18 @@ function getArrayValue<Initial = unknown>(
     );
   }
 
-  elems.each(eachFunction);
+  $(elems).each((index, el) => {
+    const { selector, type, ...rest } = config;
+    const value = getValue(
+      { $, el: $(el) },
+      {
+        selector: '',
+        ...rest
+      }
+    );
+
+    values.push(value);
+  });
 
   return values;
 }
@@ -55,39 +53,38 @@ function makeUniqueElemsReducer(
   $: CheerioAPI,
   ignoreStyle: RawConfig['ignoreIntersectingElements']
 ) {
-  return (acc, current) => {
+  return (acc: Element[], current: Element) => {
     const $current = $(current);
     let insertCurrIdx = acc.length;
 
     acc = acc.filter((elem, i) => {
-      const currentWraps = elemWraps($current, elem);
-      const elemWrapsCurrent = elemWraps(elem, $current);
+      const currentWraps = elemWraps($current, $(elem));
+      const elemWrapsCurrent = elemWraps($(elem), $current);
 
       if (ignoreStyle === 'ignore-children') {
         if (currentWraps) {
           insertCurrIdx = i;
-
           return false;
         }
 
         if (elemWrapsCurrent) {
-          insertCurrIdx = -1; // do not insert current to the acc
-
-          return true; // keep elem
+          // do not insert current to the acc
+          insertCurrIdx = -1;
+          // keep elem
+          return true;
         }
-      } else {
-        // ignoreStyle === 'ignore-parents'
-
+      } else if (ignoreStyle === 'ignore-parents') {
         if (currentWraps) {
-          insertCurrIdx = -1; // do not insert current to the acc
-
-          return true; // keep elem
+          // do not insert current to the acc
+          insertCurrIdx = -1;
+          // keep elem
+          return true;
         }
 
         if (elemWrapsCurrent) {
           insertCurrIdx = i;
-
-          return false; // replace this element with the $current
+          // replace this element with the $current
+          return false;
         }
       }
 
@@ -96,15 +93,14 @@ function makeUniqueElemsReducer(
 
     if (insertCurrIdx !== -1) {
       const insertIdx = Math.min(insertCurrIdx, acc.length);
-
-      acc.splice(insertIdx, 0, $current);
+      acc.splice(insertIdx, 0, $current.get(0));
     }
 
     return acc;
   };
 }
 
-function elemWraps(first: Cheerio<Element>, second: Cheerio<Element>): boolean {
+function elemWraps(first: Cheerio<Element>, second: Cheerio<Element>) {
   return first.has(second).length > 0;
 }
 

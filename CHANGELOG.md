@@ -1,10 +1,22 @@
+v0.20.0
+
+- Code refactor
+- `TypeScript` upgrade to `v5.3.3`
+
 v0.19.0
 
 - The `fill` property now accepts falsy values other than `undefined`.
+
 ```ts
-{ fill: null }
-{ fill: false }
-{ fill: "" }
+{
+  fill: null;
+}
+{
+  fill: false;
+}
+{
+  fill: '';
+}
 ```
 
 v0.18.0
