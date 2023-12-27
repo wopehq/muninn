@@ -1,3 +1,9 @@
+v0.21.0
+
+- Dependencies updated.
+- Naming improved.
+- Micro optimizations performed.
+
 v0.20.0
 
 - Code refactor
