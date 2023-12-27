@@ -12,11 +12,11 @@ function transformValue<Initial = unknown>(
   const { trim, regex, type, methods = [], transform } = config;
 
   if (typeof value === 'string' && trim !== false) {
-    value = value.trim();
-
     if (regex) {
       value = execRegex(value, regex);
     }
+
+    if (value) value = value.trim();
   }
 
   if (type) {

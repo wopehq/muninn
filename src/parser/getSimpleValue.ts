@@ -19,19 +19,17 @@ function getSimpleValue<Initial = unknown>(
 
   if (html) {
     value = element.html();
-  } else if (attr) {
-    if (Array.isArray(attr)) {
-      value = attr.reduce((acc, arg) => {
-        acc[arg] = element.attr(arg);
-        return acc;
-      }, {});
-    } else if (attr === '$all') {
-      value = element.attr();
-    } else {
-      value = element.attr(attr);
-    }
-  } else {
+  } else if (!attr) {
     value = element.text();
+  } else if (Array.isArray(attr)) {
+    value = attr.reduce((acc, arg) => {
+      acc[arg] = element.attr(arg);
+      return acc;
+    }, {});
+  } else if (attr === '$all') {
+    value = element.attr();
+  } else {
+    value = element.attr(attr);
   }
 
   if (initial && !value) {

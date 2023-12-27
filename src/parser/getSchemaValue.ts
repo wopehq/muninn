@@ -8,18 +8,18 @@ function getSchemaValue<Initial = unknown>(
   { $, el }: ElementPassArg,
   config: Schema<Initial>
 ): Record<keyof Exclude<typeof config, SchemaGenerator>['schema'], unknown> {
-  const value = Object.keys(config).reduce((values, key) => {
+  return Object.keys(config).reduce((values, key) => {
     const conf = config[key];
-    const rawConf = getRawConfig(conf);
+    const rawConfig = getRawConfig(conf);
 
-    if (Array.isArray(rawConf)) {
-      for (const rconf of rawConf) {
+    if (Array.isArray(rawConfig)) {
+      for (const rconf of rawConfig) {
         const currentRawConfig = getConfig({ $, el }, rconf);
 
-        const val = getValue({ $, el }, currentRawConfig);
+        const value = getValue({ $, el }, currentRawConfig);
 
-        if (val !== null && val !== undefined) {
-          values[key] = val;
+        if (value !== null && value !== undefined) {
+          values[key] = value;
           break;
         }
       }
@@ -31,14 +31,12 @@ function getSchemaValue<Initial = unknown>(
       return values;
     }
 
-    const currentRawConfig = getConfig({ $, el }, rawConf);
+    const currentRawConfig = getConfig({ $, el }, rawConfig);
 
     values[key] = getValue({ $, el }, currentRawConfig);
 
     return values;
   }, {});
-
-  return value;
 }
 
 export default getSchemaValue;

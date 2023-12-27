@@ -15,21 +15,19 @@ function parse<Initial = unknown>(
     $ = data;
   }
 
-  const rawConf = getRawConfig(config);
+  const rawConfig = getRawConfig(config);
 
-  if (Array.isArray(rawConf)) {
-    for (const conf of rawConf) {
+  if (Array.isArray(rawConfig)) {
+    for (const conf of rawConfig) {
       const value = getValue({ $, el: $ }, conf);
 
-      if (value !== null) {
-        return value;
-      }
+      if (value !== null) return value;
     }
 
     return null;
   }
 
-  return getValue({ $ }, rawConf);
+  return getValue({ $ }, rawConfig);
 }
 
 export default parse;
