@@ -23,6 +23,7 @@ function getArrayValue<Initial = unknown>(
   }
 
   $(elems).each((index, el) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { selector, type, ...rest } = config;
     const value = getValue(
       { $, el: $(el) },
