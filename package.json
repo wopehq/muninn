@@ -12,13 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/teamseodo/muninn.git"
+    "url": "git+https://github.com/wopehq/muninn.git"
   },
   "keywords": [
     "htmlparser",
     "selector",
     "scraper",
     "parser",
+    "cheerio",
     "html"
   ],
   "author": "wopehq <opensource@wope.com>",
