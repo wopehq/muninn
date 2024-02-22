@@ -1,3 +1,12 @@
+v0.22.0
+
+- DX Improved.
+- CheerioOptions and Fragment Mode support added.
+
+```ts
+parse(data, config, options?: CheerioOptions, isDocument?: boolean)
+```
+
 v0.21.0
 
 - Dependencies updated.
@@ -15,13 +24,7 @@ v0.19.0
 
 ```ts
 {
-  fill: null;
-}
-{
-  fill: false;
-}
-{
-  fill: '';
+  fill: null | false | '';
 }
 ```
 
