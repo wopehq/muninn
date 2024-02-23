@@ -2,6 +2,7 @@ import { Cheerio, CheerioAPI, Element } from 'cheerio';
 import { RawConfig } from '../config/types';
 import getValue from './getValue';
 import { ElementPassArg } from './types';
+import { omit } from '../utils/omit';
 
 function getArrayValue<Initial = unknown>(
   { $, el: element }: ElementPassArg,
@@ -23,15 +24,8 @@ function getArrayValue<Initial = unknown>(
   }
 
   $(elems).each((index, el) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { selector, type, ...rest } = config;
-    const value = getValue(
-      { $, el: $(el) },
-      {
-        selector: '',
-        ...rest
-      }
-    );
+    const rest = omit(config, ['selector', 'type']);
+    const value = getValue({ $, el: $(el) }, { selector: '', ...rest });
 
     values.push(value);
   });
