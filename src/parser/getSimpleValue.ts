@@ -3,6 +3,7 @@ import { type ElementPassArg } from './types';
 import { type Value } from './value';
 import parseSelector from '../config/parseSelector';
 import transformValue from './transformValue';
+import extractValue from './extractValue';
 
 function getSimpleValue<Initial = unknown>(
   { $, el }: ElementPassArg,
@@ -12,34 +13,24 @@ function getSimpleValue<Initial = unknown>(
     config = parseSelector(config);
   }
 
-  const { html, attr, initial } = config;
-
+  const { initial } = config;
   const element = $(el);
-  let value: string | Record<string, string> | Initial;
 
-  if (html) {
-    value = element.html();
-  } else if (!attr) {
-    value = element.text();
-  } else if (Array.isArray(attr)) {
-    value = attr.reduce((acc, arg) => {
-      acc[arg] = element.attr(arg);
-      return acc;
-    }, {});
-  } else if (attr === '$all') {
-    value = element.attr();
-  } else {
-    value = element.attr(attr);
-  }
+  let value: string | Record<string, string> | Initial = extractValue(
+    { $, el },
+    config
+  );
 
   if (initial && !value) {
     value = initial;
   }
 
+  const isEmptyStringInitial = typeof initial === 'string' && initial === '';
+
   if (
     value === null ||
     value === undefined ||
-    (value === '' && !(typeof initial === 'string' && initial === ''))
+    (value === '' && !isEmptyStringInitial)
   ) {
     return null;
   }
