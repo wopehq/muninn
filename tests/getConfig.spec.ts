@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import getConfig from '../src/config/getConfig';
-import { RawConfig } from '../src/config/types';
+import { type RawConfig } from '../src/config/types';
 
 describe('getConfig Tests', () => {
   it('should return empty selector and "href" attribute when given a string config with "@ attr"', () => {

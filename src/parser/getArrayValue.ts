@@ -1,7 +1,7 @@
-import { Cheerio, CheerioAPI, Element } from 'cheerio';
-import { RawConfig } from '../config/types';
+import { type Cheerio, type CheerioAPI, type Element } from 'cheerio';
+import { type RawConfig } from '../config/types';
+import { type ElementPassArg } from './types';
 import getValue from './getValue';
-import { ElementPassArg } from './types';
 import { omit } from '../utils/omit';
 
 function getArrayValue<Initial = unknown>(

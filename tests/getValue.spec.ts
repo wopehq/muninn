@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { load } from 'cheerio';
+import { type Config, type RawConfig } from '../src/config/types';
 import parseSelector from '../src/config/parseSelector';
-import { Config, RawConfig } from '../src/config/types';
 import getValue from '../src/parser/getValue';
 
 const BLOCK_HTML = `

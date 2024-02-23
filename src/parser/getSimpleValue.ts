@@ -1,8 +1,8 @@
-import { RawConfig } from '../config/types';
+import { type RawConfig } from '../config/types';
+import { type ElementPassArg } from './types';
+import { type Value } from './value';
 import parseSelector from '../config/parseSelector';
 import transformValue from './transformValue';
-import { ElementPassArg } from './types';
-import { Value } from './value';
 
 function getSimpleValue<Initial = unknown>(
   { $, el }: ElementPassArg,

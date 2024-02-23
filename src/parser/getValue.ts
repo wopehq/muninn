@@ -1,5 +1,5 @@
-import { ElementPassArg } from './types';
-import { RawConfig } from '../config/types';
+import { type ElementPassArg } from './types';
+import { type RawConfig } from '../config/types';
 
 import getElement from './getElement';
 import getSimpleValue from './getSimpleValue';

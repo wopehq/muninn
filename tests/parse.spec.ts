@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { RawConfig } from '../src/config/types';
 import parse from '../src/parser/parse';
+import { type RawConfig } from '../src/config/types';
 
 const BLOCK_HTML = `
 <div class="parent">

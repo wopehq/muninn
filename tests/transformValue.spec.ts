@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest';
-
-import transformValue from '../src/parser/transformValue';
 import { load } from 'cheerio';
-import { RawConfig } from '../src/config/types';
+import transformValue from '../src/parser/transformValue';
+import { type RawConfig } from '../src/config/types';
 
 const SAMPLE_HTML = `
   <div id="root">
