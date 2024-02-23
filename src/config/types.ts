@@ -1,5 +1,5 @@
-import { Cheerio, CheerioAPI, Element } from 'cheerio';
-import { Value } from '../parser/value';
+import { type Cheerio, type CheerioAPI, type Element } from 'cheerio';
+import { type Value } from '../parser/value';
 
 export type Selector = string;
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { RawConfig } from '../src/config/types';
 import { omit } from '../src/utils/omit';
+import { type RawConfig } from '../src/config/types';
 
 describe('Utils Tests', () => {
   it('should omit properties from config object', () => {

@@ -1,5 +1,5 @@
 import parseSelector from '../config/parseSelector';
-import { Config, RawConfig } from '../config/types';
+import { type Config, type RawConfig } from '../config/types';
 
 export function getRawConfig<Initial = unknown>(
   config: Config<Initial>

@@ -1,6 +1,6 @@
-import { Cheerio, Element } from 'cheerio';
-import { ElementPassArg } from './types';
-import { RawConfig } from '../config/types';
+import { type Cheerio, type Element } from 'cheerio';
+import { type ElementPassArg } from './types';
+import { type RawConfig } from '../config/types';
 
 function getElement<Initial = unknown>(
   { $, el }: ElementPassArg,
