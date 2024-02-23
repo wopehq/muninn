@@ -1,3 +1,17 @@
+v0.23.0
+
+#### Enhancements
+
+- DX Improved.
+- Optimized performance.
+
+#### Maintenance
+
+- Updated code quality.
+- Updated tests.
+- Fixed types.
+- Fixed coverage script.
+
 v0.22.0
 
 - DX Improved.
