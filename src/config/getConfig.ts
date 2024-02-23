@@ -1,7 +1,6 @@
 import parseSelector from './parseSelector';
-import { ElementPassArg } from '../parser/types';
-import { Config, RawConfig } from './types';
-import { applyMethods } from './applyMethods';
+import { type ElementPassArg } from '../parser/types';
+import { type Config, type RawConfig } from './types';
 
 function getConfig(
   { $, el }: ElementPassArg,
@@ -51,7 +50,7 @@ function getConfig<Initial = unknown>(
     };
   }
 
-  return applyMethods(config);
+  return config;
 }
 
 export default getConfig;

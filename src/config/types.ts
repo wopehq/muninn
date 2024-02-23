@@ -25,20 +25,30 @@ export type ElementFilterFunction = (
   $: CheerioAPI
 ) => boolean;
 
-export type ConfigTypeValues = 'number' | 'float' | 'boolean' | 'array';
+export type Method =
+  | 'boolean'
+  | 'number'
+  | 'float'
+  | 'length'
+  | 'lowercase'
+  | 'uppercase'
+  | 'email'
+  | 'url';
+
+export type Types = 'number' | 'float' | 'boolean' | 'array';
 
 export interface RawConfig<Initial = unknown> {
   selector?: Selector;
   html?: boolean;
   attr?: string | string[];
-  type?: ConfigTypeValues;
+  type?: Types;
   trim?: boolean;
   exist?: boolean;
   rootScope?: boolean;
   elementFilter?: ElementFilterFunction;
   initial?: Initial;
   fill?: any;
-  methods?: string[];
+  methods?: Method[];
   regex?: RegexConfig;
   transform?: TransformFunction<Initial>;
   arrayTransform?: TransformFunction<any[]>;
