@@ -1,4 +1,4 @@
 import parse from './parser/parse';
-import { Schema } from './config/types';
+import { type Schema } from './config/types';
 
-export { parse, Schema };
+export { parse, type Schema };
