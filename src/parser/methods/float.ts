@@ -1,3 +1,3 @@
-const float = (val: string): number => parseFloat(val);
+const float = (val: string) => parseFloat(val);
 
 export default float;

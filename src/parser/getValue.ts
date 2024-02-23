@@ -29,9 +29,7 @@ function getValue<Initial = unknown>(
   const { schema } = rest;
   const elemExists = element.length > 0;
 
-  if (exist || config.methods?.includes('exist')) {
-    return elemExists;
-  }
+  if (exist) return elemExists;
 
   if (condition && !condition($(el))) {
     return rest.initial ?? null;

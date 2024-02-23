@@ -2,10 +2,9 @@ import { Cheerio, Element } from 'cheerio';
 import { RawConfig } from '../config/types';
 import Methods from './methods';
 import execRegex from './regex/execRegex';
-import { Value } from './value';
 
 function transformValue<Initial = unknown>(
-  value: Value<Initial>,
+  value: any,
   config: RawConfig<Initial>,
   element: Cheerio<Element>
 ) {
@@ -19,7 +18,7 @@ function transformValue<Initial = unknown>(
     if (value) value = value.trim();
   }
 
-  if (type) {
+  if (type && type !== 'array') {
     methods.push(type);
   }
 

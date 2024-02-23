@@ -68,8 +68,7 @@ describe('parseSelector Tests', () => {
     const value = parseSelector(selector);
     expect({
       selector: '.parent div',
-      type: 'array',
-      methods: []
+      type: 'array'
     }).to.deep.equal(value);
   });
 

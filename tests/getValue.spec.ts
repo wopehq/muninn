@@ -309,7 +309,7 @@ describe('getValue Tests', () => {
   it('Case 17: { selector, non-exist }', () => {
     const el = $('.parent');
     const selector = '.non-exist-child';
-    const value = getValue({ $, el }, { selector, methods: ['exist'] });
+    const value = getValue({ $, el }, { selector, exist: true });
 
     expect(value).to.deep.equal(false);
   });
