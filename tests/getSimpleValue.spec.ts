@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { load } from 'cheerio';
 import getSimpleValue from '../src/parser/getSimpleValue';
 
@@ -16,6 +16,6 @@ describe('getSimpleValue', () => {
     };
     const value = getSimpleValue({ $, el }, config);
 
-    expect(value).to.eq(null);
+    expect(value).toEqual(null);
   });
 });

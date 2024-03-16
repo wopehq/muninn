@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import parse from '../src/parser/parse';
 import { type RawConfig } from '../src/config/types';
 
@@ -39,14 +39,14 @@ describe('parse Tests', () => {
     const data = SAMPLE_HTML;
     const config: RawConfig = { selector: '.first-child' };
     const value = parse(data, config);
-    expect('First Child').to.deep.equal(value);
+    expect('First Child').toEqual(value as any);
   });
 
   it('Case 2:  { selector, array* }', () => {
     const data = SAMPLE_HTML;
     const config: RawConfig = { selector: '.unblock div h4 | array' };
     const value = parse(data, config);
-    expect(['Unblock', 'Unblock']).to.deep.equal(value);
+    expect(['Unblock', 'Unblock']).toEqual(value as any);
   });
 
   it('Case 3:  { selector, array*, schema }', () => {
@@ -75,6 +75,6 @@ describe('parse Tests', () => {
       ]
     };
 
-    expect(value).to.deep.equal(expected);
+    expect(value).toEqual(expected);
   });
 });

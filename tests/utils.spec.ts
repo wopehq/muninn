@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { omit } from '../src/utils/omit';
 import { type RawConfig } from '../src/config/types';
 
@@ -12,6 +12,6 @@ describe('Utils Tests', () => {
 
     const omitted = omit(config, ['type', 'exist']);
 
-    expect({ selector: '.first-child' }).to.deep.equal(omitted);
+    expect({ selector: '.first-child' }).toEqual(omitted);
   });
 });
