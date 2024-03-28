@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { load } from 'cheerio';
 import getArrayValue from '../src/parser/getArrayValue';
 
@@ -23,7 +23,7 @@ describe('getArrayValue', () => {
       'Third Child'
     ];
 
-    expect(result).to.be.deep.eq(expected);
+    expect(result).toEqual(expected);
   });
 
   it('withIgnoreChildren', () => {
@@ -33,7 +33,7 @@ describe('getArrayValue', () => {
     );
     const expected = ['First Child Second Child', 'Third Child'];
 
-    expect(result).to.be.deep.eq(expected);
+    expect(result).toEqual(expected);
   });
 
   it('withIgnoreParents', () => {
@@ -43,6 +43,6 @@ describe('getArrayValue', () => {
     );
     const expected = ['Second Child', 'Third Child'];
 
-    expect(result).to.be.deep.eq(expected);
+    expect(result).toEqual(expected);
   });
 });

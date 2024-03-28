@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { load } from 'cheerio';
 import { type Config, type RawConfig } from '../src/config/types';
 import parseSelector from '../src/config/parseSelector';
@@ -35,14 +35,14 @@ describe('getValue Tests', () => {
   it('Case 1:  { selector }', () => {
     const config: RawConfig = { selector: '.first-child' };
     const value = getValue({ $ }, config);
-    expect('First Child').to.deep.equal(value);
+    expect('First Child').toEqual(value);
   });
 
   it('Case 2:  { [selector, selector] }', () => {
     const el = '.parent';
     const config: RawConfig = { selector: '.first-child, .second-child' };
     const value = getValue({ $, el }, config);
-    expect('First Child').to.deep.equal(value);
+    expect('First Child').toEqual(value);
   });
 
   it('Case 3:  { [selector, selector], array }', () => {
@@ -52,7 +52,7 @@ describe('getValue Tests', () => {
       type: 'array'
     };
     const value = getValue({ $, el }, config);
-    expect(['First Child', 'Second Child']).to.deep.equal(value);
+    expect(['First Child', 'Second Child']).toEqual(value);
   });
 
   it('Case 4:  { selector, schema }', () => {
@@ -69,7 +69,7 @@ describe('getValue Tests', () => {
     expect({
       firstChild: 'First Child',
       secondChild: 'Second Child'
-    }).to.deep.equal(value);
+    }).toEqual(value);
   });
 
   it('Case 5:  { selector, schema, array }', () => {
@@ -100,7 +100,7 @@ describe('getValue Tests', () => {
         firstChild: 'First Child',
         secondChild: 'Second Child'
       }
-    ]).to.deep.equal(value);
+    ]).toEqual(value);
   });
 
   it('Case 6:  { selector, schema: { selector: schema } }', () => {
@@ -137,33 +137,31 @@ describe('getValue Tests', () => {
           secondChild: 'Second Child'
         }
       ]
-    }).to.deep.equal(value);
+    }).toEqual(value);
   });
 
   it('Case 7:  { selector, trim }', () => {
     const config = { selector: '.trim-child' };
     const value = getValue({ $ }, config);
-    expect('Trim Content').to.deep.equal(value);
+    expect('Trim Content').toEqual(value);
   });
 
   it('Case 8:  { selector, trim: false }', () => {
     const config = { selector: '.trim-child', trim: false };
     const value = getValue({ $ }, config);
-    expect(' Trim Content ').to.deep.equal(value);
+    expect(' Trim Content ').toEqual(value);
   });
 
   it('Case 9:  { selector, attr }', () => {
     const config = { selector: '.link', attr: 'href' };
     const value = getValue({ $ }, config);
-    expect('https://example.com/').to.deep.equal(value);
+    expect('https://example.com/').toEqual(value);
   });
 
   it('Case 9.1:  { selector, mulitple attrs }', () => {
     const config = { selector: '.link', attr: ['href', 'rel'] };
     const value = getValue({ $ }, config);
-    expect({ href: 'https://example.com/', rel: 'noreferrer' }).to.deep.equal(
-      value
-    );
+    expect({ href: 'https://example.com/', rel: 'noreferrer' }).toEqual(value);
   });
 
   it('Case 9.2:  { selector, all attrs }', () => {
@@ -173,13 +171,13 @@ describe('getValue Tests', () => {
       href: 'https://example.com/',
       rel: 'noreferrer',
       class: 'link'
-    }).to.deep.equal(value);
+    }).toEqual(value);
   });
 
   it('Case 10: { selector, html }', () => {
     const config = { selector: '.html-child', html: true };
     const value = getValue({ $ }, config);
-    expect('<div class="content">Test</div>').to.deep.equal(value);
+    expect('<div class="content">Test</div>').toEqual(value);
   });
 
   it('Case 11: { selector, transform }', () => {
@@ -200,7 +198,7 @@ describe('getValue Tests', () => {
       { link: 'Link: https://example.com/' },
       { link: 'Link: https://example.com/' },
       { link: 'Link: https://example.com/' }
-    ]).to.deep.equal(value);
+    ]).toEqual(value);
   });
 
   it('Case 12: { selector, initial }', () => {
@@ -209,7 +207,7 @@ describe('getValue Tests', () => {
       initial: 'link not found'
     };
     const value = getValue({ $ }, config);
-    expect('link not found').to.deep.equal(value);
+    expect('link not found').toEqual(value);
   });
 
   it('Case 13: { selector, fill }', () => {
@@ -218,7 +216,7 @@ describe('getValue Tests', () => {
       fill: 'link censored'
     };
     const value = getValue({ $ }, config);
-    expect('link censored').to.deep.equal(value);
+    expect('link censored').toEqual(value);
   });
 
   it('Case 13: { selector, fill }', () => {
@@ -227,7 +225,7 @@ describe('getValue Tests', () => {
       fill: null
     };
     const value = getValue({ $ }, config);
-    expect(null).to.deep.equal(value);
+    expect(null).toEqual(value);
   });
 
   it('Case 13: { selector, fill }', () => {
@@ -236,7 +234,7 @@ describe('getValue Tests', () => {
       fill: undefined
     };
     const value = getValue({ $ }, config);
-    expect(null).to.deep.equal(value);
+    expect(null).toEqual(value);
   });
 
   it('Case 13: { selector, fill }', () => {
@@ -245,7 +243,7 @@ describe('getValue Tests', () => {
       fill: false
     };
     const value = getValue({ $ }, config);
-    expect(false).to.deep.equal(value);
+    expect(false).toEqual(value);
   });
 
   it('Case 13: { selector, fill() }', () => {
@@ -255,7 +253,7 @@ describe('getValue Tests', () => {
     };
     const value = getValue({ $ }, config);
 
-    expect('link censored').to.deep.equal(value);
+    expect('link censored').toEqual(value);
   });
 
   it('Case 13: { selector, fill }', () => {
@@ -275,7 +273,7 @@ describe('getValue Tests', () => {
       { link: 'link censored' },
       { link: 'link censored' },
       { link: 'link censored' }
-    ]).to.deep.equal(value);
+    ]).toEqual(value);
   });
 
   it('Case 14: { selector, regex }', () => {
@@ -285,7 +283,7 @@ describe('getValue Tests', () => {
       regex: { pattern: '\\d+', flags: 'g' }
     };
     const value = getValue({ $, el }, selector);
-    expect('2021').to.deep.equal(value);
+    expect('2021').toEqual(value);
   });
 
   it('Case 15: { selector, regex/url }', () => {
@@ -295,7 +293,7 @@ describe('getValue Tests', () => {
       regex: 'url'
     };
     const value = getValue({ $, el }, selector);
-    expect('https://example.com/').to.deep.equal(value);
+    expect('https://example.com/').toEqual(value);
   });
 
   it('Case 16: { selector, exist }', () => {
@@ -303,7 +301,7 @@ describe('getValue Tests', () => {
     const selector = '.empty-child | exist';
     const value = getValue({ $, el }, parseSelector(selector));
 
-    expect(true).to.deep.equal(value);
+    expect(true).toEqual(value);
   });
 
   it('Case 17: { selector, non-exist }', () => {
@@ -311,7 +309,7 @@ describe('getValue Tests', () => {
     const selector = '.non-exist-child';
     const value = getValue({ $, el }, { selector, exist: true });
 
-    expect(value).to.deep.equal(false);
+    expect(value).toEqual(false);
   });
 
   it('Case 18:  { [selector, selector], array with elementFilter }', () => {
@@ -325,7 +323,7 @@ describe('getValue Tests', () => {
     };
     const value = getValue({ $, el }, config);
 
-    expect(value).to.deep.equal(['First Child']);
+    expect(value).toEqual(['First Child']);
   });
 });
 
@@ -342,7 +340,7 @@ describe('ignoreExistenceChecks', () => {
     };
     const value = getValue({ $, el }, config);
 
-    expect(null).to.deep.equal(value);
+    expect(null).toEqual(value);
   });
 
   it('ReturEmptyObject', () => {
@@ -353,7 +351,7 @@ describe('ignoreExistenceChecks', () => {
     };
     const value = getValue({ $, el }, config);
 
-    expect({}).to.deep.equal(value);
+    expect({}).toEqual(value);
   });
 
   it('ReturObjectWithNullValues', () => {
@@ -369,7 +367,7 @@ describe('ignoreExistenceChecks', () => {
       willBeNull: null
     };
 
-    expect(value).to.deep.equal(expected);
+    expect(value).toEqual(expected);
   });
 });
 
@@ -383,7 +381,7 @@ describe('MultipleSchemas', () => {
     const val = getValue({ $, el }, conf);
     const expected = $('.first-child:first').text();
 
-    expect(val).to.eq(expected);
+    expect(val).toEqual(expected);
   });
 });
 
@@ -397,7 +395,7 @@ describe('LengthUtils', () => {
     const val = getValue({ $, el }, conf);
     const expected = $('.first-child:first').text().length;
 
-    expect(val).to.eq(expected);
+    expect(val).toEqual(expected);
   });
 
   it('OnArrayValue', () => {
@@ -410,7 +408,7 @@ describe('LengthUtils', () => {
     const val = getValue({ $, el }, conf);
     const expected = $('.first-child').length;
 
-    expect(val).to.eq(expected);
+    expect(val).toEqual(expected);
   });
 
   it('ArrayTransform', () => {
@@ -423,6 +421,6 @@ describe('LengthUtils', () => {
     const value = getValue({ $ }, config);
     expect(
       'https://example.com/-https://example.com/-https://example.com/-https://example.com/'
-    ).to.deep.equal(value);
+    ).toEqual(value);
   });
 });

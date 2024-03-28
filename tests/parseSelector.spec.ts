@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 
 import parseSelector from '../src/config/parseSelector';
 
@@ -8,7 +8,7 @@ describe('parseSelector Tests', () => {
     const value = parseSelector(selector);
     const expected = { selector: '', attr: 'href' };
 
-    expect(value).to.deep.equal(expected);
+    expect(value).toEqual(expected);
   });
 
   it('Case 1.1: | @ multiple attrs', () => {
@@ -16,7 +16,7 @@ describe('parseSelector Tests', () => {
     const value = parseSelector(selector);
     const expected = { selector: '', attr: ['href', 'rel'] };
 
-    expect(value).to.deep.equal(expected);
+    expect(value).toEqual(expected);
   });
 
   it('Case 1.2: @ all attrs', () => {
@@ -24,7 +24,7 @@ describe('parseSelector Tests', () => {
     const value = parseSelector(selector);
     const expected = { selector: '', attr: '$all' };
 
-    expect(value).to.deep.equal(expected);
+    expect(value).toEqual(expected);
   });
 
   it('Case 2: selector @ attr', () => {
@@ -32,44 +32,44 @@ describe('parseSelector Tests', () => {
     const value = parseSelector(selector);
     const expected = { selector: 'a.link', attr: 'href' };
 
-    expect(value).to.deep.equal(expected);
+    expect(value).toEqual(expected);
   });
 
   it('Case 3: selector @ attr | method', () => {
     const selector = 'a.link @ href | url';
     const value = parseSelector(selector);
-    expect({
+    expect(value).toEqual({
       selector: 'a.link',
       attr: 'href',
       methods: ['url']
-    }).to.deep.equal(value);
+    });
   });
 
   it('Case 4: selector @ attr | method | method', () => {
     const selector = 'a.link @ href | url | uppercase';
     const value = parseSelector(selector);
-    expect({
+    expect(value).toEqual({
       selector: 'a.link',
       attr: 'href',
       methods: ['url', 'uppercase']
-    }).to.deep.equal(value);
+    });
   });
 
   it('Case 5: [selector, selector]', () => {
     const selector = 'a.link, b.link';
     const value = parseSelector(selector);
-    expect({
+    expect(value).toEqual({
       selector: 'a.link, b.link'
-    }).to.deep.equal(value);
+    });
   });
 
   it('Case 6: selector, array*', () => {
     const selector = '.parent div | array';
     const value = parseSelector(selector);
-    expect({
+    expect(value).toEqual({
       selector: '.parent div',
       type: 'array'
-    }).to.deep.equal(value);
+    });
   });
 
   it('only a method provided', () => {
@@ -80,7 +80,7 @@ describe('parseSelector Tests', () => {
       methods: ['uppercase']
     };
 
-    expect(result).to.deep.eq(expected);
+    expect(result).toEqual(expected as any);
   });
 
   it('only two methods provided', () => {
@@ -91,7 +91,7 @@ describe('parseSelector Tests', () => {
       methods: ['uppercase', 'lowercase']
     };
 
-    expect(result).to.deep.eq(expected);
+    expect(result).toEqual(expected as any);
   });
 
   it('only an attribute provided', () => {
@@ -102,6 +102,6 @@ describe('parseSelector Tests', () => {
       attr: 'href'
     };
 
-    expect(result).to.deep.eq(expected);
+    expect(result).toEqual(expected as any);
   });
 });

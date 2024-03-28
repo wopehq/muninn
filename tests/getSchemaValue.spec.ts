@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { Cheerio, Element, load } from 'cheerio';
 import { Schema } from '../src/config/types';
 import getSchemaValue from '../src/parser/getSchemaValue';

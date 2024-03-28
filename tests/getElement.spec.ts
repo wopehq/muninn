@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { load } from 'cheerio';
 import { Config } from '../src/config/types';
 import getElement from '../src/parser/getElement';
@@ -32,21 +32,21 @@ describe('getElement Tests', () => {
   it('Case 1: { selector } without `element`', () => {
     const config: Config = { selector: '.first-child' };
     const element = getElement({ $ }, config);
-    expect('first-child').to.deep.equal(element.attr('class'));
+    expect('first-child').toEqual(element.attr('class') as string);
   });
 
   it('Case 2: { selector }', () => {
     const el = '.blocks';
     const config: Config = { selector: '.first-child' };
     const element = getElement({ $, el }, config);
-    expect('first-child').to.deep.equal(element.attr('class'));
-    expect(1).to.deep.equal(element.length);
+    expect('first-child').toEqual(element.attr('class') as string);
+    expect(1).toEqual(element.length);
   });
 
   it('Case 3: { selector type: array }', () => {
     const el = $('.parent').first();
     const config: Config = { selector: 'div', type: 'array' };
     const element = getElement({ $, el }, config);
-    expect(8).to.deep.equal(element.length);
+    expect(8).toEqual(element.length);
   });
 });
