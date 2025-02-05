@@ -42,6 +42,10 @@ describe('url Tests', () => {
     {
       description: 'Case 9: Query Parameters with Multiple Key-Value Pairs',
       url: 'https://example.com/search?query=books&id=123&sort=desc&page=2'
+    },
+    {
+      description: 'Case 10: Bracket Characters',
+      url: 'https://example.com/PDR_908_HP_[MAR_2_AC_208-240V_60Hz]'
     }
   ];
 
