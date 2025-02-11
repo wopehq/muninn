@@ -85,17 +85,17 @@ describe('url Tests', () => {
     },
     {
       description: 'Case 21: URL with ":~:text" fragment',
-      givenUrl: '/url?q=https://www.ziraatkatilim.com.tr/ticari/uye-isyeri-pos/pos-urunlerimiz/SANAL-POS#:~:text%3DSanal%2520POS%2520Nedir%253F,ile%2520%25C3%25B6deme%2520yapmak%2520i%25C3%25A7in%2520kullan%25C4%25B1l%25C4%25B1r.\u0026sa=U\u0026sqi=2\u0026ved=2ahUKEwiOxNKphLGLAxULJBAIHe9qEoQQFnoECBkQBQ\u0026usg=AOvVaw2dhTIUd-oCP78ONmjEyuSv',
-      expectedUrl: 'https://www.ziraatkatilim.com.tr/ticari/uye-isyeri-pos/pos-urunlerimiz/SANAL-POS',
+      givenUrl: '/url?q=https://www.example.com/commercial/merchant-pos/our-pos-products/virtual-pos#:~:text=Virtual%20POS%20What%20is,it%20is%20used%20for%20payment.&sa=U&sqi=2&ved=abc&usg=xyz',
+      expectedUrl: 'https://www.example.com/commercial/merchant-pos/our-pos-products/virtual-pos',
     },
     {
       description: 'Case 22: URL with ":~:text" fragment encoded',
-      givenUrl: '/url?q=https://www.ziraatkatilim.com.tr/ticari/uye-isyeri-pos/pos-urunlerimiz/SANAL-POS%23:~:text%3DSanal%2520POS%2520Nedir%253F,ile%2520%25C3%25B6deme%2520yapmak%2520i%25C3%25A7in%2520kullan%25C4%25B1l%25C4%25B1r.\u0026sa=U\u0026sqi=2\u0026ved=2ahUKEwiOxNKphLGLAxULJBAIHe9qEoQQFnoECBkQBQ\u0026usg=AOvVaw2dhTIUd-oCP78ONmjEyuSv',
-      expectedUrl: 'https://www.ziraatkatilim.com.tr/ticari/uye-isyeri-pos/pos-urunlerimiz/SANAL-POS',
+      givenUrl: '/url?q=https://www.example.com/commercial/merchant-pos/our-pos-products/virtual-pos%23:~:text=Virtual%20POS%20What%20is,it%20is%20used%20for%20payment.&sa=U&sqi=2&ved=abc&usg=xyz',
+      expectedUrl: 'https://www.example.com/commercial/merchant-pos/our-pos-products/virtual-pos',
     },
     {
       description: 'Case 23: Invalid URLs',
-      givenUrl: '/images?q=ticari/uye-isyeri-pos/pos-urunlerimiz/SANAL-POS',
+      givenUrl: '/images?q=commercial/merchant-pos/our-pos-products/virtual-pos',
       expectedUrl: null
     }
   ];
