@@ -67,6 +67,36 @@ describe('url Tests', () => {
       description: 'Case 12: Underscore Characters',
       givenUrl: '/url?q=https://ac_dc.example.com/highway/to/hell',
       expectedUrl: 'https://ac_dc.example.com/highway/to/hell'
+    },
+    {
+      description: 'Case 13: Google Query Parameters',
+      givenUrl: '/url?q=https://www.petcity.lt/e-parduotuve/kates/maistas-ir-skanestai/sausas-maistas&sa=U&sqi=2&ved=2ahUKEwiomvKLw7aLAxVvSjABHf95EVYQFnoECCsQAQ&usg=AOvVaw3YZEobGyCypkIVKjPrZV9l',
+      expectedUrl: 'https://www.petcity.lt/e-parduotuve/kates/maistas-ir-skanestai/sausas-maistas'
+    },
+    {
+      description: 'Case 14: Remove specific query parameters',
+      givenUrl: '/url?q=https://www.example.com/page?param1=value1&sa=U&sqi=2&ved=abc&usg=xyz',
+      expectedUrl: 'https://www.example.com/page?param1=value1'
+    },
+    {
+      description: 'Case 20: URL without "/url?q=" prefix',
+      givenUrl: 'https://www.example.com/page?param1=value1&sa=U',
+      expectedUrl: 'https://www.example.com/page?param1=value1'
+    },
+    {
+      description: 'Case 21: URL with ":~:text" fragment',
+      givenUrl: '/url?q=https://www.example.com/commercial/merchant-pos/our-pos-products/virtual-pos#:~:text=Virtual%20POS%20What%20is,it%20is%20used%20for%20payment.&sa=U&sqi=2&ved=abc&usg=xyz',
+      expectedUrl: 'https://www.example.com/commercial/merchant-pos/our-pos-products/virtual-pos',
+    },
+    {
+      description: 'Case 22: URL with ":~:text" fragment encoded',
+      givenUrl: '/url?q=https://www.example.com/commercial/merchant-pos/our-pos-products/virtual-pos%23:~:text=Virtual%20POS%20What%20is,it%20is%20used%20for%20payment.&sa=U&sqi=2&ved=abc&usg=xyz',
+      expectedUrl: 'https://www.example.com/commercial/merchant-pos/our-pos-products/virtual-pos',
+    },
+    {
+      description: 'Case 23: Invalid URLs',
+      givenUrl: '/images?q=commercial/merchant-pos/our-pos-products/virtual-pos',
+      expectedUrl: null
     }
   ];
 
