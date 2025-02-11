@@ -62,6 +62,11 @@ describe('url Tests', () => {
       description: 'Case 11: Search Queries',
       givenUrl: '/search?query=books&id=123&sort=desc&page=2',
       expectedUrl: '/search?query=books&id=123&sort=desc&page=2'
+    },
+    {
+      description: 'Case 12: Underscore Characters',
+      givenUrl: '/url?q=https://ac_dc.example.com/highway/to/hell',
+      expectedUrl: 'https://ac_dc.example.com/highway/to/hell'
     }
   ];
 
