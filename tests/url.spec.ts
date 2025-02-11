@@ -65,9 +65,9 @@ describe('url Tests', () => {
     }
   ];
 
-  testCases.forEach(({ description, expectedUrl }) => {
+  testCases.forEach(({ description, givenUrl, expectedUrl }) => {
     it(description, () => {
-      const result = url(expectedUrl);
+      const result = url(givenUrl);
       expect(result).toEqual(expectedUrl);
     });
   });
