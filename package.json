@@ -1,6 +1,6 @@
 {
   "name": "muninn",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "description": "It parses the html and collects the requested data as desired.",
   "main": "build/index.js",
   "scripts": {
