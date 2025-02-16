@@ -1,6 +1,6 @@
 {
   "name": "muninn",
-  "version": "0.26.0",
+  "version": "0.26.1",
   "description": "It parses the html and collects the requested data as desired.",
   "main": "build/index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "author": "wopehq <opensource@wope.com>",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12"
+    "cheerio": "^1.0.0"
   },
   "devDependencies": {
     "@types/bun": "^1.0.8",

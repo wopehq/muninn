@@ -1,4 +1,5 @@
-import { type Cheerio, type Element } from 'cheerio';
+import { type Cheerio } from 'cheerio';
+import { type Element } from 'domhandler';
 import { type RawConfig } from '../config/types';
 import Methods from './methods';
 import execRegex from './regex/execRegex';
