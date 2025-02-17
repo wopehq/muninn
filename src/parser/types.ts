@@ -1,4 +1,5 @@
-import { Cheerio, CheerioAPI, Element } from 'cheerio';
+import { Cheerio, CheerioAPI } from 'cheerio';
+import { type Element } from 'domhandler';
 
 export type ElementPassArg = {
   $?: CheerioAPI;
