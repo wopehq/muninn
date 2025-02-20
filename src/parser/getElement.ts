@@ -1,4 +1,5 @@
-import { type Cheerio, type Element } from 'cheerio';
+import { type Cheerio } from 'cheerio';
+import { type Element } from 'domhandler';
 import { type ElementPassArg } from './types';
 import { type RawConfig } from '../config/types';
 

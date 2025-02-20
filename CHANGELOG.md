@@ -1,3 +1,21 @@
+v1.0.0
+
+#### Breaking changes
+- Bump cheerio version to `1.0.0`.
+
+Since cheerio `1.0.0` no longer exports `Element`, it needs to be imported from `domhandler` directly.
+
+Before:
+```ts
+import { type Cheerio, type CheerioAPI, type Element } from 'cheerio';
+```
+
+After:
+```ts
+import { type Cheerio, type CheerioAPI } from 'cheerio';
+import { type Element } from 'domhandler';
+```
+
 v0.23.0
 
 #### Enhancements
